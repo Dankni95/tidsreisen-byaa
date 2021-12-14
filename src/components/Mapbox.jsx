@@ -6,7 +6,7 @@ MapboxGL.setAccessToken('pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNj
 
 export const Mapbox = () => {
 
-    const [coordinates] = useState([11.0653, 59.9263]);
+    const [coordinates] = useState([10.75356805559077, 59.90854739751946]);
 
     const [location, setLocation] = React.useState(null);
     const [errorMsg, setErrorMsg] = React.useState(null);
