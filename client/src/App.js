@@ -1,8 +1,10 @@
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import StartPage from "./pages/StartPage";
-import TestPage from "./pages/TestPage";
+import "./App.css"
+import { Routes, Route } from "react-router-dom"
+import StartPage from "./pages/StartPage"
+import TestPage from "./pages/TestPage"
 import Maps from "../src/Maps"
+
+
 
 function App() {
   return (
@@ -12,7 +14,7 @@ function App() {
         <Route path="/test" element={<TestPage />} />
       </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
