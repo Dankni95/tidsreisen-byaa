@@ -6,4 +6,9 @@ node_modules/
 /dist
 .parcel-cache
 client/dist
+client/build
+./tags
+tags
+
+
 
