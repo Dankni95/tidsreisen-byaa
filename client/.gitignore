@@ -1,7 +1,7 @@
 tags
 /node_modules
+node_modules
+build/
 npm-debug.log
 .DS_Store
 /*.env
-.idea
-/.idea
