@@ -3,7 +3,6 @@ import * as path from "path"
 import dotenv from "dotenv"
 import bodyParser from "body-parser"
 import cookieParser from "cookie-parser"
-import {WebSocketServer} from "ws";
 
 dotenv.config()
 
