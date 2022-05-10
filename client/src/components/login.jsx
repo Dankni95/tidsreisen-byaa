@@ -26,7 +26,6 @@ export default function Login() {
 
     async function handleSubmit(event) {
         event.preventDefault()
-        alert(`Halla, ${username}`)
         await postJSON("/api/login", username)
         navigate("/")
     }
@@ -51,7 +50,7 @@ export default function Login() {
                 </div>
                 <div>
                     {/*FÅR IKKE STYLET KNAPPEN ORDENTLIG, GOD KNOWS WHY*/}
-                    <button>Gå videre</button>
+                    <button type="submit">Gå videre</button>
                 </div>
             </form>
         </div>
