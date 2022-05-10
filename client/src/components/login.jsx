@@ -29,7 +29,7 @@ export default function Login() {
         console.log(username)
         event.preventDefault()
         await postJSON("/api/login", {user: username})
-        //navigate("/")
+        navigate("/")
     }
 
     return (
