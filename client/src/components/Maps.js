@@ -1,7 +1,7 @@
 import React, { useRef, useEffect, useState } from "react"
 import mapboxgl from "mapbox-gl"
 import "./Maps.css"
-import GeoJson from "./MapHelpers"
+import GeoJson from "../helpers/MapHelpers"
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g"
@@ -60,7 +60,6 @@ const Map = () => {
         .addTo(map)
     }
 
-    console.log(userCoords)
 
     map.on("load", function () {
       map.addControl(

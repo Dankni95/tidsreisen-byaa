@@ -1,12 +1,10 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-import Maps from "../Maps"
+import Maps from "../components/Maps"
 const StartPage = () => {
   return (
     <div>
-      <h1>Start page</h1>
-      <Maps></Maps>
-      <Button variant="primary">Testing bootstrap</Button>
+      <Maps /> 
     </div>
   );
 };
