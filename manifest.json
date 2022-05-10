@@ -451,7 +451,7 @@
           "sizes": "1024x1024"
         }
   ],
-  "start_url": "http://localhost:3000",
+  "start_url": "https://tidsreisen.herokuapp.com",
   "display": "standalone",
   "theme_color": "#000000",
   "background_color": "#ffffff"
