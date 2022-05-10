@@ -1,9 +1,34 @@
 import "./login.css"
 import logo from "./relingenLogo.png"
+import {useState} from "react";
+import {useNavigate} from "react-router-dom";
+
+//TODO: Lagre bruker i cookie
+//      Sjekke at bruker eksisterer før man får tilgang på andre sider
+
+export async function postJSON(url, body) {
+    const res = await fetch(url, {
+        method: "post",
+        headers: {
+            "content-type": "application/json",
+        },
+        body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+        throw new Error(`${res.status}: ${res.statusText}`);
+    }
+}
 
 export default function Login() {
-    function handleSubmit() {
-        alert("Halla, hva skjera")
+    const [username, setUsername] = useState("")
+
+    const navigate = useNavigate();
+
+    async function handleSubmit(event) {
+        event.preventDefault()
+        alert(`Halla, ${username}`)
+        await postJSON("/api/login", username)
+        navigate("/")
     }
 
     return (
@@ -12,11 +37,21 @@ export default function Login() {
                 <img id="logoPic" src={logo} alt="Rælingen logo"/>
                 <h1>Tidsreisen</h1>
             </div>
-            <form>
-                <div><input type="text" placeholder="Brukernavn"/></div>
+            <form onSubmit={handleSubmit}>
+                <div>
+                    <label htmlFor="username">Brukernavn</label>
+                </div>
+                <div>
+                    <input type="text"
+                           name="username"
+                           required
+                           value={username}
+                           onChange={(e) => setUsername(e.target.value)}
+                    />
+                </div>
                 <div>
                     {/*FÅR IKKE STYLET KNAPPEN ORDENTLIG, GOD KNOWS WHY*/}
-                    <button onClick={handleSubmit}>Gå videre</button>
+                    <button>Gå videre</button>
                 </div>
             </form>
         </div>
