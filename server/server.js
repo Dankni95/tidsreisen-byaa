@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser"
 
 dotenv.config()
 
+
 const app = express()
 app.use(bodyParser.json())
 app.use(cookieParser(process.env.COOKIE_SECRET))
