@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node server.js",
+    "start": "cd server && node server.js",
     "build": "npm ci --include=dev && npm install && npm run build:parcel",
     "build:parcel": "cd client && parcel build index.html",
     "clean": "rimraf client/dist dist .parcel-cache ",
