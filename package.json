@@ -20,7 +20,7 @@
     "postinstall": "npm run install:client && npm run install:server",
     "install:client": "cd client && npm install --include=dev",
     "install:server": "cd server && npm install"
-},
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/Dankni95/pg6301-eksamen.git"
@@ -33,6 +33,6 @@
   },
   "homepage": "https://github.com/Dankni95/pg6301-eksamen#readme",
   "devDependencies": {
-  
+    "concurrently": "^7.1.0"
   }
 }
