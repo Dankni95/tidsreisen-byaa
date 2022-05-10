@@ -1,6 +1,7 @@
 import React, { useRef, useEffect, useState } from "react"
 import mapboxgl from "mapbox-gl"
 import "./Maps.css"
+import 'mapbox-gl/dist/mapbox-gl.css'
 import GeoJson from "../helpers/MapHelpers"
 
 mapboxgl.accessToken =
@@ -114,11 +115,6 @@ const Map = () => {
 
   return (
     <div>
-      <div className="sidebarStyle">
-        <div>
-          Longitude: {lng} | Latitude: {lat} | Zoom: {zoom}
-        </div>
-      </div>
       <div className="map-container" ref={mapContainerRef} />
     </div>
   )
