@@ -36,12 +36,12 @@
     "workbox-range-requests": "^6.5.3",
     "workbox-routing": "^6.5.3",
     "workbox-strategies": "^6.5.3",
-    "workbox-streams": "^6.5.3"
+    "workbox-streams": "^6.5.3",
+    "parcel": "^2.3.2"
   },
   "devDependencies": {
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15",
-    "parcel": "^2.3.2",
     "prettier": "^2.6.2",
     "rimraf": "^3.0.2"
   }
