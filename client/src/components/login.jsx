@@ -7,6 +7,7 @@ import {useNavigate} from "react-router-dom";
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
 
 export async function postJSON(url, body) {
+    console.log(body)
     const res = await fetch(url, {
         method: "post",
         headers: {
@@ -20,14 +21,15 @@ export async function postJSON(url, body) {
 }
 
 export default function Login() {
-    const [username, setUsername] = useState("")
+    const [username, setUsername] = useState("");
 
     const navigate = useNavigate();
 
     async function handleSubmit(event) {
+        console.log(username)
         event.preventDefault()
-        await postJSON("/api/login", username)
-        navigate("/")
+        await postJSON("/api/login", {user: username})
+        //navigate("/")
     }
 
     return (

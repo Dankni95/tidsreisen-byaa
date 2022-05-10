@@ -10,6 +10,13 @@ const app = express()
 app.use(bodyParser.json())
 app.use(cookieParser(process.env.COOKIE_SECRET))
 
+app.post("/api/login", (req, res) => {
+    const { user } = req.body
+    console.log(user)
+    res.cookie("user", user, {signed: true});
+    res.sendStatus(200);
+})
+
 app.use(express.static("../client/build/"))
 
 app.use((req, res, next) => {
@@ -19,7 +26,6 @@ app.use((req, res, next) => {
         next()
     }
 })
-
 
 const server = app.listen(process.env.PORT || 3000, () => {
     console.log(`http://localhost:${server.address().port}`);
