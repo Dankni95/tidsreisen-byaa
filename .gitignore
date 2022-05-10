@@ -5,4 +5,5 @@ node_modules/
 /.idea
 /dist
 .parcel-cache
+client/dist
 

@@ -8,8 +8,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "dev": "concurrently npm:dev:client npm:dev:server",
-    "dev:client": "parcel index.html",
+    "clean": "rimraf client/dist dist .parcel-cache ",
+    "dev": "concurrently npm:dev:server npm:dev:client",
+    "dev:client": "cd client && parcel watch index.html",
     "dev:server": "cd server && nodemon server.js"
 
   },

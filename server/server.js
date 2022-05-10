@@ -17,7 +17,7 @@ app.post("/api/login", (req, res) => {
   res.sendStatus(200);
 });
 
-app.use(express.static(path.resolve("..", "client", "dist")));
+app.use(express.static(path.resolve("..", "dist")));
 app.use((req, res, next) => {
   if (req.method === "GET" && !req.path.startsWith("/api")) {
     res.sendFile(path.resolve("../dist/index.html"));

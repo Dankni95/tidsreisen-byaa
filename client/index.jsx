@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Application } from "./client/src/application.jsx";
+import { Application } from "./src/application.jsx";
 //import * as serviceWorkerRegistration from './serviceWorkerRegistration';
 
 /*let deferredPrompt;
