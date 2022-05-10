@@ -1,7 +1,8 @@
-tags
-/node_modules
-npm-debug.log
+node_modules/
 .DS_Store
-/*.env
+/server/.env
 .idea
 /.idea
+/dist
+.parcel-cache
+

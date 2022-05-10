@@ -1,38 +1,49 @@
 {
-  "name": "Tidsreisen",
-  "version": "1.0.0",
-  "description": "App",
-  "main": "index.js",
+  "name": "Tidsreisen Byaaa",
+  "version": "0.1.0",
+  "type": "module",
+  "private": true,
   "scripts": {
-    "test": "npm run test:client && npm run test:server",
-    "test:coverage": "npm run test:client:coverage && npm run test:server:coverage",
-    "test:client": "cd client && npm test",
-    "test:client:coverage": "cd client && npm test -- --collectCoverage",
-    "test:server": "cd server && npm test",
-    "test:server:coverage": "cd server && npm test -- --collectCoverage",
-    "build": "npm run build:server && npm run build:client",
-    "build:client": "cd client && npm run build",
-    "build:server": "cd server && npm run build",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "dev": "concurrently npm:dev:client npm:dev:server",
-    "dev:client": "cd client && npm run dev",
-    "dev:server": "cd server && npm run dev",
-    "start": "cd server && npm start",
-    "postinstall": "npm run install:client && npm run install:server",
-    "install:client": "cd client && npm install --include=dev",
-    "install:server": "cd server && npm install"
+    "dev:client": "parcel index.html",
+    "dev:server": "cd server && nodemon server.js"
+
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Dankni95/pg6301-eksamen.git"
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "bootstrap": "^5.1.3",
+    "mapbox-gl": "^2.8.2",
+    "mapbox-gl-markers": "^0.0.1",
+    "react": "^17.0.2",
+    "react-bootstrap": "^2.3.1",
+    "react-dom": "^17.0.2",
+    "react-router-dom": "^6.2.2",
+    "web-vitals": "^2.1.4",
+    "workbox-background-sync": "^6.5.3",
+    "workbox-broadcast-update": "^6.5.3",
+    "workbox-cacheable-response": "^6.5.3",
+    "workbox-core": "^6.5.3",
+    "workbox-expiration": "^6.5.3",
+    "workbox-google-analytics": "^6.5.3",
+    "workbox-navigation-preload": "^6.5.3",
+    "workbox-precaching": "^6.5.3",
+    "workbox-range-requests": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3",
+    "workbox-streams": "^6.5.3"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Dankni95/pg6301-eksamen/issues"
-  },
-  "homepage": "https://github.com/Dankni95/pg6301-eksamen#readme",
   "devDependencies": {
-    "concurrently": "^7.1.0"
+    "nodemon": "^2.0.15",
+    "rimraf": "^3.0.2",
+    "parcel": "^2.3.2",
+    "concurrently": "^7.0.0",
+    "prettier": "^2.6.2"
   }
 }
