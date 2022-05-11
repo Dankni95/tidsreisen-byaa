@@ -1,7 +1,7 @@
 import { BrowserRouter, Link, Route, Routes, Navigate } from "react-router-dom";
 import StartPage from "./pages/StartPage";
 import Login from "./components/login";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
+import * as serviceWorkerRegistration from "../../serviceWorkerRegistration.js";
 
 serviceWorkerRegistration.register();
 

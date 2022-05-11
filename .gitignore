@@ -9,6 +9,8 @@ client/dist
 client/build
 ./tags
 tags
-
+node_modules
+client/node_modules
+./client/node_modules/
 
 
