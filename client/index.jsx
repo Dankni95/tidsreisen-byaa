@@ -1,8 +1,8 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 import "./index.css";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Application } from "./src/application.jsx";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 
 const sw = "service-worker.js"; // it is needed because parcel will not recognize this as a file and not precess in its manner
@@ -33,5 +33,9 @@ navigator.serviceWorker
         console.error("Error during service worker registration:", error);
     });
 
-ReactDOM.render(<Application />, document.getElementById("root"));
-
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
+    <React.StrictMode>
+        <Application />
+    </React.StrictMode>
+);
