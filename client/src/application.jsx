@@ -1,12 +1,10 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Link, Route } from "react-router-dom";
 import Login from "./components/Login.jsx";
-import * as serviceWorkerRegistration from "./serviceWorkerRegistration.js";
 import { NavBar } from "./components/navbar.jsx";
 import { Map } from "./components/Map.jsx";
 import { StartPage } from "./pages/StartPage.js";
 
 
-serviceWorkerRegistration.register();
 
 export function Application() {
   return (
