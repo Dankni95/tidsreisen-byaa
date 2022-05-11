@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import "./index.css";
 import { Application } from "./src/application.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -33,9 +33,9 @@ navigator.serviceWorker
         console.error("Error during service worker registration:", error);
     });
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+ReactDOM.render(
     <React.StrictMode>
         <Application />
-    </React.StrictMode>
+    </React.StrictMode>,
+    document.getElementById('root')
 );
