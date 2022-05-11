@@ -1,14 +1,11 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Maps from "../components/Maps"
-import Popup from "../components/Popup"
+import Login from "../components/Login.jsx";
 
-const StartPage = () => {
-    return (
-        <div>
-            <Maps/>
-        </div>
-    );
-};
+export function StartPage() {
+  return (
+    <div>
+      <Login />
+    </div>
+  );
+}
 
-export default StartPage;
