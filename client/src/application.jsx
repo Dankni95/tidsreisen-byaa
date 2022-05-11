@@ -5,6 +5,7 @@ import { NavBar } from "./components/navbar.jsx";
 import { Map } from "./components/Map.jsx";
 import { StartPage } from "./pages/StartPage.js";
 
+
 serviceWorkerRegistration.register();
 
 export function Application() {
