@@ -3,21 +3,6 @@
   "version": "0.1.0",
   "type": "module",
   "private": true,
-  "pwaManifest": {
-    "name": "Byåa Tidsreise",
-    "shortName": "Tidsreise",
-    "startURL": "https://tidsreisen.herokuapp.com",
-    "theme": "#add8e6",
-    "generateIconOptions": {
-      "baseIcon": "./logo.svg",
-      "sizes": [
-        192,
-        384,
-        512
-      ],
-      "genFavicons": true
-    }
-  },
   "scripts": {
     "start": "cd server && node server.js",
     "build": "npm ci --include=dev && npm install && npm run build:parcel",
@@ -37,7 +22,6 @@
     "mapbox-gl": "^2.8.2",
     "mapbox-gl-markers": "^0.0.1",
     "parcel": "^2.3.2",
-    "parcel-config-pwa-manifest": "^0.1.2",
     "react": "^17.0.2",
     "react-bootstrap": "^2.3.1",
     "react-dom": "^17.0.2",

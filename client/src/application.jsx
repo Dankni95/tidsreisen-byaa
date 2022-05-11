@@ -1,4 +1,4 @@
-import { BrowserRouter, Link, Route } from "react-router-dom";
+import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import Login from "./components/Login.jsx";
 import { NavBar } from "./components/navbar.jsx";
 import { Map } from "./components/Map.jsx";
