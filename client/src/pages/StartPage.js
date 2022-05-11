@@ -1,12 +1,10 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
-import Maps from "../components/Maps"
-const StartPage = () => {
+import Login from "../components/Login.jsx";
+
+export function StartPage() {
   return (
     <div>
-      <Maps /> 
+      <Login />
     </div>
   );
-};
-
-export default StartPage;
+}
