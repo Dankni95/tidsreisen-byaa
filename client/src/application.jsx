@@ -1,9 +1,9 @@
-import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Login from "./components/Login.jsx";
-import { NavBar } from "./components/navbar.jsx";
-import { Map } from "./components/Map.jsx";
-import { StartPage } from "./pages/StartPage.js";
-
+import {NavBar} from "./components/navbar.jsx";
+import {Map} from "./components/Map.jsx";
+import {StartPage} from "./pages/StartPage.js";
+import {Quiz} from "./components/quiz.jsx";
 
 
 export function Application() {
@@ -18,8 +18,9 @@ export function Application() {
           <Route path="/" element={<StartPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/map" element={<Map />} />
-          {/*TODO no elements below yet*/}
-          <Route path="/quiz" />
+          {/*TODO no elements below yet
+             Quiz-element added for db testing*/}
+          <Route path="/quiz" element={<Quiz />}/>
           <Route path="/history" />
           <Route path="/audio" />
           <Route path={"*"} element={<h1>Not found</h1>} />
