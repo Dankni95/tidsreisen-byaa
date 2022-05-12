@@ -1,6 +1,7 @@
 import React from "react";
 import {
   AiFillHome,
+  FaUser,
   GiBackwardTime,
   MdAudiotrack,
   MdQuiz,
@@ -30,5 +31,11 @@ export const NavbarData = [
     path: "/audio",
     icon: <MdAudiotrack />,
     className: "nav-text-child",
+  },
+  {
+    title: "Min profil",
+    path: "/profile",
+    icon: <FaUser />,
+    className: "nav-text-profile",
   },
 ];

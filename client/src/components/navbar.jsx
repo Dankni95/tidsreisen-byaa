@@ -26,9 +26,9 @@ export function NavBar() {
         </div>
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className={"nav-menu-items"} onClick={showSidebar}>
-            {/*<div>
-              <h1 className={"app-name"}>Tidsreisen</h1>
-            </div>*/}
+            <div>
+              <h1 className={"app-name-title"}>Tidsreisen</h1>
+            </div>
             <li className="navbar-toggle">
               <Link to={"#"} className={"menu-bars"}>
                 <AiIcons.AiOutlineClose />
