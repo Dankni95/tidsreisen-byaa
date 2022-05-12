@@ -1,5 +1,5 @@
-import {fetchJSON} from "../helpers/http.jsx";
-import {useLoading} from "../helpers/useLoading.jsx";
+import {fetchJSON} from "../../helpers/http.jsx";
+import {useLoading} from "../../helpers/useLoading.jsx";
 
 export function Quiz() {
 
