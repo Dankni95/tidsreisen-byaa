@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { MongoClient } from "mongodb";
 import {QuizApi} from "./quizApi.js";
+import {HistoryApi} from "./historyApi.js";
 
 
 dotenv.config();
@@ -20,6 +21,10 @@ mongoClient.connect().then(async () => {
   app.use(
       "/api/quiz",
       QuizApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+  );
+  app.use(
+      "/api/history",
+      HistoryApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
   );
 });
 
