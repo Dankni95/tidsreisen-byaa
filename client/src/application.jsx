@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login.jsx";
 import { NavBar } from "./components/navbar.jsx";
 import { Map } from "./components/Map.jsx";
-import { StartPage } from "./pages/StartPage.jsx";
+import StartPage from "./pages/StartPage.jsx";
 import { History } from "./pages/capsules/History.jsx";
 
 export function Application() {
