@@ -6,6 +6,7 @@ import {StartPage} from "./pages/StartPage.js";
 import {Quiz} from "./components/quiz.jsx";
 
 
+
 export function Application() {
   return (
     <BrowserRouter>

@@ -7,8 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="apple-mobile-web-app-capable" content="yes"/>
     <meta name="apple-mobile-web-app-status-bar-style" content="black"/>
-
-    <link rel="shortcut icon" href="/favicon.ico"/>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="shortcut icon" href="/client/src/favicon.ico"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <meta name="theme-color" content="#000000"/>
     <meta
@@ -24,6 +26,7 @@
       manifest.webmanifest provides metadata used when your web app is installed on a
       user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
     -->
+    <link rel="manifest" href="./manifest.webmanifest"/>
     <!--
       Notice the use of %PUBLIC_URL% in the tags above.
       It will be replaced with the URL of the `public` folder during the build.
@@ -40,39 +43,7 @@
     <button class="add-button"></button>
 </div>
 </body>
+
 <script src="index.jsx" type="module">
-
-
-
-    let deferredPrompt;
-    const addBtn = document.querySelector(".add-button");
-    addBtn.style.display = "none";
-
-    window.addEventListener("beforeinstallprompt", (e) => {
-        // Prevent Chrome 67 and earlier from automatically showing the prompt
-        e.preventDefault();
-        // Stash the event so it can be triggered later.
-        deferredPrompt = e;
-        // Update UI to notify the user they can add to home screen
-        addBtn.style.display = "block";
-
-        addBtn.addEventListener("click", (e) => {
-            // hide our user interface that shows our A2HS button
-            addBtn.style.display = "none";
-            // Show the prompt
-            deferredPrompt.prompt();
-            // Wait for the user to respond to the prompt
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === "accepted") {
-                    console.log("User accepted the A2HS prompt");
-                } else {
-                    console.log("User dismissed the A2HS prompt");
-                }
-                deferredPrompt = null;
-            });
-        });
-    });
-
-
 </script>
 </html>
