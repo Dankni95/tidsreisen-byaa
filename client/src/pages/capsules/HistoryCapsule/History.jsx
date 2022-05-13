@@ -1,55 +1,16 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { Loading } from "../../../components/Loading.jsx";
 import imageSawEffect from "./sag-effekt.png";
+import iben from "./Iben.png";
+import Swiper, { Navigation, Pagination } from "swiper";
+import { StoryCard } from "./StoryCard.jsx";
+//import "swiper/css";
 
-function StoryCard(props) {
-  const [year, setYear] = useState("1609");
-
-  function yearChanger(yearClicked) {
-    setYear(yearClicked);
-  }
-
-  if (props.item.category === "Vannsag") {
-    return (
-      <div>
-        <h3 style={{ color: "#333333" }}>Historiekapsel</h3>
-        <h1 style={{ color: "#4A8554" }}>{props.item.category}</h1>
-
-        {props.item.story.map((item) => {
-          return (
-            <>
-              {year === item.year ? (
-                <div>
-                  <img
-                    className={"card-img"}
-                    src={item.image}
-                    alt={"bilde av vannsag"}
-                  />
-                  {/*innholdet som hører til året*/}
-                  <p className="font-weight-bold">{item.story}</p>
-                  {/*år*/}
-                  <p>{item.year}</p>
-                </div>
-              ) : null}
-            </>
-          );
-        })}
-        {props.item.story.map((item) => {
-          return (
-            <>
-              <button onClick={() => yearChanger(item.year)}>
-                {item.year}
-              </button>
-            </>
-          );
-        })}
-      </div>
-    );
-  }
-  return null;
-}
+const swiper = new Swiper(".swiper", {
+  modules: [Navigation, Pagination],
+});
 
 export function History() {
   const { listHistory } = useContext(DatabaseContext);
@@ -65,19 +26,26 @@ export function History() {
       }}
     >
       <img
-        style={{ float: "right" }}
+        style={{ zIndex: "0", right: "0%", position: "absolute" }}
         src={imageSawEffect}
         alt="bilde av vann sag effekt bakgrunn"
+      />
+      <img
+        style={{ marginTop: "7rem", zIndex: "1", position: "absolute" }}
+        src={iben}
+        alt="bilde av figur"
       />
       {loading && <Loading />}
       {error && <div>{error.toString()}</div>}
       {data && (
         // dette er parenten til hele siden
         <div className={"p-4"}>
-          {/*dette er bilde av den hvite sagen i bakgrunnen*/}
-
-          {data?.map((item) => {
-            return <StoryCard item={item} />;
+          {data?.map((item, index) => {
+            return (
+              <div key={index}>
+                <StoryCard item={item} />
+              </div>
+            );
           })}
         </div>
       )}
