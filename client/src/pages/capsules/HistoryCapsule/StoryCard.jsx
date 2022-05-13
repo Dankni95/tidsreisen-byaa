@@ -1,58 +1,74 @@
 import React from "react";
 import { useState } from "react";
+import { Loading } from "../../../components/Loading.jsx";
 
-export function StoryCard(props) {
+export function StoryCard({ userCoordinates, error, loading }) {
   const [year, setYear] = useState("1609");
 
   function yearChanger(yearClicked) {
     setYear(yearClicked);
   }
 
-  if (props.item.category === "Vannsag") {
+  /**
+   * her blir denne === en eller annen koordinator vil jeg tro er best,
+   * som er tilsvarende koordinator som bruker
+   * klikker på av historiekapsel på kartet,
+   * blir passet som prop gjennom application.jsx potensielt
+   * */
+
+  if (userCoordinates.category === "Vannsag") {
     return (
-      <div>
+      <div
+        /*className={"swiper-wrapper"}*/
+        style={{ position: "relative", zIndex: "0" }}
+      >
         <div style={{ position: "relative" }}>
           <h3 className={"text-center"} style={{ color: "#333333" }}>
             Historiekapsel
           </h3>
           <h1 className={"text-center"} style={{ color: "#4A8554" }}>
-            {props.item.category}
+            {userCoordinates.category}
           </h1>
         </div>
-        {props.item.story.map((item, index) => {
+        {userCoordinates.story.map((historyCapsule, index) => {
           return (
-            <div key={index}>
-              {year === item.year ? (
+            <div /*className={"swiper-slide"}*/ key={index}>
+              {year === historyCapsule.year ? (
                 <div>
-                  <div className={"mt-5 position-relative"}>
+                  <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
                     <img
                       className={"card-img"}
-                      src={item.image}
+                      src={historyCapsule.image}
                       alt={"bilde av vannsag"}
                     />
                   </div>
-                  <section style={{ minHeight: "12rem" }} className={"mt-4"}>
-                    <p>
-                      <strong>{item.story}</strong>
-                    </p>
+                  <section
+                    style={{ minHeight: "12rem" }}
+                    className={"mt-4 fw-bold"}
+                  >
+                    <p>{historyCapsule.story}</p>
                   </section>
                   <div>
-                    <p className={"blockquote-footer"}>år {item.year}</p>
+                    <p className={"blockquote-footer"}>
+                      år {historyCapsule.year}
+                    </p>
                   </div>
                 </div>
               ) : null}
             </div>
           );
         })}
-        <div className={"d-flex justify-content-center"}>
-          {props.item.story.map((item, index) => {
+        <div className={"d-flex justify-content-between gap-3 flex-column"}>
+          {userCoordinates.story.map((historyCapsule, index) => {
             return (
-              <div key={index} className={"m-3"}>
+              <div key={index} style={{ textAlign: "center" }}>
                 <button
-                  className={"btn btn-light data-mdb-ripple-color=dark w-100"}
-                  onClick={() => yearChanger(item.year)}
+                  style={{ textAlign: "center" }}
+                  type={"button"}
+                  className={"btn btn-outline-secondary fw-bold"}
+                  onClick={() => yearChanger(historyCapsule.year)}
                 >
-                  {item.year}
+                  {historyCapsule.year}
                 </button>
               </div>
             );
@@ -61,5 +77,10 @@ export function StoryCard(props) {
       </div>
     );
   }
-  return null;
+  return (
+    <>
+      {loading && <Loading />}
+      {error && <div>{error.toString()}</div>}
+    </>
+  );
 }

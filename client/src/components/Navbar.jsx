@@ -14,7 +14,7 @@ export function Navbar() {
   }
 
   return (
-    <>
+    <div>
       <IconContext.Provider value={{ color: "#F2F2F2" }}>
         <div className={"navbar"}>
           <Link to={"#"} className={"menu-bars"}>
@@ -47,6 +47,6 @@ export function Navbar() {
           </ul>
         </nav>
       </IconContext.Provider>
-    </>
+    </div>
   );
 }

@@ -5,13 +5,13 @@ import { Map } from "./components/Map.jsx";
 import StartPage from "./pages/StartPage.jsx";
 import { Quiz } from "./pages/capsules/Quiz";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
+import { SwiperComponent } from "./components/SwiperComponent.jsx";
 
 export function Application() {
   return (
     <BrowserRouter>
-      <header style={{ position: "absolute", zIndex: "1", width: "100%" }}>
+      <header style={{ position: "absolute", zIndex: "20", width: "100%" }}>
         <Navbar />
-        <div className="menu-divider" />
       </header>
       <main>
         <Routes>

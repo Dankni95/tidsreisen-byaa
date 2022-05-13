@@ -30,9 +30,10 @@
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
     "react-router-dom": "^6.2.2",
-    "swiper": "^8.1.4"
+    "swiper": "^6.8.4"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.5.0",
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",

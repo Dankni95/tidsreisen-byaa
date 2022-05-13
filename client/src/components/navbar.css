@@ -23,6 +23,7 @@
     font-size: 2rem;
 }
 
+
 .nav-menu {
     background-color: #4A8554;
     width: 100%;
@@ -34,8 +35,8 @@
     right: -100%;
     transition: 850ms;
 }
-
 .nav-menu.active {
+    position: fixed;
     right: 0;
     transition: 350ms;
 }

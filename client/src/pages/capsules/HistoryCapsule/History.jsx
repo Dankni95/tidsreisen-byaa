@@ -4,13 +4,7 @@ import { useLoading } from "../../../helpers/useLoading.jsx";
 import { Loading } from "../../../components/Loading.jsx";
 import imageSawEffect from "./sag-effekt.png";
 import iben from "./Iben.png";
-import Swiper, { Navigation, Pagination } from "swiper";
 import { StoryCard } from "./StoryCard.jsx";
-//import "swiper/css";
-
-const swiper = new Swiper(".swiper", {
-  modules: [Navigation, Pagination],
-});
 
 export function History() {
   const { listHistory } = useContext(DatabaseContext);
@@ -26,7 +20,7 @@ export function History() {
       }}
     >
       <img
-        style={{ zIndex: "0", right: "0%", position: "absolute" }}
+        style={{ right: "0%", position: "absolute" }}
         src={imageSawEffect}
         alt="bilde av vann sag effekt bakgrunn"
       />
@@ -40,10 +34,14 @@ export function History() {
       {data && (
         // dette er parenten til hele siden
         <div className={"p-4"}>
-          {data?.map((item, index) => {
+          {data?.map((userCoordinates, index) => {
             return (
               <div key={index}>
-                <StoryCard item={item} />
+                <StoryCard
+                  loading={loading}
+                  error={error}
+                  userCoordinates={userCoordinates}
+                />
               </div>
             );
           })}
