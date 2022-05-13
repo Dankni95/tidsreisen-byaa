@@ -24,15 +24,9 @@ export function Quiz() {
         );
     }
 
-    let dataIndex = data[0]
-
     return (
         <div style={{display: "grid", placeItems: "center"}}>
-            <QuizCard
-                question={dataIndex.question_}
-                data={data}
-                correctAnswer={dataIndex.correct_answer}
-                />
+            <QuizCard data={data} />
         </div>
     );
 }
