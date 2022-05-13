@@ -4,7 +4,7 @@ import { Navbar } from "./components/Navbar.jsx";
 import { Map } from "./components/Map.jsx";
 import StartPage from "./pages/StartPage.jsx";
 import { History } from "./pages/capsules/History.jsx";
-import {Quiz} from "./pages/capsules/Quiz"
+import {Quiz} from "./pages/capsules/quizCapsule/Quiz.jsx"
 
 export function Application() {
   return (
