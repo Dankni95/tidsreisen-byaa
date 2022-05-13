@@ -3,8 +3,8 @@ import Login from "./components/Login.jsx";
 import { Navbar } from "./components/Navbar.jsx";
 import { Map } from "./components/Map.jsx";
 import StartPage from "./pages/StartPage.jsx";
-import { History } from "./pages/capsules/History.jsx";
-import {Quiz} from "./pages/capsules/Quiz"
+import { Quiz } from "./pages/capsules/Quiz";
+import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 
 export function Application() {
   return (
@@ -18,7 +18,7 @@ export function Application() {
           <Route path="/" element={<StartPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/quiz" element={<Quiz/>}/>
+          <Route path="/quiz" element={<Quiz />} />
           <Route path="/history" element={<History />} />
           <Route path="/audio" />
           <Route path="/profile" />
