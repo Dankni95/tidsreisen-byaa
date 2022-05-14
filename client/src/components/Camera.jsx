@@ -13,6 +13,7 @@ const Camera = () => {
 
     return (
         <QrReader
+            scanDelay={1000}
             key="environment"
             constraints={{ facingMode: 'environment' }}
             onResult={(result, error) => {
