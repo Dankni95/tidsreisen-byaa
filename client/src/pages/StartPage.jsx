@@ -1,11 +1,9 @@
 import React from "react";
-import Login from "../components/Login.jsx";
-
+import Login from "../components/Login";
 export default function StartPage() {
+
   return (
-    <div>
-      <Login />
-    </div>
+    <Login />
   );
 }
 
