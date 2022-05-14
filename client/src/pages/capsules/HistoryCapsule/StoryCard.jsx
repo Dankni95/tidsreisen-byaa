@@ -1,6 +1,9 @@
 import React from "react";
 import { useState } from "react";
 import { Loading } from "../../../components/Loading.jsx";
+import "swiper/swiper.min.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation, Pagination } from "swiper";
 
 export function StoryCard({ userCoordinates, error, loading }) {
   const [year, setYear] = useState("1609");
@@ -30,45 +33,62 @@ export function StoryCard({ userCoordinates, error, loading }) {
             {userCoordinates.category}
           </h1>
         </div>
-        {userCoordinates.story.map((historyCapsule, index) => {
-          return (
-            <div /*className={"swiper-slide"}*/ key={index}>
-              {year === historyCapsule.year ? (
-                <div>
-                  <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
-                    <img
-                      className={"card-img"}
-                      src={historyCapsule.image}
-                      alt={"bilde av vannsag"}
-                    />
-                  </div>
-                  <section
-                    style={{ minHeight: "12rem" }}
-                    className={"mt-4 fw-bold"}
-                  >
-                    <p>{historyCapsule.story}</p>
-                  </section>
-                  <div>
-                    <p className={"blockquote-footer"}>
-                      år {historyCapsule.year}
-                    </p>
-                  </div>
-                </div>
-              ) : null}
-            </div>
-          );
-        })}
-        <div className={"d-flex justify-content-between gap-3 flex-column"}>
+        <Swiper
+          modules={[Pagination, Navigation]}
+          spaceBetween={200}
+          slidesPerView={1}
+          navigation
+          pagination={{ clickable: true }}
+          onSlideChange={() => console.log("slide change")}
+          onSwiper={(swiper) => console.log(swiper)}
+          onReachEnd={() =>
+            console.log("reached end, activate claim points-button")
+          }
+        >
           {userCoordinates.story.map((historyCapsule, index) => {
+            return (
+              <SwiperSlide key={index} className={"slide"}>
+                <div /*className={"swiper-slide"}*/ key={index}>
+                  {/*{year === historyCapsule.year ? (*/}
+                  <div className={"slide-content"}>
+                    <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
+                      <img
+                        className={"card-img"}
+                        src={historyCapsule.image}
+                        alt={"bilde av vannsag"}
+                      />
+                    </div>
+                    <section
+                      style={{ minHeight: "12rem" }}
+                      className={"mt-4 fw-bold"}
+                    >
+                      <p>{historyCapsule.story}</p>
+                    </section>
+                    <div>
+                      <p className={"blockquote-footer"}>
+                        år {historyCapsule.year}
+                      </p>
+                    </div>
+                    <div className={"swiper-pagination"}></div>
+                  </div>
+                  {/*) : null}*/}
+                </div>
+              </SwiperSlide>
+            );
+          })}
+        </Swiper>
+
+        <div className={"d-flex justify-content-between gap-3 flex-column"}>
+          {userCoordinates.story.map((buttonYear, index) => {
             return (
               <div key={index} style={{ textAlign: "center" }}>
                 <button
                   style={{ textAlign: "center" }}
                   type={"button"}
                   className={"btn btn-outline-secondary fw-bold"}
-                  onClick={() => yearChanger(historyCapsule.year)}
+                  onClick={() => yearChanger(buttonYear.year)}
                 >
-                  {historyCapsule.year}
+                  {buttonYear.year}
                 </button>
               </div>
             );
