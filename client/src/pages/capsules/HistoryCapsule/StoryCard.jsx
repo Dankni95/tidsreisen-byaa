@@ -2,8 +2,10 @@ import React from "react";
 import { useState } from "react";
 import { Loading } from "../../../components/Loading.jsx";
 import "swiper/swiper.min.css";
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import "swiper/swiper-bundle.css";
+import { Swiper } from "swiper/react/swiper-react.js";
+import { Scrollbar } from "swiper";
+import { SwiperSlide } from "swiper/react/swiper-react.js";
 
 export function StoryCard({ userCoordinates, error, loading }) {
   const [year, setYear] = useState("1609");
@@ -34,11 +36,10 @@ export function StoryCard({ userCoordinates, error, loading }) {
           </h1>
         </div>
         <Swiper
-          modules={[Pagination, Navigation]}
+          modules={[Scrollbar]}
           spaceBetween={200}
           slidesPerView={1}
-          navigation
-          pagination={{ clickable: true }}
+          scrollbar={{ draggable: true }}
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
           onReachEnd={() =>
@@ -64,12 +65,17 @@ export function StoryCard({ userCoordinates, error, loading }) {
                     >
                       <p>{historyCapsule.story}</p>
                     </section>
-                    <div>
+                    {/*<div>
                       <p className={"blockquote-footer"}>
                         år {historyCapsule.year}
                       </p>
+                    </div>*/}
+                    <div
+                      style={{ margin: "1rem", background: "transparent" }}
+                      className={"swiper-scrollbar text-center"}
+                    >
+                      år {historyCapsule.year}
                     </div>
-                    <div className={"swiper-pagination"}></div>
                   </div>
                   {/*) : null}*/}
                 </div>
@@ -82,14 +88,14 @@ export function StoryCard({ userCoordinates, error, loading }) {
           {userCoordinates.story.map((buttonYear, index) => {
             return (
               <div key={index} style={{ textAlign: "center" }}>
-                <button
+                {/*<button
                   style={{ textAlign: "center" }}
                   type={"button"}
                   className={"btn btn-outline-secondary fw-bold"}
                   onClick={() => yearChanger(buttonYear.year)}
                 >
                   {buttonYear.year}
-                </button>
+                </button>*/}
               </div>
             );
           })}
