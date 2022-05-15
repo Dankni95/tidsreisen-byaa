@@ -3,6 +3,9 @@ import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
+import Camera from './Camera';
+import Button from 'react-bootstrap/Button';
+
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -12,6 +15,7 @@ export function Map() {
   const [lng, setLng] = useState(11.0653);
   const [lat, setLat] = useState(59.9263);
   const [zoom, setZoom] = useState(20);
+  const [camera, setCamera] = useState(false);
 
   const [userCoords, setUserCoords] = useState(0);
 
@@ -110,9 +114,16 @@ export function Map() {
     return () => map.remove();
   }, [userCoords]); // eslint-disable-line react-hooks/exhaustive-deps
 
+
+  function handleClick() { setCamera(true) }
+
   return (
-    <div>
-      <div className="map-container" ref={mapContainerRef} />
-    </div>
+    <>
+      {camera ? <Camera /> :
+        <div>
+          <Button variant="primary" onClick={() => handleClick()}>Primary</Button>
+          <div className="map-container" ref={mapContainerRef} />
+        </div>}
+    </>
   );
 }

@@ -10,7 +10,8 @@
     "clean": "rimraf client/dist dist .parcel-cache client/.parcel-cache",
     "dev": "concurrently npm:dev:server npm:dev:client",
     "dev:client": "cd client && parcel watch src/index.html",
-    "dev:server": "cd server && nodemon server.js"
+    "dev:server": "cd server && nodemon server.js",
+    "build:pwa": "cd client/src && pwa-asset-generator images/apple-touch-icon-180x180.png -i index.html -m manifest.webmanifest -o images/"
   },
   "dependencies": {
     "@parcel/packager-raw-url": "^2.5.0",
@@ -25,6 +26,7 @@
     "mapbox-gl-markers": "^0.0.1",
     "mongodb": "^4.5.0",
     "parcel": "^2.3.2",
+    "prop-types": "^15.8.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.3.1",
     "react-dom": "^17.0.2",
@@ -34,6 +36,8 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
+    "react-qr-reader": "^3.0.0-beta-1",
+    "pwa-asset-generator": "^6.0.8",
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
