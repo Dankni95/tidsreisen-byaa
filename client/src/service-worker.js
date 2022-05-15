@@ -1,6 +1,9 @@
-import {manifest, version} from '@parcel/service-worker';
+import { manifest, version } from '@parcel/service-worker';
+
+
 
 async function install() {
+
     const cache = await caches.open(version);
     await cache.addAll(manifest);
 }
@@ -13,6 +16,23 @@ async function activate() {
     );
 }
 addEventListener('activate', e => e.waitUntil(activate()));
+
+
+addEventListener('fetch', function(event) {
+    event.respondWith(async function() {
+       try{
+         var res = await fetch(event.request);
+         var cache = await caches.open('cache');
+         cache.put(event.request.url, res.clone());
+         console.log(res);
+         return res;
+       }
+       catch(error){
+         return caches.match(event.request);
+        }
+      }());
+  });
+
 
 
 
