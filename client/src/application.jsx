@@ -3,9 +3,10 @@ import Login from "./components/Login.jsx";
 import { Navbar } from "./components/Navbar.jsx";
 import { Map } from "./components/Map.jsx";
 import StartPage from "./pages/StartPage.jsx";
-import { History } from "./pages/capsules/History.jsx";
+import { History } from "./pages/capsules/HistoryCapsule/History";
 import {Quiz} from "./pages/capsules/quizCapsule/Quiz.jsx"
 import Camera from "./components/Camera"
+
 
 export function Application() {
   return (
