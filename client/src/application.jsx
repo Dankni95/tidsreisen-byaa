@@ -10,9 +10,8 @@ import Camera from "./components/Camera"
 export function Application() {
   return (
     <BrowserRouter>
-      <header>
+      <header style={{ position: "absolute", zIndex: "20", width: "100%" }}>
         <Navbar />
-        <div className="menu-divider" />
       </header>
       <main>
         <Routes>

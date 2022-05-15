@@ -1,21 +1,20 @@
-import {Router} from "express";
+import { Router } from "express";
 
 export function HistoryApi(mongoDb) {
+  const router = new Router();
 
-    const router = new Router();
+  router.get("/", async (req, res) => {
+    const quiz = await mongoDb
+      .collection("history")
+      .find({})
+      .map(({ _id, category, story }) => ({
+        _id,
+        category,
+        story,
+      }))
+      .toArray();
+    res.json(quiz);
+  });
 
-    router.get("/", async (req, res) => {
-        const quiz = await mongoDb
-            .collection("history")
-            .find({ })
-            .map(({ _id, category, story }) => ({
-                _id,
-                category,
-                story
-            }))
-            .toArray();
-        res.json(quiz);
-    });
-
-    return router;
+  return router;
 }

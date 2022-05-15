@@ -7,7 +7,7 @@
     "start": "cd server && node server.js",
     "build": "npm run clean && npm ci --include=dev && npm install && npm run build:parcel",
     "build:parcel": "cd client && parcel build src/index.html",
-    "clean": "rimraf client/dist dist .parcel-cache ",
+    "clean": "rimraf client/dist dist .parcel-cache client/.parcel-cache",
     "dev": "concurrently npm:dev:server npm:dev:client",
     "dev:client": "cd client && parcel watch src/index.html",
     "dev:server": "cd server && nodemon server.js",
@@ -31,10 +31,12 @@
     "react-bootstrap": "^2.3.1",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
-    "react-qr-reader": "^3.0.0-beta-1",
-    "react-router-dom": "^6.2.2"
+    "react-router-dom": "^6.2.2",
+    "swiper": "^8.1.4"
   },
   "devDependencies": {
+    "@parcel/transformer-sass": "^2.5.0",
+    "react-qr-reader": "^3.0.0-beta-1",
     "pwa-asset-generator": "^6.0.8",
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15",

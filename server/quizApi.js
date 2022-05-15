@@ -1,8 +1,7 @@
-import {Router} from "express";
+import { Router } from "express";
 
 export function QuizApi(mongoDb) {
-
-    const router = new Router();
+  const router = new Router();
 
     router.get("/", async (req, res) => {
         const quiz = await mongoDb
@@ -20,5 +19,5 @@ export function QuizApi(mongoDb) {
         res.json(quiz);
     });
 
-    return router;
+  return router;
 }
