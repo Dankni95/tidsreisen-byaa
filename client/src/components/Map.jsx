@@ -12,9 +12,9 @@ mapboxgl.accessToken =
 
 export function Map() {
   const mapContainerRef = useRef(null);
-  const [lng, setLng] = useState(11.0653);
-  const [lat, setLat] = useState(59.9263);
-  const [zoom, setZoom] = useState(20);
+  const [lng, setLng] = useState(11.109209421342229);
+  const [lat, setLat] = useState(59.853678351187256);
+  const [zoom, setZoom] = useState(15.869822538911004);
   const [camera, setCamera] = useState(false);
 
   const [userCoords, setUserCoords] = useState(0);
@@ -26,13 +26,20 @@ export function Map() {
   }
 
   // Initialize map when component mounts
+
+  // Styles: 
+  // mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui - Material
+  // mapbox://styles/dankni95/ckx99rrti122914qpusg9wm8j - Treasure
+  // mapbox://styles/dankni95/ckwra5on906i515t7dtjqwujy - Outdoor
+
+
   useEffect(() => {
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
-      style: "mapbox://styles/dankni95/ckwryw6wp4t1u16p3867udb73",
+      style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
       center: [lng, lat],
-      pitch: 50, // pitch in degrees
-      bearing: 100, // bearing in degrees
+      pitch: 59.49999999999986, // pitch in degrees
+      bearing: -136.86837902659892, // bearing in degrees
       zoom: zoom,
     });
 
@@ -43,6 +50,10 @@ export function Map() {
       setLng(map.getCenter().lng.toFixed(4));
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
+      console.log("Bearing: "+map.getBearing());
+      console.log("Zoom: "+map.getZoom());
+      console.log("Pitch: "+map.getPitch());
+      console.log("Pitch: "+map.getCenter());
     });
 
     // add markers to map
@@ -75,10 +86,6 @@ export function Map() {
           showUserHeading: true,
         })
       );
-      map.flyTo({
-        center: userCoords,
-        essential: true, // this animation is considered essential with respect to prefers-reduced-motion
-      });
     });
 
     map.on("load", () => {
@@ -90,8 +97,13 @@ export function Map() {
           geometry: {
             type: "LineString",
             coordinates: [
-              [11.0643, 59.9263],
-              [-122.483482, 37.833174],
+              [11.099034, 59.851039],
+              [11.101616, 59.851307],
+              [11.100541, 59.852800],
+              [11.102064, 59.853905],
+              [11.107697, 59.854386],
+              [11.110563, 59.854391],
+              [11.114554, 59.854410],
             ],
           },
         },
@@ -105,7 +117,7 @@ export function Map() {
           "line-cap": "round",
         },
         paint: {
-          "line-color": "red",
+          "line-color": "blue",
           "line-width": 8,
         },
       });
