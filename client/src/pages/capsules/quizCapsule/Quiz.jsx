@@ -1,6 +1,6 @@
-import {fetchJSON} from "../../../helpers/http.jsx";
 import {useLoading} from "../../../helpers/useLoading.jsx";
-import {useState, react} from "react";
+import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
+import {useState, react, useContext} from "react";
 
 export function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -8,9 +8,7 @@ export function Quiz() {
     const [score, setScore] = useState(0);
     const [points, setPoints] = useState(0);
 
-    async function listQuiz() {
-        return await fetchJSON("/api/quiz")
-    }
+    const { listQuiz } = useContext(DatabaseContext);
 
     const {loading, error, data} = useLoading(
         async () => await listQuiz(),
