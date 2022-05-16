@@ -5,6 +5,7 @@ import {useState, react} from "react";
 export function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
     const [showPoints, setShowPoints] = useState(false);
+    const [score, setScore] = useState(0);
     const [points, setPoints] = useState(0);
 
     async function listQuiz() {
@@ -31,7 +32,8 @@ export function Quiz() {
     function handleAnswerClick(isCorrect) {
         console.log(isCorrect)
         if (isCorrect) {
-            setPoints(points + 1);
+            setScore(score + 1);
+            setPoints(points + 10)
         }
 
         const nextQuestion = currentQuestion + 1;
@@ -47,7 +49,8 @@ export function Quiz() {
             {showPoints ?
                 (<div>
                     <h1>Fullført quizkapsel</h1>
-                    <h3>Du har {points}/{data.length} riktige</h3>
+                    <h3>Du har {score}/{data.length} riktige</h3>
+                    <h5>+ {points} poeng!</h5>
                     <a href={"/"}>Finn flere </a>
                     <a href={"/"}>Mine funn</a>
                 </div>) : (
