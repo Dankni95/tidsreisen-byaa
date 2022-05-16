@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import mapboxgl from "mapbox-gl";
+import mapboxgl, { Feature, Layer } from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
@@ -18,6 +18,7 @@ export function Map() {
   const [camera, setCamera] = useState(false);
 
   const [userCoords, setUserCoords] = useState(0);
+
 
   if (userCoords === 0) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -44,23 +45,54 @@ export function Map() {
     });
 
     // Add navigation control (the +/- zoom buttons)
-    map.addControl(new mapboxgl.NavigationControl(), "top-right");
+    // map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
     map.on("move", () => {
       setLng(map.getCenter().lng.toFixed(4));
       setLat(map.getCenter().lat.toFixed(4));
       setZoom(map.getZoom().toFixed(2));
-      console.log("Bearing: "+map.getBearing());
-      console.log("Zoom: "+map.getZoom());
-      console.log("Pitch: "+map.getPitch());
-      console.log("Pitch: "+map.getCenter());
+      /*
+      console.log("Bearing: " + map.getBearing());
+      console.log("Zoom: " + map.getZoom());
+      console.log("Pitch: " + map.getPitch());
+      console.log("Pitch: " + map.getCenter());
+      */
     });
+
+
+
+
+    function anim(target) {
+      console.log(target);
+      map.flyTo({
+        // These options control the ending camera position: centered at
+        // the target, at zoom level 9, and north up.
+        center: target.anim_coords,
+        zoom: target.anim_zoom,
+        bearing: target.anim_bearing,
+
+        // These options control the flight curve, making it move
+        // slowly and zoom out almost completely before starting
+        // to pan.
+        speed: 0.5, // make the flying slow
+        curve: 1, // change the speed at which it zooms out
+
+        // This can be any easing function: it takes a number between
+        // 0 and 1 and returns another number between 0 and 1.
+        easing: (t) => t,
+
+        // this animation is considered essential with respect to prefers-reduced-motion
+        essential: true
+      });
+    }
 
     // add markers to map
     for (const feature of GeoJson().features) {
       // create a HTML element for each feature
       const el = document.createElement("div");
-      el.className = "marker";
+      el.className = "marker"
+      el.id = feature.properties.id;
+      el.addEventListener("click", () => anim(feature.properties), false);
 
       // make a marker for each feature and add it to the map
       new mapboxgl.Marker(el)
@@ -68,7 +100,7 @@ export function Map() {
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }) // add popups
             .setHTML(
-              `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>`
+              `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p><button class="marker-${feature.properties.id}"`
             )
         )
         .addTo(map);
@@ -125,6 +157,8 @@ export function Map() {
 
     return () => map.remove();
   }, [userCoords]); // eslint-disable-line react-hooks/exhaustive-deps
+
+
 
 
   function handleClick() { setCamera(true) }
