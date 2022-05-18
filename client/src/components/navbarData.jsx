@@ -1,17 +1,13 @@
 import React from "react";
-import {
-  AiFillHome,
-  FaUser,
-  GiBackwardTime,
-  MdAudiotrack,
-  MdQuiz,
-} from "react-icons/all.js";
+import { MdAudiotrack, MdQuiz } from "react-icons/md";
+import { GiBackwardTime } from "react-icons/gi";
+import { FaMapSigns, FaUser } from "react-icons/fa";
 
 export const NavbarData = [
   {
     title: "Kart",
     path: "/map",
-    icon: <AiFillHome />,
+    icon: <FaMapSigns />,
     className: "nav-text-map",
   },
   {
