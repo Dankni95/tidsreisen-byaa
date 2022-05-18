@@ -7,13 +7,11 @@ export function QuizApi(mongoDb) {
         const quiz = await mongoDb
             .collection("quiz")
             .find({ })
-            .map(({ _id, title, category, question_, answers, correct_answer }) => ({
+            .map(({ _id, category, question_, answers }) => ({
                 _id,
-                title,
                 category,
                 question_,
-                answers,
-                correct_answer
+                answers
             }))
             .toArray();
         res.json(quiz);

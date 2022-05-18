@@ -6,6 +6,10 @@ import StartPage from "./pages/StartPage.jsx";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import Camera from "./components/Camera";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
+import { History } from "./pages/capsules/HistoryCapsule/History";
+import {Quiz} from "./pages/capsules/quizCapsule/Quiz.jsx"
+import Camera from "./components/Camera"
+
 
 export function Application() {
   return (
