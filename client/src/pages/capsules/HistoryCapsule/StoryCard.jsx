@@ -59,7 +59,7 @@ export function StoryCard({ userCoordinates, error, loading }) {
               <SwiperSlide key={index} className={"slide"}>
                 {historyCapsule.done === true ? (
                   <div>
-                    <div className={"d-flex justify-content-center"}>
+                    <div className={"d-flex justify-content-center mt-3"}>
                       <h1>Fullført historiekapselen</h1>
                     </div>
                     <div
@@ -68,7 +68,9 @@ export function StoryCard({ userCoordinates, error, loading }) {
                         "d-flex justify-content-center flex-column align-items-center"
                       }
                     >
-                      <p>+20 poeng</p>
+                      <div className={"mb-6"}>
+                        <p>+20 poeng</p>
+                      </div>
                       <Link to={"/map"}>
                         <Button>Finn flere</Button>
                       </Link>
