@@ -58,17 +58,22 @@ export function StoryCard({ userCoordinates, error, loading }) {
             return (
               <SwiperSlide key={index} className={"slide"}>
                 {historyCapsule.done === true ? (
-                  <div>
-                    <div className={"d-flex justify-content-center mt-3"}>
+                  <div style={{ outline: "1px solid red", height: "70%" }}>
+                    <div
+                      className={"d-flex justify-content-center mt-3"}
+                      style={{ outline: "1px solid red" }}
+                    >
                       <h1>Fullført historiekapselen</h1>
                     </div>
                     <div
-                      style={{ outline: "1px solid red", marginTop: "20rem" }}
+                      style={{
+                        height: "100%",
+                      }}
                       className={
                         "d-flex justify-content-center flex-column align-items-center"
                       }
                     >
-                      <div className={"mb-6"}>
+                      <div style={{ outline: "1px solid red" }}>
                         <p>+20 poeng</p>
                       </div>
                       <Link to={"/map"}>
