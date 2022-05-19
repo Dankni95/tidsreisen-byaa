@@ -9,7 +9,7 @@ import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import Camera from "./components/Camera";
-import Play from "./pages/capsules/SoundCapsule/Play.jsx";
+import Sound from "./pages/capsules/SoundCapsule/Sound.jsx";
 
 export function Application() {
   return (
@@ -25,7 +25,7 @@ export function Application() {
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/history" element={<History />} />
           <Route path="/camera" element={<Camera />} />
-          <Route path="/audio" element={<Play />} />
+          <Route path="/audio" element={<Sound />} />
           <Route path="/profile" />
           <Route path={"*"} element={<h1>Not found</h1>} />
         </Routes>

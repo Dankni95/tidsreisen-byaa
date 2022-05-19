@@ -1,7 +1,9 @@
 import React from "react";
 import { useLoading } from "../../../helpers/useLoading";
 import { fetchJSON } from "../../../helpers/http";
-import { BiSleepy } from "react-icons/bi";
+
+let audioUrl = require("./Sound/dovregubben.mp3");
+const audio = new Audio(audioUrl);
 const Play = () => {
   const { data, error, loading, reload } = useLoading(() =>
     fetchJSON("/api/sound")
@@ -10,17 +12,24 @@ const Play = () => {
     return <h1>Loading..</h1>;
   }
 
+  var snd = new Audio("data:audio/wav;base64," + data[0].sound);
+  console.log(snd);
   const test = () => {
-    const beeb = new Audio("data:audio:ogg;base64," + data[0].sound);
-    beeb.play();
+    audio.play();
+
+    console.log("playing");
   };
 
-  test();
-
-  console.log(data[0].sound);
   return (
-    <div>
-      <button>Test</button>
+    <div
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <button onClick={test}>Testsadasdasdasdfgdghjhjkhjk</button>
+      <button style={{ cursor: "pointer" }}>Test2</button>
     </div>
   );
 };
