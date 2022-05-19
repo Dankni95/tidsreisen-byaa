@@ -1,7 +1,8 @@
 import "./login.css";
 import logo from "./relingenLogo.png";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 //TODO: Lagre bruker i cookie
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
@@ -53,7 +54,9 @@ export default function Login() {
         </div>
         <div>
           {/*FÅR IKKE STYLET KNAPPEN ORDENTLIG, GOD KNOWS WHY*/}
-          <button type="submit">Gå videre</button>
+          <Button type="submit">
+            <Link to={"/intro"}>Gå videre</Link>
+          </Button>
         </div>
       </form>
     </div>
