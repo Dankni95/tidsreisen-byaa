@@ -57,8 +57,8 @@ export function Quiz() {
                      <row>
                         <div>
                             <h1>Quizkapsel</h1>
-                            <h3>Sagtuft</h3>
-                            <p class="question">{data[currentQuestion].question_}</p>
+                            <h3>{data[currentQuestion].category}</h3>
+                            <p className="question">{data[currentQuestion].question_}</p>
                         </div>
                         <div>
                             {data[currentQuestion].answers.map((a, index) => (
