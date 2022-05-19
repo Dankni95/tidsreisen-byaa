@@ -50,4 +50,8 @@
   font-family: "Source Sans Pro Semibold", sans-serif;
   background-color: var(--buttonColorGreen);
   color: var(--textColorGray);
+  font-size: 1.125rem;
+  height: 3.313rem;
+  width: 14.688rem;
+  border-radius: 10px;
 }

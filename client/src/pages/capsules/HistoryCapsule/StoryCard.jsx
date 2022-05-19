@@ -6,7 +6,6 @@ import "swiper/swiper-bundle.css";
 import { Swiper } from "swiper/react/swiper-react.js";
 import { Scrollbar } from "swiper";
 import { SwiperSlide } from "swiper/react/swiper-react.js";
-import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
 import { CapsuleButton } from "../../../components/CapsuleButton.jsx";
 
@@ -59,16 +58,24 @@ export function StoryCard({ userCoordinates, error, loading }) {
             return (
               <SwiperSlide key={index} className={"slide"}>
                 {historyCapsule.done === true ? (
-                  <div style={{ outline: "1px solid red", height: "35rem" }}>
+                  <div style={{ height: "35rem" }}>
                     <div className={"d-flex justify-content-center mt-3"}>
-                      <h1>Fullført historiekapselen</h1>
+                      <h1
+                        style={{
+                          fontSize: "1.5rem",
+                          fontFamily: "Source Sans Pro Bold",
+                          color: "var(--backgroundColorGreeny)",
+                        }}
+                      >
+                        Fullført historiekapselen!
+                      </h1>
                     </div>
                     <div
                       className={
                         "d-flex justify-content-center flex-column align-items-center h-100"
                       }
                     >
-                      <div>
+                      <div className={"mb-5"}>
                         <p
                           style={{
                             fontFamily: "Source Sans Pro Semibold",
@@ -78,7 +85,7 @@ export function StoryCard({ userCoordinates, error, loading }) {
                           +20 poeng
                         </p>
                       </div>
-                      <div className={"d-flex flex-column"}>
+                      <div className={"d-flex flex-column mt-5"}>
                         <div className={"mb-3"}>
                           <Link to={"/map"}>
                             <CapsuleButton buttonText={"Finn flere"} />
