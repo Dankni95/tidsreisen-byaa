@@ -4,9 +4,9 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import { MongoClient } from "mongodb";
-import {QuizApi} from "./quizApi.js";
-import {HistoryApi} from "./historyApi.js";
-
+import { QuizApi } from "./quizApi.js";
+import { HistoryApi } from "./historyApi.js";
+import { SoundApi } from "./soundApi.js";
 
 dotenv.config();
 
@@ -19,12 +19,17 @@ const mongoClient = new MongoClient(process.env.MONGODB_URL);
 mongoClient.connect().then(async () => {
   console.log("Connected to MongoDB");
   app.use(
-      "/api/quiz",
-      QuizApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+    "/api/quiz",
+    QuizApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
   );
   app.use(
-      "/api/history",
-      HistoryApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+    "/api/history",
+    HistoryApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+  );
+
+  app.use(
+    "/api/sound",
+    SoundApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
   );
 });
 

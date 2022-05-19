@@ -4,9 +4,9 @@ import { Navbar } from "./components/Navbar.jsx";
 import { Map } from "./components/Map.jsx";
 import StartPage from "./pages/StartPage.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History";
-import {Quiz} from "./pages/capsules/quizCapsule/Quiz.jsx"
-import Camera from "./components/Camera"
-
+import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
+import Camera from "./components/Camera";
+import Play from "./pages/capsules/SoundCapsule/Play.jsx";
 
 export function Application() {
   return (
@@ -16,13 +16,13 @@ export function Application() {
       </header>
       <main>
         <Routes>
-          <Route path="/" element={<StartPage style={{height:"100vh"}} />} />
+          <Route path="/" element={<StartPage style={{ height: "100vh" }} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/map" element={<Map />} />
           <Route path="/quiz" element={<Quiz />} />
           <Route path="/history" element={<History />} />
           <Route path="/camera" element={<Camera />} />
-          <Route path="/audio" />
+          <Route path="/audio" element={<Play />} />
           <Route path="/profile" />
           <Route path={"*"} element={<h1>Not found</h1>} />
         </Routes>
