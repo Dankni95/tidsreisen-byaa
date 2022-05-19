@@ -8,6 +8,10 @@ import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import Camera from "./components/Camera";
 import { MyFindings } from "./pages/MyFindings.jsx";
 import Popup from "./components/Popup.jsx";
+import { History } from "./pages/capsules/HistoryCapsule/History";
+import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
+import Camera from "./components/Camera";
+import Sound from "./pages/capsules/SoundCapsule/Sound.jsx";
 
 export function Application() {
   return (
@@ -26,6 +30,7 @@ export function Application() {
           <Route path="/myfindings" element={<MyFindings />} />
           <Route path="/intro" element={<Popup />} />
           <Route path="/audio" />
+          <Route path="/audio" element={<Sound />} />
           <Route path="/profile" />
           <Route path={"*"} element={<h1>Not found</h1>} />
         </Routes>

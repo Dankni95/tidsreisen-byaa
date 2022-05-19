@@ -14,8 +14,10 @@
     "build:pwa": "cd client/src && pwa-asset-generator images/apple-touch-icon-180x180.png -i index.html -m manifest.webmanifest -o images/"
   },
   "dependencies": {
+    "@parcel/config-default": "^2.5.0",
     "@parcel/packager-raw-url": "^2.5.0",
     "@parcel/service-worker": "^2.5.0",
+    "@parcel/transformer-raw": "^2.5.0",
     "@parcel/transformer-webmanifest": "^2.5.0",
     "body-parser": "^1.20.0",
     "bootstrap": "^5.1.3",
@@ -36,11 +38,11 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.5.0",
-    "react-qr-reader": "^3.0.0-beta-1",
-    "pwa-asset-generator": "^6.0.8",
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
+    "pwa-asset-generator": "^6.0.8",
+    "react-qr-reader": "^3.0.0-beta-1",
     "rimraf": "^3.0.2"
   }
 }
