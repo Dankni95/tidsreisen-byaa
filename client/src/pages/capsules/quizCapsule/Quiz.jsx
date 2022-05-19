@@ -1,7 +1,9 @@
+import "./quiz.css";
 import {useLoading} from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import {useState, react, useContext} from "react";
 import {Container,Row,Col,Button} from "react-bootstrap";
+
 
 export function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);

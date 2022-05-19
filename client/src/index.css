@@ -1,4 +1,4 @@
-body {
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -7,10 +7,18 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+:root {
+  --buttonColorGreen: #BBD7A7;
+  --buttonYellowLight: #FFF3B0;
+  --backgroundColorGreeny: #4A8554;
+  --backgroundColorLetthet: #F2F1E8;
+  --textColorGray: #333333;
+}
+
 @font-face {
   font-family: "Bubblegum Sans";
-  src: url('/client/fonts/bubblegum sans/bubblegumsans-regular-webfont.woff2') format('woff2'),
-  url("/client/fonts/bubblegum sans/bubblegumsans-regular-webfont.woff") format('woff');
+  src: url('/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff2') format('woff2'),
+  url("/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff") format('woff');
 }
 
 @font-face {
