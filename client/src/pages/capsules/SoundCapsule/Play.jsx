@@ -9,6 +9,10 @@ import { AiOutlinePause } from "react-icons/ai";
 const Play = () => {
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [songInfo, setSongInfo] = useState({
+    currentTime: null,
+    duration: null,
+  });
   let audioUrl = require("./Sound/dovregubben.mp3");
   /*  const { data, error, loading, reload } = useLoading(() =>
     fetchJSON("/api/sound")
@@ -20,6 +24,19 @@ const Play = () => {
   /* var snd = new Audio("data:audio/wav;base64," + data[0].sound); */
 
   /* const audio = new Audio(audioUrl); */
+
+  const timeUpdateHandler = (e) => {
+    const current = e.target.currentTime;
+    const duration = e.target.duration;
+    setSongInfo({ ...songInfo, currentTime: current, duration: duration });
+  };
+
+  const getTime = (time) => {
+    return (
+      Math.floor(time / 60) + ":" + ("0" + Math.floor(time % 60)).slice(-2)
+    );
+  };
+
   const handlePlay = () => {
     if (isPlaying) {
       setIsPlaying(!isPlaying);
@@ -33,9 +50,9 @@ const Play = () => {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
       <div className="d-flex justify-content-center align-items-center ">
-        <p>Start time</p>
+        <p>{getTime(songInfo.currentTime)}</p>
         <input type="range" />
-        <p>End time</p>
+        <p>{getTime(songInfo.duration)}</p>
       </div>
       <div>
         {isPlaying ? (
@@ -44,7 +61,11 @@ const Play = () => {
           <FaPlay onClick={handlePlay} size={25} />
         )}
       </div>
-      <audio ref={audio} src={audioUrl}></audio>
+      <audio
+        onTimeUpdate={timeUpdateHandler}
+        ref={audio}
+        src={audioUrl}
+      ></audio>
     </div>
   );
 };
