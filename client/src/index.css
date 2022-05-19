@@ -10,30 +10,30 @@ body {
 @font-face {
   font-family: "Bubblegum Sans";
   src: url('/client/fonts/bubblegum sans/bubblegumsans-regular-webfont.woff2') format('woff2'),
-  url("/client/fonts/bubblegum sans/bubblegumsans-regular-webfont.woff") format('woff');
+    url("/client/fonts/bubblegum sans/bubblegumsans-regular-webfont.woff") format('woff');
 }
 
 @font-face {
   font-family: "Source Sans Pro Regular";
   src: url('/client/fonts/source_sans_pro/SourceSansPro-Regular.woff2') format('woff2'),
-  url('/client/fonts/source_sans_pro/SourceSansPro-Regular.woff') format('woff');
+    url('/client/fonts/source_sans_pro/SourceSansPro-Regular.woff') format('woff');
   font-weight: normal;
 }
 
 @font-face {
   font-family: "Source Sans Pro SemiBold";
   src: url('/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff2') format('woff2'),
-  url('/client/fonts/source_sans_pro/SourceSansPro-Semibold.woff') format('woff');
+    url('/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff') format('woff');
 }
 
 @font-face {
   font-family: "Source Sans Pro SemiBold Italic";
   src: url('/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff2') format('woff2'),
-  url('/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff') format('woff');
+    url('/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff') format('woff');
 }
 
 @font-face {
   font-family: "Source Sans Pro Bold";
   src: url('/client/fonts/source_sans_pro/SourceSansPro-Bold.woff2') format('woff2'),
-  url('/client/fonts/source_sans_pro/SourceSansPro-Bold.woff') format('woff');
+    url('/client/fonts/source_sans_pro/SourceSansPro-Bold.woff') format('woff');
 }
