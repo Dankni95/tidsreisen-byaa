@@ -30,7 +30,7 @@
 @font-face {
   font-family: "Source Sans Pro Semibold";
   src: url('/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff2') format('woff2'),
-  url('/client/fonts/source_sans_pro/SourceSansPro-Semibold.woff') format('woff');
+    url('/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff') format('woff');
 }
 
 @font-face {

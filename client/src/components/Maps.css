@@ -6,16 +6,19 @@
   right: 0;
   height: 100vh;
 }
+
 body {
   margin: 0;
   padding: 0;
 }
+
 #map {
   position: absolute;
   top: 0;
   bottom: 0;
   width: 100%;
 }
+
 .marker {
   background-image: url("./mapbox-icon.png");
   background-size: cover;
@@ -24,10 +27,11 @@ body {
   border-radius: 50%;
   cursor: pointer;
 }
+
 .mapboxgl-popup {
   max-width: 200px;
 }
+
 .mapboxgl-popup-content {
   text-align: center;
-  font-family: "Open Sans", sans-serif;
 }
