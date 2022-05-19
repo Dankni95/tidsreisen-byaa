@@ -8,6 +8,7 @@ import { Scrollbar } from "swiper";
 import { SwiperSlide } from "swiper/react/swiper-react.js";
 import Button from "react-bootstrap/Button";
 import { Link } from "react-router-dom";
+import { CapsuleButton } from "../../../components/CapsuleButton.jsx";
 
 export function StoryCard({ userCoordinates, error, loading }) {
   const [year, setYear] = useState("1609");
@@ -58,30 +59,37 @@ export function StoryCard({ userCoordinates, error, loading }) {
             return (
               <SwiperSlide key={index} className={"slide"}>
                 {historyCapsule.done === true ? (
-                  <div style={{ outline: "1px solid red", height: "70%" }}>
-                    <div
-                      className={"d-flex justify-content-center mt-3"}
-                      style={{ outline: "1px solid red" }}
-                    >
+                  <div style={{ outline: "1px solid red", height: "35rem" }}>
+                    <div className={"d-flex justify-content-center mt-3"}>
                       <h1>Fullført historiekapselen</h1>
                     </div>
                     <div
-                      style={{
-                        height: "100%",
-                      }}
                       className={
-                        "d-flex justify-content-center flex-column align-items-center"
+                        "d-flex justify-content-center flex-column align-items-center h-100"
                       }
                     >
-                      <div style={{ outline: "1px solid red" }}>
-                        <p>+20 poeng</p>
+                      <div>
+                        <p
+                          style={{
+                            fontFamily: "Source Sans Pro Semibold",
+                            fontSize: "1.7rem",
+                          }}
+                        >
+                          +20 poeng
+                        </p>
                       </div>
-                      <Link to={"/map"}>
-                        <Button>Finn flere</Button>
-                      </Link>
-                      <Link to={"/myfindings"}>
-                        <Button>Mine funn</Button>
-                      </Link>
+                      <div className={"d-flex flex-column"}>
+                        <div className={"mb-3"}>
+                          <Link to={"/map"}>
+                            <CapsuleButton buttonText={"Finn flere"} />
+                          </Link>
+                        </div>
+                        <div>
+                          <Link to={"/myfindings"}>
+                            <CapsuleButton buttonText={"Mine funn"} />
+                          </Link>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 ) : (
