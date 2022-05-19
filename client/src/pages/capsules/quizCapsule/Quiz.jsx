@@ -1,6 +1,7 @@
 import {useLoading} from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import {useState, react, useContext} from "react";
+import {Container,Row,Col,Button} from "react-bootstrap";
 
 export function Quiz() {
     const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -52,18 +53,20 @@ export function Quiz() {
                     <a href={"/"}>Finn flere </a>
                     <a href={"/"}>Mine funn</a>
                 </div>) : (
-                    <section>
+                    <Container>
+                     <row>
                         <div>
                             <h1>Quizkapsel</h1>
                             <h3>Sagtuft</h3>
-                            <p>{data[currentQuestion].question_}</p>
+                            <p class="question">{data[currentQuestion].question_}</p>
                         </div>
                         <div>
                             {data[currentQuestion].answers.map((a, index) => (
-                                <button key={index} onClick={() => handleAnswerClick(a.isCorrect)}>{a.answer}</button>
+                                <Button variant="success" key={index} onClick={() => handleAnswerClick(a.isCorrect)}>{a.answer}</Button>
                             ))}
                         </div>
-                    </section>
+                    </row>
+                    </Container>
                 )}
         </main>
     );
