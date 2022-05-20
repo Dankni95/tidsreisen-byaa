@@ -6,13 +6,10 @@ import { FaStop } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";
 import { AiOutlinePause } from "react-icons/ai";
 
-const Play = () => {
+const Play = ({ songInfo, setSongInfo, setDrag }) => {
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [songInfo, setSongInfo] = useState({
-    currentTime: null,
-    duration: null,
-  });
+
   let audioUrl = require("./Sound/dovregubben.mp3");
   /*  const { data, error, loading, reload } = useLoading(() =>
     fetchJSON("/api/sound")
@@ -47,20 +44,25 @@ const Play = () => {
     }
   };
 
+  const onDragHandler = (e) => {
+    setDrag(e.target.value);
+  };
+
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
       <div className="d-flex justify-content-center align-items-center ">
         <p className="m-0 ">{getTime(songInfo.currentTime)}</p>
         <input
+          onChange={onDragHandler}
           min={0}
           max={songInfo.duration}
           value={songInfo.currentTime}
-          className="mx-2"
+          className="mx-2 form-range"
           type="range"
         />
         <p className="m-0 ">{getTime(songInfo.duration)}</p>
       </div>
-      <div>
+      <div className="mt-2">
         {isPlaying ? (
           <FaPause onClick={handlePlay} size={25} />
         ) : (
