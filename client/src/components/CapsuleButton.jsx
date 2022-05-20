@@ -1,9 +1,18 @@
 import React from "react";
+import Button from "react-bootstrap/Button";
 
-export const CapsuleButton = (props) => {
+export const CapsuleButtonYellow = (props) => {
   return (
     <>
-      <button className="bg-primary rounded">{props.buttonText}</button>
+      <Button id="button-capsules-yellow">{props.buttonText}</Button>
+    </>
+  );
+};
+
+export const CapsuleButtonGreen = (props) => {
+  return (
+    <>
+      <Button id="button-capsules-green">{props.buttonText}</Button>
     </>
   );
 };

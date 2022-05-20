@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { CapsuleButton } from "../../../components/CapsuleButton";
+import { CapsuleButton } from "../../../components/CapsuleButton.jsx";
 const FinishedSoundCapsule = () => {
   return (
     <div className="d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
