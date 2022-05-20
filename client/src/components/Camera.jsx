@@ -1,34 +1,51 @@
-import React, { useState, useRef } from "react";
-import { QrReader } from 'react-qr-reader';
-import "../index.css"
+import QrScanner from "qr-scanner";
+import { useEffect, useRef, useState } from "react";
 
+export default function Camera() {
+    const [isScanned, setIsScanned] = useState(false);
+    const [data, setData] = useState(null);
 
-const Camera = () => {
+    const videoRef = useRef();
+    const resultRef = useRef();
 
-    const [data, setData] = useState('No result');
+    let qrScanner = null;
+    useEffect(() => {
+        const videoElem = videoRef.current;
 
+        qrScanner = new QrScanner(
+            videoElem,
+            qrcode => {
+                if (qrcode) {
+                    setIsScanned(!isScanned);
+                    setData(qrcode.data)
 
-    console.log(data);
+                }
+            },
+            {
+                onDecodeError: error => { },
+                highlightScanRegion: true,
+                highlightCodeOutline: true,
+            });
 
-    // The styling wont listen to me :(
+        qrScanner.start();
+        var device_height = window.screen.height - 80;
+        var device_width = window.screen.width;
+
+        // set height and width of video
+        document.getElementById('qr-video').style.width = device_width + 'px';
+        document.getElementById('qr-video').style.height = device_height + 'px';
+
+        data ? window.location = data : console.log(data)
+
+    }, [data])
+
 
     return (
         <>
-            <div id="div"></div>
-            <QrReader className="qr-image-wrapper"
-                scanDelay={3000}
-                key="environment"
-                constraints={{ facingMode: 'environment' }}
-                onResult={(result, error) => {
-                    if (!!result) {
-                        setData(result?.text);
-                    }
-                }}
-                style={{ width: '100%' }}
-            />
+            <video style={{ position: "relative", overflow: "hidden" }} id="qr-video" ref={videoRef}>
+            </video>
 
+            <div ref={resultRef}></div>
         </>
-    );
+    )
 }
-
-export default Camera;
