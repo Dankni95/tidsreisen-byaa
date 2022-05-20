@@ -1,12 +1,13 @@
 import QrScanner from "qr-scanner";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 export default function Camera() {
     const [isScanned, setIsScanned] = useState(false);
     const [data, setData] = useState(null);
 
     const videoRef = useRef();
-    const resultRef = useRef();
 
     let qrScanner = null;
     useEffect(() => {
@@ -35,7 +36,9 @@ export default function Camera() {
         document.getElementById('qr-video').style.width = device_width + 'px';
         document.getElementById('qr-video').style.height = device_height + 'px';
 
-        data ? window.location = data : console.log(data)
+        data ?  navigate(data) : console.log(data)
+        
+
 
     }, [data])
 
