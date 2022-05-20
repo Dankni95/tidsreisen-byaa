@@ -28,7 +28,7 @@ export default function Camera() {
             });
 
         qrScanner.start();
-        var device_height = window.screen.height - 80;
+        var device_height = window.screen.height;
         var device_width = window.screen.width;
 
         // set height and width of video
@@ -42,10 +42,8 @@ export default function Camera() {
 
     return (
         <>
-            <video style={{ position: "relative", overflow: "hidden" }} id="qr-video" ref={videoRef}>
+            <video style={{ backgroundColor: "black", position: "relative", overflow: "hidden", whiteSpace: "nowrap" }} id="qr-video" ref={videoRef}>
             </video>
-
-            <div ref={resultRef}></div>
         </>
     )
 }
