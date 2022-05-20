@@ -1,32 +1,21 @@
 import React from "react";
-import { useState } from "react";
 import { Loading } from "../../../components/Loading.jsx";
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.css";
 import { Swiper } from "swiper/react/swiper-react.js";
 import { Scrollbar } from "swiper";
 import { SwiperSlide } from "swiper/react/swiper-react.js";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 
-export function StoryCard({ userCoordinates, error, loading }) {
+export function StoryCard({ historyCapsule, error, loading }) {
+  const navigate = useNavigate();
   const { id } = useParams();
-  const [year, setYear] = useState("1609");
 
-  console.log(id);
+  const navigateToMap = () => navigate("/map");
+  const navigateToMyFindings = () => navigate("/myfindings");
 
-  function yearChanger(yearClicked) {
-    setYear(yearClicked);
-  }
-
-  /**
-   * her blir denne === en eller annen koordinator vil jeg tro er best,
-   * som er tilsvarende koordinator som bruker
-   * klikker på av historiekapsel på kartet,
-   * blir passet som prop gjennom application.jsx potensielt
-   * */
-
-  if (userCoordinates.category.toLowerCase() === id.toLowerCase()) {
+  if (historyCapsule.category.toLowerCase() === id.toLowerCase()) {
     return (
       <div
         /*className={"swiper-wrapper"}*/
@@ -36,7 +25,7 @@ export function StoryCard({ userCoordinates, error, loading }) {
           <h3
             className={"text-center"}
             style={{
-              color: "#333333",
+              color: "var(--textColorGray)",
               fontFamily: "Source Sans Pro Semibold",
             }}
           >
@@ -44,9 +33,12 @@ export function StoryCard({ userCoordinates, error, loading }) {
           </h3>
           <h1
             className={"text-center"}
-            style={{ color: "#4A8554", fontFamily: "Source Sans Pro Bold" }}
+            style={{
+              color: "var(--backgroundColorGreeny)",
+              fontFamily: "Source Sans Pro Bold",
+            }}
           >
-            {userCoordinates.category}
+            {historyCapsule.category}
           </h1>
         </div>
         <Swiper
@@ -57,7 +49,7 @@ export function StoryCard({ userCoordinates, error, loading }) {
           onSlideChange={() => console.log("slide change")}
           onSwiper={(swiper) => console.log(swiper)}
         >
-          {userCoordinates.story.map((historyCapsule, index) => {
+          {historyCapsule.story.map((historyCapsule, index) => {
             return (
               <SwiperSlide key={index} className={"slide"}>
                 {historyCapsule.done === true ? (
@@ -90,14 +82,16 @@ export function StoryCard({ userCoordinates, error, loading }) {
                       </div>
                       <div className={"d-flex flex-column mt-5"}>
                         <div className={"mb-3"}>
-                          <Link to={"/map"}>
-                            <CapsuleButtonGreen buttonText={"Finn flere"} />
-                          </Link>
+                          <CapsuleButtonGreen
+                            onClick={navigateToMap}
+                            buttonText={"Finn flere"}
+                          />
                         </div>
                         <div>
-                          <Link to={"/myfindings"}>
-                            <CapsuleButtonGreen buttonText={"Mine funn"} />
-                          </Link>
+                          <CapsuleButtonGreen
+                            onClick={navigateToMyFindings}
+                            buttonText={"Mine funn"}
+                          />
                         </div>
                       </div>
                     </div>

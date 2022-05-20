@@ -27,6 +27,7 @@
   src: url("/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff2")
       format("woff2"),
     url("/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff")
+
       format("woff");
 }
 
@@ -66,7 +67,7 @@
   font-size: 1.125rem;
   background-color: var(--buttonYellowLight);
   color: var(--textColorGray);
-  border-radius: 0.5rem;
+  border-radius: 10px;
   border-style: none;
   height: 3em;
   width: 15em;

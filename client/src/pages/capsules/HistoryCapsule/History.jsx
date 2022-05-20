@@ -34,13 +34,13 @@ export function History() {
       {data && (
         // dette er parenten til hele siden
         <div className={"p-4"}>
-          {data?.map((userCoordinates, index) => {
+          {data?.map((historyCapsule, index) => {
             return (
               <div key={index}>
                 <StoryCard
                   loading={loading}
                   error={error}
-                  userCoordinates={userCoordinates}
+                  historyCapsule={historyCapsule}
                 />
               </div>
             );

@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 export const CapsuleButtonYellow = (props) => {
   return (
     <>
-      <Button id="button-capsules-yellow">{props.buttonText}</Button>
+      <button id="button-capsules-yellow">{props.buttonText}</button>
     </>
   );
 };
@@ -12,7 +12,9 @@ export const CapsuleButtonYellow = (props) => {
 export const CapsuleButtonGreen = (props) => {
   return (
     <>
-      <Button id="button-capsules-green">{props.buttonText}</Button>
+      <button onClick={props.onClick} id="button-capsules-green">
+        {props.buttonText}
+      </button>
     </>
   );
 };
