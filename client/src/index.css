@@ -1,10 +1,18 @@
-body {
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
   font-family: "Source Sans Pro Regular", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --buttonColorGreen: #BBD7A7;
+  --buttonYellowLight: #FFF3B0;
+  --backgroundColorGreeny: #4A8554;
+  --backgroundColorLetthet: #F2F1E8;
+  --textColorGray: #333333;
 }
 
 @font-face {
