@@ -3,6 +3,7 @@ import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { useState, react, useContext } from "react";
 import { Container, Button } from "react-bootstrap";
+import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 
 export function Quiz() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -63,15 +64,12 @@ export function Quiz() {
 
           <div className="button-container">
             {data[currentQuestion].answers.map((a, index) => (
-              <Button
-                className={"mb-3"}
-                id="button-capsules-green"
-                variant="success"
-                key={index}
-                onClick={() => handleAnswerClick(a.isCorrect)}
-              >
-                {a.answer}
-              </Button>
+              <div key={index} className={"mb-3"}>
+                <CapsuleButtonGreen
+                  onClick={() => handleAnswerClick(a.isCorrect)}
+                  buttonText={a.answer}
+                />
+              </div>
             ))}
           </div>
         </Container>
