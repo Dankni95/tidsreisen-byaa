@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export default function Camera() {
     const [isScanned, setIsScanned] = useState(false);
     const [data, setData] = useState(null);
+    let navigate = useNavigate();
 
     const videoRef = useRef();
 
@@ -19,13 +20,11 @@ export default function Camera() {
                 if (qrcode) {
                     setIsScanned(!isScanned);
                     setData(qrcode.data)
-
                 }
             },
             {
                 onDecodeError: error => { },
                 highlightScanRegion: true,
-                highlightCodeOutline: true,
             });
 
         qrScanner.start();
@@ -36,12 +35,29 @@ export default function Camera() {
         document.getElementById('qr-video').style.width = device_width + 'px';
         document.getElementById('qr-video').style.height = device_height + 'px';
 
-        data ?  navigate(data) : console.log(data)
-        
+        data ? (navigate(data, { replace: true }), qrScanner.destroy()) : console.log(data)
 
 
     }, [data])
 
+    useEffect(() => {
+
+        // need to manually hide scan region after result 
+
+        isScanned
+            ? (document.getElementsByClassName('scan-region-highlight-svg')[0].style.display = "none",
+                document.getElementsByClassName('scan-region-highlight')[0].style.display = "none")
+            : console.log("Nothing scanned yet")
+
+
+        return () => {
+
+            // Reset state on unmount, fixes memory leak error
+
+            setIsScanned(false);
+        };
+
+    }, [isScanned])
 
     return (
         <>
