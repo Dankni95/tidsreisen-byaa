@@ -100,7 +100,10 @@ export function Map() {
         .setPopup(
           new mapboxgl.Popup({ offset: 25 }) // add popups
             .setHTML(
-              `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p><button class="marker-${feature.properties.id}"`
+              `<div>
+              <h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>
+              <button style="background-color: turquoise; border: none;" onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
+              </div>`
             )
         )
         .addTo(map);

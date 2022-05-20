@@ -1,4 +1,4 @@
-body {
+* {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
@@ -7,46 +7,40 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.text-color-capsule-title {
-  color: #4a8554;
+:root {
+  --buttonColorGreen: #BBD7A7;
+  --buttonYellowLight: #FFF3B0;
+  --backgroundColorGreeny: #4A8554;
+  --backgroundColorLetthet: #F2F1E8;
+  --textColorGray: #333333;
 }
 
 @font-face {
   font-family: "Bubblegum Sans";
-  src: url("/client/fonts/bubblegum sans/bubblegumsans-regular-webfont.woff2")
-      format("woff2"),
-    url("/client/fonts/bubblegum sans/bubblegumsans-regular-webfont.woff")
-      format("woff");
+  src: url('/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff2') format('woff2'),
+    url("/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff") format('woff');
 }
 
 @font-face {
   font-family: "Source Sans Pro Regular";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-Regular.woff2")
-      format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-Regular.woff")
-      format("woff");
-  font-weight: normal;
+  src: url('/client/fonts/source_sans_pro/SourceSansPro-Regular.woff2') format('woff2'),
+    url('/client/fonts/source_sans_pro/SourceSansPro-Regular.woff') format('woff');
 }
 
 @font-face {
-  font-family: "Source Sans Pro SemiBold";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff2")
-      format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-Semibold.woff")
-      format("woff");
+  font-family: "Source Sans Pro Semibold";
+  src: url('/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff2') format('woff2'),
+    url('/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff') format('woff');
 }
 
 @font-face {
-  font-family: "Source Sans Pro SemiBold Italic";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff2")
-      format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff")
-      format("woff");
+  font-family: "Source Sans Pro Semibold Italic";
+  src: url('/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff2') format('woff2'),
+    url('/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff') format('woff');
 }
 
 @font-face {
   font-family: "Source Sans Pro Bold";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-Bold.woff2")
-      format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-Bold.woff") format("woff");
+  src: url('/client/fonts/source_sans_pro/SourceSansPro-Bold.woff2') format('woff2'),
+    url('/client/fonts/source_sans_pro/SourceSansPro-Bold.woff') format('woff');
 }
