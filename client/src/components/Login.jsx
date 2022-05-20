@@ -2,7 +2,8 @@ import "./login.css";
 import logo from "./relingenLogo.png";
 import Button from 'react-bootstrap/Button';
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
 
 
 //TODO: Lagre bruker i cookie
@@ -53,7 +54,7 @@ export default function Login() {
         </div>
         <div>
           {/*FÅR IKKE STYLET KNAPPEN ORDENTLIG, GOD KNOWS WHY*/}
-          <Button variant="primary" type="submit" id="log-btn">Gå videre</Button>{' '}
+          <Button variant="primary" type="submit" id="log-btn"><Link to={"/intro"}>Gå videre</Link></Button>{' '}
         </div>
       </form>
       <img id="logoPic" src={logo} alt="Rælingen logo" /> 

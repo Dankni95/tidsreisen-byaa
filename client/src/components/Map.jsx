@@ -1,11 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import mapboxgl, { Feature, Layer } from "mapbox-gl";
+import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
 import Camera from './Camera';
 import Button from 'react-bootstrap/Button';
-
+import AnimatedPopup from 'mapbox-gl-animated-popup';
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -94,31 +94,36 @@ export function Map() {
       el.id = feature.properties.id;
       el.addEventListener("click", () => anim(feature.properties), false);
 
+      let popup = new AnimatedPopup({
+        offset: 25,
+        openingAnimation: {
+          duration: 200,
+          easing: 'linear',
+          transform: 'scale'
+        },
+        closingAnimation: {
+          duration: 200,
+          easing: 'easeInBack',
+          transform: 'scale'
+        }
+      })
+
       // make a marker for each feature and add it to the map
       new mapboxgl.Marker(el)
         .setLngLat(feature.geometry.coordinates)
         .setPopup(
-          new mapboxgl.Popup({ offset: 25 }) // add popups
+          popup // add popups
             .setHTML(
-              `<h3>${feature.properties.title}</h3><p>${feature.properties.description}</p><button class="marker-${feature.properties.id}"`
+              `<div>
+              <h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>
+              <button style="background-color: turquoise; border: none;" onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
+              </div>`
             )
         )
         .addTo(map);
     }
 
-    map.on("load", function () {
-      map.addControl(
-        new mapboxgl.GeolocateControl({
-          positionOptions: {
-            enableHighAccuracy: true,
-          },
-          // When active the map will receive updates to the device's location as it changes.
-          trackUserLocation: true,
-          // Draw an arrow next to the location dot to indicate which direction the device is heading.
-          showUserHeading: true,
-        })
-      );
-    });
+
 
     map.on("load", () => {
       map.addSource("route", {
@@ -155,6 +160,7 @@ export function Map() {
         },
       });
     });
+
 
     return () => map.remove();
   }, [userCoords]); // eslint-disable-line react-hooks/exhaustive-deps

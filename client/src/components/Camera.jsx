@@ -1,40 +1,52 @@
-import React, { useState, useRef } from "react";
-import { QrReader } from 'react-qr-reader';
+import QrScanner from "qr-scanner";
+import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
-const Camera = () => {
+export default function Camera() {
+    const [isScanned, setIsScanned] = useState(false);
+    const [data, setData] = useState(null);
 
-    const [data, setData] = useState('No result');
+    const videoRef = useRef();
+
+    let qrScanner = null;
+    useEffect(() => {
+        const videoElem = videoRef.current;
+
+        qrScanner = new QrScanner(
+            videoElem,
+            qrcode => {
+                if (qrcode) {
+                    setIsScanned(!isScanned);
+                    setData(qrcode.data)
+
+                }
+            },
+            {
+                onDecodeError: error => { },
+                highlightScanRegion: true,
+                highlightCodeOutline: true,
+            });
+
+        qrScanner.start();
+        var device_height = window.screen.height;
+        var device_width = window.screen.width;
+
+        // set height and width of video
+        document.getElementById('qr-video').style.width = device_width + 'px';
+        document.getElementById('qr-video').style.height = device_height + 'px';
+
+        data ?  navigate(data) : console.log(data)
+        
 
 
-    console.log(data);
+    }, [data])
 
-    // The styling wont listen to me :(
 
     return (
-        <QrReader
-            scanDelay={1000}
-            key="environment"
-            constraints={{ facingMode: 'environment' }}
-            onResult={(result, error) => {
-                if (!!result) {
-                    setData(result?.text);
-                }
-            }}
-            videoContainerStyle={{
-                display: "flex",
-                width: "100%",
-                height: "100vh"
-            }}
-            containerStyle={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                height: "100vh",
-                overflow: "hidden"
-            }} />
-    );
+        <>
+            <video style={{ backgroundColor: "black", position: "relative", overflow: "hidden", whiteSpace: "nowrap" }} id="qr-video" ref={videoRef}>
+            </video>
+        </>
+    )
 }
-
-export default Camera;
