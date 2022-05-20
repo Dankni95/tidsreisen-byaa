@@ -3,9 +3,10 @@ import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
-import Camera from './Camera';
-import Button from 'react-bootstrap/Button';
+import { Button, Container, Row, Col } from "react-bootstrap";
 import AnimatedPopup from 'mapbox-gl-animated-popup';
+import { useNavigate } from "react-router-dom";
+
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -15,7 +16,8 @@ export function Map() {
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
-  const [camera, setCamera] = useState(false);
+  let navigate = useNavigate();
+
 
   const [userCoords, setUserCoords] = useState(0);
 
@@ -58,8 +60,6 @@ export function Map() {
       console.log("Pitch: " + map.getCenter());
       */
     });
-
-
 
 
     function anim(target) {
@@ -168,15 +168,16 @@ export function Map() {
 
 
 
-  function handleClick() { setCamera(true) }
+  function handleClick() { navigate("/camera") }
 
   return (
     <>
-      {camera ? <Camera /> :
+      {
         <div>
-          <Button variant="primary" onClick={() => handleClick()}>Primary</Button>
           <div className="map-container" ref={mapContainerRef} />
-        </div>}
+          <Button size="lg" id="scan" variant="primary" onClick={() => handleClick()}>Scan QR</Button>
+        </div>
+      }
     </>
   );
 }
