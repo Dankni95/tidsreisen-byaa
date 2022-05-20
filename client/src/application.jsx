@@ -29,7 +29,6 @@ export function Application() {
           <Route path="/camera" element={<Camera />} />
           <Route path="/myfindings" element={<MyFindings />} />
           <Route path="/intro" element={<Popup />} />
-          <Route path="/audio" />
           <Route path="/audio" element={<Sound />} />
           <Route path="/profile" />
           <Route path={"*"} element={<h1>Not found</h1>} />
