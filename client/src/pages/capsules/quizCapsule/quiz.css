@@ -1,4 +1,80 @@
-.question{
+.question {
+  color: white;
+  background-color: var(--backgroundColorGreeny);
+  font-family: 'Bubblegum Sans',cursive;
+  border: solid;
+  text-align: center;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  font-size: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.quiz {
+  background-image: url("../../../images/backgrounds/background-quiz.png");
+  background-size: cover;
+  height: 100vh;
+}
+
+button {
+  padding-top: 3rem;
+  height: 3em;
+  width: 15em;
+  border-style: none;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: grey;
+}
+
+#quiz-btn {
+  background-color: var(--buttonColorGreen);
+  color: var(--textColorGray);
+  font-weight: bold;
+  border-radius: 0.5rem;
+  border-style: none;
+  margin-bottom: 0.8rem;
+}
+
+
+h1 {
+  text-align: center;
+}
+
+h3 {
+  text-align: center;
+  padding-bottom: 8rem;
   color: var(--backgroundColorGreeny);
-  font-family: 'Bubblegum Sans' !important;
+}
+
+.capsule-title {
+  font-weight: bold;
+}
+
+.category {
+  font-weight: bold;
+  font-size: 2.5rem;
+  padding-top: 00.5rem;
+}
+
+.button-container {
+  display: grid;
+  justify-content: center;
+}
+
+.quiz {
+  text-align: center;
+}
+.completed {
+  font-weight: bold;
+}
+
+.result {
+  font-weight: bold;
+}
+
+.points {
+  text-align: center;
 }

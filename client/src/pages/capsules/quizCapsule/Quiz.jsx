@@ -2,7 +2,7 @@ import "./quiz.css";
 import {useLoading} from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import {useState, react, useContext} from "react";
-import {Container,Row,Col,Button} from "react-bootstrap";
+import {Container,Button} from "react-bootstrap";
 
 
 export function Quiz() {
@@ -46,28 +46,27 @@ export function Quiz() {
     }
 
     return (
-        <main style={{display: "grid", placeItems: "center"}}>
+        <main className="quiz" style={{display: "grid", placeItems: "center"}}>
             {showPoints ?
                 (<div>
-                    <h1>Fullført quizkapsel</h1>
-                    <h3>Du har {score}/{data.length} riktige</h3>
-                    <h5>+ {points} poeng!</h5>
+                    <h1 className="completed">Fullført quizkapsel</h1>
+                    <h3 className="result">Du har {score}/{data.length} riktige</h3>
+                    <h5 className="points">+ {points} poeng!</h5>
                     <a href={"/"}>Finn flere </a>
                     <a href={"/"}>Mine funn</a>
                 </div>) : (
-                    <Container>
-                     <row>
+                    <Container className="quiz-items">
                         <div>
-                            <h1>Quizkapsel</h1>
-                            <h3>{data[currentQuestion].category}</h3>
+                            <h1 className="capsule-title">Quizkapsel</h1>
+                            <h3 className="category">{data[currentQuestion].category}</h3>
                             <p className="question">{data[currentQuestion].question_}</p>
                         </div>
-                        <div>
+                       
+                        <div className="button-container">
                             {data[currentQuestion].answers.map((a, index) => (
-                                <Button variant="success" key={index} onClick={() => handleAnswerClick(a.isCorrect)}>{a.answer}</Button>
+                                <Button id="quiz-btn" variant="success" key={index} onClick={() => handleAnswerClick(a.isCorrect)}>{a.answer}</Button>
                             ))}
                         </div>
-                    </row>
                     </Container>
                 )}
         </main>
