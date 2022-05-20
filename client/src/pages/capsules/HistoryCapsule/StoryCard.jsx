@@ -6,11 +6,14 @@ import "swiper/swiper-bundle.css";
 import { Swiper } from "swiper/react/swiper-react.js";
 import { Scrollbar } from "swiper";
 import { SwiperSlide } from "swiper/react/swiper-react.js";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { CapsuleButton } from "../../../components/CapsuleButton.jsx";
 
 export function StoryCard({ userCoordinates, error, loading }) {
+  const { id } = useParams();
   const [year, setYear] = useState("1609");
+
+  console.log(id);
 
   function yearChanger(yearClicked) {
     setYear(yearClicked);
@@ -23,7 +26,7 @@ export function StoryCard({ userCoordinates, error, loading }) {
    * blir passet som prop gjennom application.jsx potensielt
    * */
 
-  if (userCoordinates.category === "Vannsag") {
+  if (userCoordinates.category.toLowerCase() === id.toLowerCase()) {
     return (
       <div
         /*className={"swiper-wrapper"}*/

@@ -24,13 +24,12 @@ export function Application() {
           <Route path="/" element={<StartPage style={{ height: "100vh" }} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/quiz" element={<Quiz />} />
-          <Route path="/history" element={<History />} />
+          <Route path="/quiz/:id" element={<Quiz />} />
+          <Route path="/history/:id" element={<History />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/myfindings" element={<MyFindings />} />
           <Route path="/intro" element={<Popup />} />
-          <Route path="/audio" />
-          <Route path="/audio" element={<Sound />} />
+          <Route path="/audio/:id" element={<Sound />} />
           <Route path="/profile" />
           <Route path={"*"} element={<h1>Not found</h1>} />
         </Routes>
