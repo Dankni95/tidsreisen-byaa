@@ -50,9 +50,15 @@ const Play = () => {
   return (
     <div className="d-flex flex-column justify-content-center align-items-center">
       <div className="d-flex justify-content-center align-items-center ">
-        <p>{getTime(songInfo.currentTime)}</p>
-        <input type="range" />
-        <p>{getTime(songInfo.duration)}</p>
+        <p className="m-0 ">{getTime(songInfo.currentTime)}</p>
+        <input
+          min={0}
+          max={songInfo.duration}
+          value={songInfo.currentTime}
+          className="mx-2"
+          type="range"
+        />
+        <p className="m-0 ">{getTime(songInfo.duration)}</p>
       </div>
       <div>
         {isPlaying ? (
@@ -62,6 +68,7 @@ const Play = () => {
         )}
       </div>
       <audio
+        onLoadedMetadata={timeUpdateHandler}
         onTimeUpdate={timeUpdateHandler}
         ref={audio}
         src={audioUrl}
