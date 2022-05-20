@@ -7,7 +7,7 @@ import { Swiper } from "swiper/react/swiper-react.js";
 import { Scrollbar } from "swiper";
 import { SwiperSlide } from "swiper/react/swiper-react.js";
 import { Link, useParams } from "react-router-dom";
-import { CapsuleButton } from "../../../components/CapsuleButton.jsx";
+import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 
 export function StoryCard({ userCoordinates, error, loading }) {
   const { id } = useParams();
@@ -91,12 +91,12 @@ export function StoryCard({ userCoordinates, error, loading }) {
                       <div className={"d-flex flex-column mt-5"}>
                         <div className={"mb-3"}>
                           <Link to={"/map"}>
-                            <CapsuleButton buttonText={"Finn flere"} />
+                            <CapsuleButtonGreen buttonText={"Finn flere"} />
                           </Link>
                         </div>
                         <div>
                           <Link to={"/myfindings"}>
-                            <CapsuleButton buttonText={"Mine funn"} />
+                            <CapsuleButtonGreen buttonText={"Mine funn"} />
                           </Link>
                         </div>
                       </div>

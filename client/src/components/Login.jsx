@@ -1,10 +1,9 @@
 import "./login.css";
 import logo from "./relingenLogo.png";
-import Button from 'react-bootstrap/Button';
+import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "react-bootstrap/Button";
-
 
 //TODO: Lagre bruker i cookie
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
@@ -38,7 +37,6 @@ export default function Login() {
   return (
     <section id="login">
       <div id="logo">
-       
         <h1 className="logo">Tidsreisen</h1>
       </div>
       <form onSubmit={handleSubmit}>
@@ -54,10 +52,14 @@ export default function Login() {
         </div>
         <div>
           {/*FÅR IKKE STYLET KNAPPEN ORDENTLIG, GOD KNOWS WHY*/}
-          <Button variant="primary" type="submit" id="log-btn"><Link to={"/intro"}>Gå videre</Link></Button>{' '}
+          <Link to={"/intro"}>
+            <Button variant="primary" type="submit" id="button-capsules-yellow">
+              Gå videre
+            </Button>
+          </Link>
         </div>
       </form>
-      <img id="logoPic" src={logo} alt="Rælingen logo" /> 
+      <img id="logoPic" src={logo} alt="Rælingen logo" />
     </section>
   );
 }
