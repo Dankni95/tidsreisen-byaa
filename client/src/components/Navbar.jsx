@@ -5,12 +5,20 @@ import "./navbar.css";
 import { IconContext } from "react-icons";
 import { IoClose } from "react-icons/io5";
 import { GoThreeBars } from "react-icons/go";
+import { fetchJSON } from "../helpers/http.jsx"
+import { useNavigate } from "react-router-dom";
 
 export function Navbar() {
+  const navigate = useNavigate()
   const [sidebar, setSidebar] = useState(false);
 
   function showSidebar() {
     return setSidebar(!sidebar);
+  }
+
+  async function logOut() {
+    navigate("/login");
+    await fetchJSON("/api/deleteCookie");
   }
 
   return (
@@ -41,6 +49,7 @@ export function Navbar() {
                 </li>
               );
             })}
+            <button onClick={logOut}>Logg ut</button>
           </ul>
         </nav>
       </IconContext.Provider>

@@ -35,10 +35,14 @@ mongoClient.connect().then(async () => {
 
 app.post("/api/login", (req, res) => {
   const { user } = req.body;
-  console.log(user);
   res.cookie("user", user, { signed: true });
   res.sendStatus(200);
 });
+
+app.get("/api/deleteCookie", (req, res) => {
+  res.clearCookie("user");
+  res.sendStatus(200);
+})
 
 app.use(express.static(path.resolve("..", "dist")));
 app.use((req, res, next) => {
