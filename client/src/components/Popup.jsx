@@ -1,42 +1,62 @@
-import React, { useContext, useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { UserContext } from "../contexts/userContext.jsx";
-import { useLoading } from "../helpers/useLoading.jsx";
 import { Loading } from "./Loading.jsx";
+import { CapsuleButtonGreen } from "./CapsuleButton.jsx";
+import { BsArrowRight } from "react-icons/bs";
+import "./popup.css";
+import olaf from "./iben-from-front.png";
 
-export default function Popup() {
-  const { getUser } = useContext(UserContext);
-  const { data: username, reload, loading, error } = useLoading(getUser);
+export default function Popup({ username, loading, error }) {
   const [show, setShow] = useState(true);
-  const [user, setUser] = useState();
 
-  useEffect(() => {
-    reload;
-    setUser(username);
-  }, [reload]);
-
-  const [message, setMessage] = useState(
-    "Trykk på 'neste' for å lære om appen."
-  );
+  const [message, setMessage] = useState(() => {
+    return (
+      <div>
+        Trykk på <BsArrowRight /> for å lære litt om appen
+      </div>
+    );
+  });
 
   const messages = [
     {
       id: 1,
-      content: `Hei ${user}, jeg heter Olaf! Velkommen til Byåaa Tidsreisen! Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan denne reisen fungerer. Bli med da vel!`,
+      content: (
+        <p className={"intro-content"}>
+          Heisann {username}, jeg heter Olaf! Velkommen til Tidsreisen i Byåa.
+          Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan
+          denne reisen fungerer. Bli med da vel!
+        </p>
+      ),
     },
     {
       id: 2,
-      content: `Beveg deg rundt på turstien i Byåa og utforsk de gamle ruinene ved å ta bilde av en QR-kode plassert på området.`,
+      content: (
+        <p className={"intro-content"}>
+          Beveg deg rundt på turstien og utforsk hvordan det så ut i Byåa i
+          gamle dager ved å ta bilde av QR-koder plassert på områdene.
+        </p>
+      ),
     },
     {
       id: 3,
-      content:
-        "Da vil du oppdage de forskjellige tidskapslene: lyd, historie og oppgaver.",
+      content: (
+        <p className={"intro-content"}>
+          Da vil du oppdage de forskjellige tidskapslene: lyd, historie og
+          oppgaver som vil gi deg enten et lydopptak, historie med bilder eller
+          oppgaver du svarer på.
+        </p>
+      ),
     },
     {
       id: 4,
-      content: `Du får poeng for de forskjellige tidskapslene du gjør ferdig. Håper du finner dem alle! Lykke til ${user}!`,
+      content: (
+        <p className={"intro-content"}>
+          Du får poeng for de forskjellige tidskapslene du gjør ferdig. Håper du
+          finner dem alle!
+          <br />
+          Husk å ha det gøy og lykke til {username}!
+        </p>
+      ),
     },
   ];
 
@@ -64,40 +84,51 @@ export default function Popup() {
     <div>
       {loading && <Loading />}
       {error && <div>{error.toString()}</div>}
-      <Modal
-        className={"d-flex justify-content-center align-items-center"}
-        show={show}
-        onHide={handleClose}
-      >
-        <Modal.Header closeButton>
-          <Modal.Title style={{ fontFamily: "Bubblegum Sans" }}>
-            Velkommen til Tidsreisen!
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body style={{ fontFamily: "Source Sans Pro Semibold" }}>
-          {message}
-        </Modal.Body>
-        <Modal.Footer>
-          {next > 4 && (
-            <Button variant="secondary" onClick={handleClose}>
-              Start reisen!
-            </Button>
-          )}
-          {4 >= next ? (
-            <Button
-              variant="secondary"
-              onClick={() => {
-                handleNext();
-                changeTitle(next);
-              }}
-            >
-              Neste
-            </Button>
-          ) : (
-            ""
-          )}
-        </Modal.Footer>
-      </Modal>
+      {username && (
+        <Modal
+          className={"d-flex justify-content-center align-items-center"}
+          show={show}
+          onHide={handleClose}
+        >
+          {/*<div id={"olaf"}>
+          <img src={olaf} alt="bilde av intro-olaf" />
+        </div>*/}
+          <Modal.Header className={"my-modal"} closeButton>
+            <Modal.Title style={{ fontFamily: "Bubblegum Sans" }}>
+              Velkommen til Tidsreisen!
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className={"my-modal"}>
+            <img src={olaf} alt="bilde av intro-olaf" />
+            <div>{message}</div>
+          </Modal.Body>
+          <Modal.Footer className={"d-flex justify-content-center my-modal"}>
+            <div className={"d-flex flex-column"}>
+              {next > 4 && (
+                <CapsuleButtonGreen
+                  className={"justify-content-center align-content-center"}
+                  buttonText={"Start reisen!"}
+                  onClick={handleClose}
+                />
+              )}
+            </div>
+            {4 >= next ? (
+              <BsArrowRight
+                style={{
+                  fontSize: "2.5rem",
+                  color: "var(--backgroundColorGreeny)",
+                }}
+                onClick={() => {
+                  handleNext();
+                  changeTitle(next);
+                }}
+              />
+            ) : (
+              ""
+            )}
+          </Modal.Footer>
+        </Modal>
+      )}
     </div>
   );
 }

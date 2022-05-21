@@ -1,6 +1,5 @@
 import React, { useState, useRef } from "react";
 import { useLoading } from "../../../helpers/useLoading";
-import { fetchJSON } from "../../../helpers/http";
 import { FaPlay } from "react-icons/fa";
 import { FaStop } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";

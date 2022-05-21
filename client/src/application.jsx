@@ -7,7 +7,6 @@ import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import Camera from "./components/Camera";
 import { MyFindings } from "./pages/MyFindings.jsx";
-import Popup from "./components/Popup.jsx";
 import Sound from "./pages/capsules/SoundCapsule/Sound.jsx";
 
 export function Application() {
@@ -25,7 +24,7 @@ export function Application() {
           <Route path="/history/:id" element={<History />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/myfindings" element={<MyFindings />} />
-          <Route path="/intro" element={<Popup />} />
+          {/*<Route path="/intro" element={<IntroMap />} />*/}
           <Route path="/audio/:id" element={<Sound />} />
           <Route path="/profile" />
           <Route path={"*"} element={<h1>Not found</h1>} />

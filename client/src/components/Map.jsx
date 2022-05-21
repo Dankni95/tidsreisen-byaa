@@ -1,16 +1,23 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useContext } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
-import Camera from './Camera';
-import Button from 'react-bootstrap/Button';
-import AnimatedPopup from 'mapbox-gl-animated-popup';
+import Camera from "./Camera";
+import Button from "react-bootstrap/Button";
+import AnimatedPopup from "mapbox-gl-animated-popup";
+import Popup from "./Popup.jsx";
+import { UserContext } from "../contexts/userContext.jsx";
+import { useLoading } from "../helpers/useLoading.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
 export function Map() {
+  const { getUser } = useContext(UserContext);
+  const { data: username, reload, loading, error } = useLoading(getUser);
+
+  console.log(username);
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
@@ -18,7 +25,6 @@ export function Map() {
   const [camera, setCamera] = useState(false);
 
   const [userCoords, setUserCoords] = useState(0);
-
 
   if (userCoords === 0) {
     navigator.geolocation.getCurrentPosition(function (position) {
@@ -28,11 +34,10 @@ export function Map() {
 
   // Initialize map when component mounts
 
-  // Styles: 
+  // Styles:
   // mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui - Material
   // mapbox://styles/dankni95/ckx99rrti122914qpusg9wm8j - Treasure
   // mapbox://styles/dankni95/ckwra5on906i515t7dtjqwujy - Outdoor
-
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -59,9 +64,6 @@ export function Map() {
       */
     });
 
-
-
-
     function anim(target) {
       console.log(target);
       map.flyTo({
@@ -82,7 +84,7 @@ export function Map() {
         easing: (t) => t,
 
         // this animation is considered essential with respect to prefers-reduced-motion
-        essential: true
+        essential: true,
       });
     }
 
@@ -90,7 +92,7 @@ export function Map() {
     for (const feature of GeoJson().features) {
       // create a HTML element for each feature
       const el = document.createElement("div");
-      el.className = "marker"
+      el.className = "marker";
       el.id = feature.properties.id;
       el.addEventListener("click", () => anim(feature.properties), false);
 
@@ -98,15 +100,15 @@ export function Map() {
         offset: 25,
         openingAnimation: {
           duration: 200,
-          easing: 'linear',
-          transform: 'scale'
+          easing: "linear",
+          transform: "scale",
         },
         closingAnimation: {
           duration: 200,
-          easing: 'easeInBack',
-          transform: 'scale'
-        }
-      })
+          easing: "easeInBack",
+          transform: "scale",
+        },
+      });
 
       // make a marker for each feature and add it to the map
       new mapboxgl.Marker(el)
@@ -123,8 +125,6 @@ export function Map() {
         .addTo(map);
     }
 
-
-
     map.on("load", () => {
       map.addSource("route", {
         type: "geojson",
@@ -136,12 +136,12 @@ export function Map() {
             coordinates: [
               [11.099034, 59.851039],
               [11.101616, 59.851307],
-              [11.100541, 59.852800],
+              [11.100541, 59.8528],
               [11.10087238, 59.85371299],
               [11.102064, 59.853905],
               [11.107697, 59.854386],
               [11.110563, 59.854391],
-              [11.114554, 59.854410],
+              [11.114554, 59.85441],
             ],
           },
         },
@@ -161,22 +161,32 @@ export function Map() {
       });
     });
 
-
     return () => map.remove();
   }, [userCoords]); // eslint-disable-line react-hooks/exhaustive-deps
 
-
-
-
-  function handleClick() { setCamera(true) }
+  function handleClick() {
+    setCamera(true);
+  }
 
   return (
     <>
-      {camera ? <Camera /> :
+      {camera ? (
+        <Camera />
+      ) : (
         <div>
-          <Button variant="primary" onClick={() => handleClick()}>Primary</Button>
-          <div className="map-container" ref={mapContainerRef} />
-        </div>}
+          <Button variant="primary" onClick={() => handleClick()}>
+            Primary
+          </Button>
+          <div className="map-container" ref={mapContainerRef}>
+            {/** her får vi tak i user.id etter hvert når vi får inn users i
+             database og sjekker opp med funksjon som og en toggle i users database,
+             boolean som blir true som brukere allerede har gått gjennom introen
+             */}
+
+            <Popup username={username} loading={loading} error={error} />
+          </div>
+        </div>
+      )}
     </>
   );
 }

@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { NavbarData } from "./navbarData.jsx";
 import "./navbar.css";
 import { IconContext } from "react-icons";
 import { IoClose } from "react-icons/io5";
 import { GoThreeBars } from "react-icons/go";
-import { fetchJSON } from "../helpers/http.jsx"
-import { useNavigate } from "react-router-dom";
+import { fetchJSON_client } from "../helpers/http.jsx";
 
 export function Navbar() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [sidebar, setSidebar] = useState(false);
 
   function showSidebar() {
@@ -18,7 +17,7 @@ export function Navbar() {
 
   async function logOut() {
     navigate("/login");
-    await fetchJSON("/api/deleteCookie");
+    await fetchJSON_client("/api/deleteCookie");
   }
 
   return (
