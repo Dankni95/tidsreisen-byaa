@@ -5,23 +5,26 @@ import { UserContext } from "../contexts/userContext.jsx";
 import { useLoading } from "../helpers/useLoading.jsx";
 import { Loading } from "./Loading.jsx";
 
-export default function Popup({ username, loading, error, reload }) {
+export default function Popup() {
+  const { getUser } = useContext(UserContext);
+  const { data: username, reload, loading, error } = useLoading(getUser);
   const [show, setShow] = useState(true);
-  /*const [user, setUser] = useState();*/
+  const [user, setUser] = useState();
 
   useEffect(() => {
     reload;
+    setUser(username);
   }, [reload]);
 
-  const [message, setMessage] = useState([
-    `Hei ${username}, jeg heter Olaf! Velkommen til Byåaa Tidsreisen! Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan denne reisen fungerer. Bli med da vel!`,
-  ]);
+  const [message, setMessage] = useState(
+    "Trykk på 'neste' for å lære om appen."
+  );
 
   const messages = [
-    /*    {
+    {
       id: 1,
       content: `Hei ${user}, jeg heter Olaf! Velkommen til Byåaa Tidsreisen! Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan denne reisen fungerer. Bli med da vel!`,
-    },*/
+    },
     {
       id: 2,
       content: `Beveg deg rundt på turstien i Byåa og utforsk de gamle ruinene ved å ta bilde av en QR-kode plassert på området.`,
@@ -33,23 +36,20 @@ export default function Popup({ username, loading, error, reload }) {
     },
     {
       id: 4,
-      content:
-        "Du får poeng for de forskjellige tidskapslene du klarer å finne. Håper du finner dem alle! Lykke til!",
+      content: `Du får poeng for de forskjellige tidskapslene du gjør ferdig. Håper du finner dem alle! Lykke til ${user}!`,
     },
   ];
 
-  const [next, setNext] = useState(2);
+  const [next, setNext] = useState(1);
 
   function changeTitle(id) {
     if (id > 4) handleClose();
 
-    setMessage(
-      messages.map((item) => {
-        if (item.id === id) {
-          return item.content;
-        }
-      })
-    );
+    messages.map((modalMessage) => {
+      if (modalMessage.id === id) {
+        setMessage(modalMessage.content);
+      }
+    });
   }
 
   const handleClose = () => setShow(false);
@@ -61,7 +61,7 @@ export default function Popup({ username, loading, error, reload }) {
   if (next < 4) window.addEventListener("load", handleShow);
 
   return (
-    <div className={"d-flex"}>
+    <div>
       {loading && <Loading />}
       {error && <div>{error.toString()}</div>}
       <Modal
