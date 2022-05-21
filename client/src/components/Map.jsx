@@ -10,19 +10,13 @@ import Popup from "./Popup.jsx";
 import { UserContext } from "../contexts/userContext.jsx";
 import { useLoading } from "../helpers/useLoading.jsx";
 import { Button, Container, Row, Col } from "react-bootstrap";
-import AnimatedPopup from 'mapbox-gl-animated-popup';
+import AnimatedPopup from "mapbox-gl-animated-popup";
 import { useNavigate } from "react-router-dom";
-
-
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
 export function Map() {
-  const { getUser } = useContext(UserContext);
-  const { data: username, reload, loading, error } = useLoading(getUser);
-
-  console.log(username);
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
@@ -30,16 +24,15 @@ export function Map() {
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
 
+  const { getUser } = useContext(UserContext);
+  const { data: username, reload, loading, error } = useLoading(getUser);
+
   const [geo, setGeo] = useState(null);
 
   const [dbWalk, dbSetWalk] = useState(true);
   const [walk, setWalk] = useState(dbWalk);
 
-
-
-
   let navigate = useNavigate();
-
 
   const [userCoords, setUserCoords] = useState(0);
 
@@ -56,14 +49,10 @@ export function Map() {
   // mapbox://styles/dankni95/ckx99rrti122914qpusg9wm8j - Treasure
   // mapbox://styles/dankni95/ckwra5on906i515t7dtjqwujy - Outdoor
   function handleWalkClick() {
-
-    loaded ?
-      (
-        walk ? (
-          geo.trigger(),
-          setWalk(false)
-        ) : (
-          document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
+    loaded
+      ? walk
+        ? (geo.trigger(), setWalk(false))
+        : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
           map.flyTo({
             // These options control the ending camera position: centered at
             // the target, at zoom level 9, and north up.
@@ -71,16 +60,12 @@ export function Map() {
             zoom: zoom,
             bearing: -136.86837902659892,
 
-
             // this animation is considered essential with respect to prefers-reduced-motion
-            essential: true
+            essential: true,
           }),
-          setWalk(true)
-        )) : (
-        ""
-      )
+          setWalk(true))
+      : "";
   }
-
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -95,19 +80,18 @@ export function Map() {
     // Initialize the geolocate control.
     const geolocate = new mapboxgl.GeolocateControl({
       positionOptions: {
-        enableHighAccuracy: true
+        enableHighAccuracy: true,
       },
       trackUserLocation: true,
-    })
+    });
 
-    map.addControl(geolocate)
+    map.addControl(geolocate);
 
-    setGeo(geolocate)
+    setGeo(geolocate);
     // Add navigation control (the +/- zoom buttons)
     // map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
     map.on("move", () => {
-
       /*
       console.log("Bearing: " + map.getBearing());
       console.log("Zoom: " + map.getZoom());
@@ -177,7 +161,7 @@ export function Map() {
     }
 
     map.on("load", () => {
-      setLoaded(true)
+      setLoaded(true);
       map.addSource("route", {
         type: "geojson",
         data: {
@@ -213,70 +197,33 @@ export function Map() {
       });
     });
 
-
-    geolocate.on('geolocate', () => {
-      document.getElementById("stien").innerText = "På stien"
-      document.getElementById("scan-btn").style.display = "block"
-
+    geolocate.on("geolocate", () => {
+      document.getElementById("stien").innerText = "På stien";
+      document.getElementById("scan-btn").style.display = "block";
     });
 
-    geolocate.on('trackuserlocationend', () => {
-      document.getElementById("stien").innerText = "På skolen"
-      document.getElementById("scan-btn").style.display = "none"
-
+    geolocate.on("trackuserlocationend", () => {
+      document.getElementById("stien").innerText = "På skolen";
+      document.getElementById("scan-btn").style.display = "none";
     });
 
-
-    setMap(map)
-
+    setMap(map);
     return () => map.remove();
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    loaded
+      ? (document.getElementById("stien").style.backgroundColor = "blue")
+      : (document.getElementById("stien").style.backgroundColor = "grey");
+  }, [loaded, walk]);
+
+  useEffect(() => {
+    loaded ? (walk ? (geo.trigger(), setWalk(false)) : "") : "";
+  }, [loaded]);
 
   function handleClick() {
-    setCamera(true);
+    navigate("/camera");
   }
-
-  return (
-    <>
-      {camera ? (
-        <Camera />
-      ) : (
-        <div>
-          <Button variant="primary" onClick={() => handleClick()}>
-            Primary
-          </Button>
-          <div className="map-container" ref={mapContainerRef}>
-            {/** her får vi tak i user.id etter hvert når vi får inn users i
-             database og sjekker opp med funksjon som og en toggle i users database,
-             boolean som blir true som brukere allerede har gått gjennom introen
-             */}
-
-            <Popup username={username} loading={loading} error={error} />
-          </div>
-        </div>
-      )}
-
-  useEffect(() => {
-    loaded ? document.getElementById("stien").style.backgroundColor = "blue" : document.getElementById("stien").style.backgroundColor = "grey"
-  }, [loaded, walk])
-
-  useEffect(() => {
-    loaded ?
-      (
-        walk ? (
-          geo.trigger(),
-          setWalk(false)
-        ) : (
-          ""
-        )) : ("")
-
-  }, [loaded])
-
-
-
-
-  function handleClick() { navigate("/camera") }
 
   return (
     <>
@@ -290,18 +237,33 @@ export function Map() {
               <Col></Col>
               <Col></Col>
               <Col xs={4}>
-                <Button size="g" id="stien" variant="primary" onClick={() => {
-                  handleWalkClick()
-                }}>På skolen</Button>
+                <Button
+                  size="g"
+                  id="stien"
+                  variant="primary"
+                  onClick={() => {
+                    handleWalkClick();
+                  }}
+                >
+                  På skolen
+                </Button>
               </Col>
               <Col xs={4}>
-                <Button size="g" id="scan-btn" variant="primary" onClick={() => handleClick()}>Scan QR</Button>
+                <Button
+                  size="g"
+                  id="scan-btn"
+                  variant="primary"
+                  onClick={() => handleClick()}
+                >
+                  Scan QR
+                </Button>
               </Col>
               <Col></Col>
               <Col></Col>
               <Col></Col>
             </Row>
           </Container>
+          <Popup username={username} loading={loading} error={error} />
         </div>
       }
     </>
