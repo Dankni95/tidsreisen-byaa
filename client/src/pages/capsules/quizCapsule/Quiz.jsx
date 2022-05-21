@@ -4,8 +4,9 @@ import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { useState, react, useContext } from "react";
 import { Container, Button } from "react-bootstrap";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
+import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 
-export function Quiz() {
+export function Quiz({ username }) {
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPoints, setShowPoints] = useState(false);
   const [score, setScore] = useState(0);
@@ -14,6 +15,10 @@ export function Quiz() {
   const { listQuiz } = useContext(DatabaseContext);
 
   const { loading, error, data } = useLoading(async () => await listQuiz(), []);
+
+  if (!username) {
+    return <NotLoggedIn />;
+  }
 
   if (loading) {
     return <div>Loading...</div>;

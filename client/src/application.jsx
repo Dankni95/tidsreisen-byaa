@@ -8,8 +8,14 @@ import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import Camera from "./components/Camera";
 import { MyFindings } from "./pages/MyFindings.jsx";
 import Sound from "./pages/capsules/SoundCapsule/Sound.jsx";
+import { UserContext } from "./contexts/userContext.jsx";
+import { useLoading } from "./helpers/useLoading.jsx";
+import { useContext } from "react";
 
 export function Application() {
+  const { getUser } = useContext(UserContext);
+  const { data: username, reload, loading, error } = useLoading(getUser);
+
   return (
     <BrowserRouter>
       <header style={{ position: "fixed", zIndex: "20", width: "100%" }}>
@@ -20,8 +26,11 @@ export function Application() {
           <Route path="/" element={<StartPage style={{ height: "100vh" }} />} />
           <Route path="/login" element={<Login />} />
           <Route path="/map" element={<Map />} />
-          <Route path="/quiz/:id" element={<Quiz />} />
-          <Route path="/history/:id" element={<History />} />
+          <Route path="/quiz/:id" element={<Quiz username={username} />} />
+          <Route
+            path="/history/:id"
+            element={<History username={username} />}
+          />
           <Route path="/camera" element={<Camera />} />
           <Route path="/myfindings" element={<MyFindings />} />
           {/*<Route path="/intro" element={<IntroMap />} />*/}
