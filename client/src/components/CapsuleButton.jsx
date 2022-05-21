@@ -1,10 +1,15 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 
 export const CapsuleButtonYellow = (props) => {
   return (
     <>
-      <button id="button-capsules-yellow">{props.buttonText}</button>
+      <button
+        onClick={props.onClick}
+        type={props.submit}
+        id="button-capsules-yellow"
+      >
+        {props.buttonText}
+      </button>
     </>
   );
 };

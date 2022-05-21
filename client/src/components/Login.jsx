@@ -3,7 +3,7 @@ import logo from "./relingenLogo.png";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
+import { CapsuleButtonYellow } from "./CapsuleButton.jsx";
 
 //TODO: Lagre bruker i cookie
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
@@ -31,7 +31,7 @@ export default function Login() {
     console.log(username);
     event.preventDefault();
     await postJSON("/api/login", { user: username });
-    navigate("/");
+    navigate("/intro");
   }
 
   return (
@@ -51,12 +51,7 @@ export default function Login() {
           />
         </div>
         <div>
-          {/*FÅR IKKE STYLET KNAPPEN ORDENTLIG, GOD KNOWS WHY*/}
-          <Link to={"/intro"}>
-            <Button variant="primary" type="submit" id="button-capsules-yellow">
-              Gå videre
-            </Button>
-          </Link>
+          <CapsuleButtonYellow submit={"submit"} buttonText={"Gå videre"} />
         </div>
       </form>
       <img id="logoPic" src={logo} alt="Rælingen logo" />

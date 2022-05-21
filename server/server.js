@@ -39,10 +39,17 @@ app.post("/api/login", (req, res) => {
   res.sendStatus(200);
 });
 
+app.get("/api/login", (req, res) => {
+  const { user } = req.signedCookies;
+
+  console.log(`username from get response: ${user}`);
+  res.json(user);
+});
+
 app.get("/api/deleteCookie", (req, res) => {
   res.clearCookie("user");
   res.sendStatus(200);
-})
+});
 
 app.use(express.static(path.resolve("..", "dist")));
 app.use((req, res, next) => {

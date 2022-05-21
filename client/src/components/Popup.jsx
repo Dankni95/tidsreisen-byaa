@@ -1,22 +1,39 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { UserContext } from "../contexts/userContext.jsx";
+import { useLoading } from "../helpers/useLoading.jsx";
+import { Loading } from "./Loading.jsx";
 
-export default function Popup() {
+export default function Popup({ username, loading, error, reload }) {
   const [show, setShow] = useState(true);
-  const [title, setTitle] = useState(
-    "Velkommen til tidsreisen! Bruk menyen nederst for å navigere mellom kart og din profil."
-  );
+  /*const [user, setUser] = useState();*/
 
-  const titles = [
+  useEffect(() => {
+    reload;
+  }, [reload]);
+
+  const [message, setMessage] = useState([
+    `Hei ${username}, jeg heter Olaf! Velkommen til Byåaa Tidsreisen! Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan denne reisen fungerer. Bli med da vel!`,
+  ]);
+
+  const messages = [
+    /*    {
+      id: 1,
+      content: `Hei ${user}, jeg heter Olaf! Velkommen til Byåaa Tidsreisen! Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan denne reisen fungerer. Bli med da vel!`,
+    },*/
     {
       id: 2,
-      title:
-        "Trykk på de forskjellige sirklene på kartet for å se hva som skjuler seg!",
+      content: `Beveg deg rundt på turstien i Byåa og utforsk de gamle ruinene ved å ta bilde av en QR-kode plassert på området.`,
     },
     {
       id: 3,
-      title:
+      content:
+        "Da vil du oppdage de forskjellige tidskapslene: lyd, historie og oppgaver.",
+    },
+    {
+      id: 4,
+      content:
         "Du får poeng for de forskjellige tidskapslene du klarer å finne. Håper du finner dem alle! Lykke til!",
     },
   ];
@@ -24,13 +41,12 @@ export default function Popup() {
   const [next, setNext] = useState(2);
 
   function changeTitle(id) {
-    if (id > 3) handleClose();
+    if (id > 4) handleClose();
 
-    setTitle(
-      titles.map((item) => {
+    setMessage(
+      messages.map((item) => {
         if (item.id === id) {
-          console.log(item.title);
-          return item.title;
+          return item.content;
         }
       })
     );
@@ -42,18 +58,32 @@ export default function Popup() {
 
   // TODO: Her må staten til intro lagres per bruker i MONGODB
 
-  if (next < 3) window.addEventListener("load", handleShow);
+  if (next < 4) window.addEventListener("load", handleShow);
 
   return (
-    <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton />
-        <Modal.Body>{title}</Modal.Body>
+    <div className={"d-flex"}>
+      {loading && <Loading />}
+      {error && <div>{error.toString()}</div>}
+      <Modal
+        className={"d-flex justify-content-center align-items-center"}
+        show={show}
+        onHide={handleClose}
+      >
+        <Modal.Header closeButton>
+          <Modal.Title style={{ fontFamily: "Bubblegum Sans" }}>
+            Velkommen til Tidsreisen!
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ fontFamily: "Source Sans Pro Semibold" }}>
+          {message}
+        </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Lukk
-          </Button>
-          {3 >= next ? (
+          {next > 4 && (
+            <Button variant="secondary" onClick={handleClose}>
+              Start reisen!
+            </Button>
+          )}
+          {4 >= next ? (
             <Button
               variant="secondary"
               onClick={() => {
@@ -68,6 +98,6 @@ export default function Popup() {
           )}
         </Modal.Footer>
       </Modal>
-    </>
+    </div>
   );
 }
