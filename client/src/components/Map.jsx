@@ -16,6 +16,17 @@ export function Map() {
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
+  const [map, setMap] = useState(null);
+  const [loaded, setLoaded] = useState(false);
+
+  const [geo, setGeo] = useState(null);
+
+  const [dbWalk, dbSetWalk] = useState(true);
+  const [walk, setWalk] = useState(dbWalk);
+
+
+
+
   let navigate = useNavigate();
 
 
@@ -34,7 +45,30 @@ export function Map() {
   // mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui - Material
   // mapbox://styles/dankni95/ckx99rrti122914qpusg9wm8j - Treasure
   // mapbox://styles/dankni95/ckwra5on906i515t7dtjqwujy - Outdoor
+  function handleWalkClick() {
 
+    loaded ?
+      (
+        walk ? (
+          geo.trigger(),
+          setWalk(false)
+        ) : (
+          document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
+          map.flyTo({
+            // These options control the ending camera position: centered at
+            // the target, at zoom level 9, and north up.
+            center: [lng, lat],
+            zoom: zoom,
+            bearing: -136.86837902659892,
+
+            // this animation is considered essential with respect to prefers-reduced-motion
+            essential: true
+          }),
+          setWalk(true)
+        )) : (
+        ""
+      )
+  }
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -46,13 +80,22 @@ export function Map() {
       zoom: zoom,
     });
 
+    // Initialize the geolocate control.
+    const geolocate = new mapboxgl.GeolocateControl({
+      positionOptions: {
+        enableHighAccuracy: true
+      },
+      trackUserLocation: true,
+    })
+
+    map.addControl(geolocate)
+
+    setGeo(geolocate)
     // Add navigation control (the +/- zoom buttons)
     // map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
     map.on("move", () => {
-      setLng(map.getCenter().lng.toFixed(4));
-      setLat(map.getCenter().lat.toFixed(4));
-      setZoom(map.getZoom().toFixed(2));
+
       /*
       console.log("Bearing: " + map.getBearing());
       console.log("Zoom: " + map.getZoom());
@@ -62,8 +105,9 @@ export function Map() {
     });
 
 
+
+
     function anim(target) {
-      console.log(target);
       map.flyTo({
         // These options control the ending camera position: centered at
         // the target, at zoom level 9, and north up.
@@ -116,7 +160,7 @@ export function Map() {
             .setHTML(
               `<div>
               <h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>
-              <button style="background-color: turquoise; border: none;" onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
+              <button class="capsule-btn" onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
               </div>`
             )
         )
@@ -126,6 +170,7 @@ export function Map() {
 
 
     map.on("load", () => {
+      setLoaded(true)
       map.addSource("route", {
         type: "geojson",
         data: {
@@ -161,9 +206,38 @@ export function Map() {
       });
     });
 
+    geolocate.on('geolocate', () => {
+      document.getElementById("stien").innerText = "På stien"
+      document.getElementById("scan-btn").style.display = "block"
 
+    });
+
+    geolocate.on('trackuserlocationend', () => {
+      document.getElementById("stien").innerText = "På skolen"
+      document.getElementById("scan-btn").style.display = "none"
+
+    });
+
+
+    setMap(map)
     return () => map.remove();
-  }, [userCoords]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    loaded ? document.getElementById("stien").style.backgroundColor = "blue" : document.getElementById("stien").style.backgroundColor = "grey"
+  }, [loaded, walk])
+
+  useEffect(() => {
+    loaded ?
+      (
+        walk ? (
+          geo.trigger(),
+          setWalk(false)
+        ) : (
+          ""
+        )) : ("")
+
+  }, [loaded])
 
 
 
@@ -175,7 +249,25 @@ export function Map() {
       {
         <div>
           <div className="map-container" ref={mapContainerRef} />
-          <Button size="lg" id="scan" variant="primary" onClick={() => handleClick()}>Scan QR</Button>
+
+          <Container id="container">
+            <Row md={8}>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+              <Col xs={4}>
+                <Button size="g" id="stien" variant="primary" onClick={() => {
+                  handleWalkClick()
+                }}>På skolen</Button>
+              </Col>
+              <Col xs={4}>
+                <Button size="g" id="scan-btn" variant="primary" onClick={() => handleClick()}>Scan QR</Button>
+              </Col>
+              <Col></Col>
+              <Col></Col>
+              <Col></Col>
+            </Row>
+          </Container>
         </div>
       }
     </>
