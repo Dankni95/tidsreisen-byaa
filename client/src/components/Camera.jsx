@@ -1,6 +1,7 @@
 import QrScanner from "qr-scanner";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { CloseButton } from "react-bootstrap";
 
 
 export default function Camera() {
@@ -25,6 +26,7 @@ export default function Camera() {
             {
                 onDecodeError: error => { },
                 highlightScanRegion: true,
+                maxScansPerSecond: 3,
             });
 
         qrScanner.start();
@@ -61,7 +63,12 @@ export default function Camera() {
 
     return (
         <>
-            <video style={{ backgroundColor: "black", position: "relative", overflow: "hidden", whiteSpace: "nowrap" }} id="qr-video" ref={videoRef}>
+            <div style={{
+                zIndex: "100", position: "absolute", overflow: "hidden", right: "0"
+            }} className="bg-dark p-3">
+                <CloseButton variant="white" onClick={() => navigate(-1)} style={{ overflow: "hidden" }} />
+            </div>
+            <video style={{ backgroundColor: "black", position: "a", overflow: "hidden", whiteSpace: "nowrap" }} id="qr-video" ref={videoRef}>
             </video>
         </>
     )
