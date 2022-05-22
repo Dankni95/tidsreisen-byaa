@@ -1,5 +1,5 @@
 .map-container {
-  position: absolute;
+  position: relative;
   top: 0;
   bottom: 0;
   left: 0;
@@ -10,10 +10,10 @@
 body {
   margin: 0;
   padding: 0;
+  overflow: hidden;
 }
 
 #map {
-  position: relative;
   top: 0;
   bottom: 0;
   width: 100%;
@@ -36,16 +36,16 @@ body {
   text-align: center;
 }
 
-#stien {
-  position: absolute;
-  top: 90%;
-}
 
-#scan-btn {
-  display: none;
+#scan-btn{
   position: absolute;
-  background-color: blue;
-  top: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  text-align: center;
 }
 
 
@@ -67,9 +67,7 @@ body {
   min-height: 40px;
   min-width: 0px;
   overflow: hidden;
-  padding: 0px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding: 0px 20px;
   text-align: center;
   touch-action: manipulation;
   transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;

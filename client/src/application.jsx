@@ -18,11 +18,8 @@ export function Application() {
   const { getUser } = useContext(UserContext);
   const { data: username, reload, loading, error } = useLoading(getUser);
 
-
   useEffect(() => {
-    username ? (
-      setUser(username)
-    ) : ""
+    username ? setUser(username) : reload();
   }, [username]);
 
   return (
@@ -34,12 +31,12 @@ export function Application() {
         <Routes>
           <Route path="/" element={<StartPage style={{ height: "100vh" }} />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/map" element={<Map username={user} loading={loading} error={error} />} />
-          <Route path="/quiz/:id" element={<Quiz username={user} />} />
           <Route
-            path="/history/:id"
-            element={<History username={user} />}
+            path="/map"
+            element={<Map username={user} loading={loading} error={error} />}
           />
+          <Route path="/quiz/:id" element={<Quiz username={user} />} />
+          <Route path="/history/:id" element={<History username={user} />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/myfindings" element={<MyFindings />} />
           {/*<Route path="/intro" element={<IntroMap />} />*/}

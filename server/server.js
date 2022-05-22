@@ -41,9 +41,8 @@ await mongoClient.connect().then(async () => {
 
   app.use(
     "/api/update-state",
-    UserState(
-      mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
-    )
+    UserState(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+  );
 });
 
 app.get("/api/deleteCookie", (req, res) => {
