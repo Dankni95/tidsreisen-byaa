@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useRef, useEffect, useState, useContext, useMemo } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -12,11 +12,12 @@ import { useLoading } from "../helpers/useLoading.jsx";
 import { Button, Container, Row, Col } from "react-bootstrap";
 import AnimatedPopup from "mapbox-gl-animated-popup";
 import { useNavigate } from "react-router-dom";
+import { postJSON } from "../helpers/http.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
-export function Map({username, loading, error}) {
+export function Map({ username, loading, error }) {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
@@ -25,8 +26,6 @@ export function Map({username, loading, error}) {
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState(false);
   const [intro, setIntro] = useState(true);
-
-
 
 
   const [geo, setGeo] = useState(null);
@@ -39,34 +38,37 @@ export function Map({username, loading, error}) {
   const [userCoords, setUserCoords] = useState(0);
 
   if (userCoords === 0) {
-    navigator.geolocation.getCurrentPosition(function (position) {
+    navigator.geolocation.getCurrentPosition(function(position) {
       setUserCoords([position.coords.longitude, position.coords.latitude]);
     });
   }
 
-  // Initialize map when component mounts
-
-  // Styles:
-  // mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui - Material
-  // mapbox://styles/dankni95/ckx99rrti122914qpusg9wm8j - Treasure
-  // mapbox://styles/dankni95/ckwra5on906i515t7dtjqwujy - Outdoor
-  function handleWalkClick() {
+  async function handleWalkClick() {
     loaded
       ? walk
-        ? (geo.trigger(), setWalk(false))
-        : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
-          map.flyTo({
-            // These options control the ending camera position: centered at
-            // the target, at zoom level 9, and north up.
-            center: [lng, lat],
-            zoom: zoom,
-            bearing: -136.86837902659892,
+        ?
+        (
+          geo.trigger(),
+            setWalk(false),
+            await postJSON("/api/update-state", { user: user.name, walk: false })
+        )
+        :
+        (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
+            map.flyTo({
+              // These options control the ending camera position: centered at
+              // the target, at zoom level 9, and north up.
+              center: [lng, lat],
+              zoom: zoom,
+              bearing: -136.86837902659892,
 
-            // this animation is considered essential with respect to prefers-reduced-motion
-            essential: true,
-          }),
-          setWalk(true))
-      : "";
+              // this animation is considered essential with respect to prefers-reduced-motion
+              essential: true,
+            }),
+            setWalk(true),
+            await postJSON("/api/update-state", { user: user.name, walk: true })
+        )
+      :
+      "";
   }
 
   useEffect(() => {
@@ -220,16 +222,18 @@ export function Map({username, loading, error}) {
   }, [loaded, walk]);
 
   useEffect(() => {
+    console.log(walk);
     loaded ? (walk ? (geo.trigger(), setWalk(false)) : "") : "";
   }, [loaded]);
 
   function handleClick() {
     navigate("/camera");
   }
+
   useEffect(() => {
     username ? (
-      setUser(username[0].name),
-      setWalk(username[0].walk),
+      setUser(username[0]),
+        setWalk(username[0].walk),
         setIntro(username[0].intro)
     ) : ""
   }, [username]);
@@ -273,7 +277,7 @@ export function Map({username, loading, error}) {
               <Col></Col>
             </Row>
           </Container>
-          {intro ? <Popup username={user} loading={loading} error={error} /> : ""}
+          {intro ? <Popup username={user.name} intro={user.intro} loading={loading} error={error} /> : ""}
         </div>
       }
     </>

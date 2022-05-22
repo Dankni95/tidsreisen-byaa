@@ -5,8 +5,9 @@ import { CapsuleButtonGreen } from "./CapsuleButton.jsx";
 import { BsArrowRight } from "react-icons/bs";
 import "./popup.css";
 import olaf from "./iben-from-front.png";
+import { postJSON } from "../helpers/http.jsx";
 
-export default function Popup({ username, loading, error }) {
+export default function Popup({ username, intro , loading, error }) {
   const [show, setShow] = useState(true);
 
   const [message, setMessage] = useState(() => {
@@ -72,16 +73,18 @@ export default function Popup({ username, loading, error }) {
     });
   }
 
-  const handleClose = () => {
-
+  const handleClose = async () => {
+    await postJSON("/api/update-state", {
+      user: username,
+      intro: false,
+    })
     setShow(false);
   }
   const handleNext = () => setNext(next + 1);
   const handleShow = () => setShow(true);
 
-  // TODO: Her må staten til intro lagres per bruker i MONGODB
 
-  if (next < 4) window.addEventListener("load", handleShow);
+  if (intro) window.addEventListener("load", handleShow);
 
   return (
     <div>

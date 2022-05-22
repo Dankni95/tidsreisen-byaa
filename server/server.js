@@ -8,6 +8,7 @@ import { QuizApi } from "./quizApi.js";
 import { HistoryApi } from "./historyApi.js";
 import { SoundApi } from "./soundApi.js";
 import { LoginApi } from "./loginApi.js";
+import { UserState } from "./UserState.js";
 
 dotenv.config();
 
@@ -37,6 +38,12 @@ await mongoClient.connect().then(async () => {
     "/api/login",
     LoginApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
   );
+
+  app.use(
+    "/api/update-state",
+    UserState(
+      mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+    )
 });
 
 app.get("/api/deleteCookie", (req, res) => {

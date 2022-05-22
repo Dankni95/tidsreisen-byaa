@@ -8,8 +8,6 @@ export function LoginApi(mongoDatabase) {
   router.get("/", async (req, res) => {
     const { user } = req.signedCookies;
 
-    console.log(user);
-
     const userData = await mongoDatabase
       .collection("user")
       .find({ name: user.toLowerCase() })
