@@ -5,10 +5,10 @@ import { useState, react, useContext } from "react";
 import { Container, Button } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
+import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 
-export function Quiz() {
+export function Quiz({ username }) {
   const { id } = useParams();
-
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPoints, setShowPoints] = useState(false);
   const [score, setScore] = useState(0);
@@ -17,6 +17,10 @@ export function Quiz() {
   const { listQuiz } = useContext(DatabaseContext);
 
   const { loading, error, data } = useLoading(async () => await listQuiz({id}), [id]);
+
+  if (!username) {
+    return <NotLoggedIn />;
+  }
 
   if (loading) {
     return <div>Loading...</div>;
@@ -42,8 +46,6 @@ export function Quiz() {
       setShowPoints(true);
     }
   }
-
-  console.log(id)
 
     return (
         <main className="quiz" style={{display: "grid", placeItems: "center"}}>

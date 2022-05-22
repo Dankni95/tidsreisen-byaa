@@ -1,39 +1,75 @@
-import React, { useRef, useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
+import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
+import { Loading } from "./Loading.jsx";
+import { CapsuleButtonGreen } from "./CapsuleButton.jsx";
+import { BsArrowRight } from "react-icons/bs";
+import "./popup.css";
+import olaf from "./iben-from-front.png";
 
-export default function Popup() {
+export default function Popup({ username, loading, error }) {
   const [show, setShow] = useState(true);
-  const [title, setTitle] = useState(
-    "Velkommen til tidsreisen! Bruk menyen nederst for å navigere mellom kart og din profil."
-  );
 
-  const titles = [
+  const [message, setMessage] = useState(() => {
+    return (
+      <div>
+        Trykk på <BsArrowRight /> for å lære litt om appen
+      </div>
+    );
+  });
+
+  const messages = [
+    {
+      id: 1,
+      content: (
+        <p className={"intro-content"}>
+          Heisann {username}, jeg heter Olaf! Velkommen til Tidsreisen i Byåa.
+          Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan
+          denne reisen fungerer. Bli med da vel!
+        </p>
+      ),
+    },
     {
       id: 2,
-      title:
-        "Trykk på de forskjellige sirklene på kartet for å se hva som skjuler seg!",
+      content: (
+        <p className={"intro-content"}>
+          Beveg deg rundt på turstien og utforsk hvordan det så ut i Byåa i
+          gamle dager ved å ta bilde av QR-koder plassert på områdene.
+        </p>
+      ),
     },
     {
       id: 3,
-      title:
-        "Du får poeng for de forskjellige tidskapslene du klarer å finne. Håper du finner dem alle! Lykke til!",
+      content: (
+        <p className={"intro-content"}>
+          Da vil du oppdage de forskjellige tidskapslene: lyd, historie og
+          oppgaver som vil gi deg enten et lydopptak, historie med bilder eller
+          oppgaver du svarer på.
+        </p>
+      ),
+    },
+    {
+      id: 4,
+      content: (
+        <p className={"intro-content"}>
+          Du får poeng for de forskjellige tidskapslene du gjør ferdig. Håper du
+          finner dem alle!
+          <br />
+          Husk å ha det gøy og lykke til {username}!
+        </p>
+      ),
     },
   ];
 
-  const [next, setNext] = useState(2);
+  const [next, setNext] = useState(1);
 
   function changeTitle(id) {
-    if (id > 3) handleClose();
+    if (id > 4) handleClose();
 
-    setTitle(
-      titles.map((item) => {
-        if (item.id === id) {
-          console.log(item.title);
-          return item.title;
-        }
-      })
-    );
+    messages.map((modalMessage) => {
+      if (modalMessage.id === id) {
+        setMessage(modalMessage.content);
+      }
+    });
   }
 
   const handleClose = () => setShow(false);
@@ -42,32 +78,57 @@ export default function Popup() {
 
   // TODO: Her må staten til intro lagres per bruker i MONGODB
 
-  if (next < 3) window.addEventListener("load", handleShow);
+  if (next < 4) window.addEventListener("load", handleShow);
 
   return (
-    <>
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton />
-        <Modal.Body>{title}</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Lukk
-          </Button>
-          {3 >= next ? (
-            <Button
-              variant="secondary"
-              onClick={() => {
-                handleNext();
-                changeTitle(next);
-              }}
-            >
-              Neste
-            </Button>
-          ) : (
-            ""
-          )}
-        </Modal.Footer>
-      </Modal>
-    </>
+    <div>
+      {loading && <Loading />}
+      {error && <div>{error.toString()}</div>}
+      {username && (
+        <Modal
+          className={"d-flex justify-content-center align-items-center"}
+          show={show}
+          onHide={handleClose}
+        >
+          {/*<div id={"olaf"}>
+          <img src={olaf} alt="bilde av intro-olaf" />
+        </div>*/}
+          <Modal.Header className={"my-modal"} closeButton>
+            <Modal.Title style={{ fontFamily: "Bubblegum Sans" }}>
+              Velkommen til Tidsreisen!
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body className={"my-modal"}>
+            <img src={olaf} alt="bilde av intro-olaf" />
+            <div>{message}</div>
+          </Modal.Body>
+          <Modal.Footer className={"d-flex justify-content-center my-modal"}>
+            <div className={"d-flex flex-column"}>
+              {next > 4 && (
+                <CapsuleButtonGreen
+                  className={"justify-content-center align-content-center"}
+                  buttonText={"Start reisen!"}
+                  onClick={handleClose}
+                />
+              )}
+            </div>
+            {4 >= next ? (
+              <BsArrowRight
+                style={{
+                  fontSize: "2.5rem",
+                  color: "var(--backgroundColorGreeny)",
+                }}
+                onClick={() => {
+                  handleNext();
+                  changeTitle(next);
+                }}
+              />
+            ) : (
+              ""
+            )}
+          </Modal.Footer>
+        </Modal>
+      )}
+    </div>
   );
 }
