@@ -5,12 +5,17 @@ import { Loading } from "../../../components/Loading.jsx";
 import imageSawEffect from "./sag-effekt.png";
 import iben from "./Iben.png";
 import { StoryCard } from "./StoryCard.jsx";
+import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 
-export function History() {
+export function History({ username }) {
   const { listHistory } = useContext(DatabaseContext);
   const { data, error, loading, reload } = useLoading(
     async () => await listHistory()
   );
+
+  if (!username) {
+    return <NotLoggedIn />;
+  }
 
   return (
     <div
