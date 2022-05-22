@@ -24,6 +24,8 @@ export function Map({username, loading, error}) {
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const [user, setUser] = useState(false);
+  const [intro, setIntro] = useState(true);
+
 
 
 
@@ -226,7 +228,9 @@ export function Map({username, loading, error}) {
   }
   useEffect(() => {
     username ? (
-      setUser(username[0].name)
+      setUser(username[0].name),
+      setWalk(username[0].walk),
+        setIntro(username[0].intro)
     ) : ""
   }, [username]);
 
@@ -269,7 +273,7 @@ export function Map({username, loading, error}) {
               <Col></Col>
             </Row>
           </Container>
-          <Popup username={user} loading={loading} error={error} />
+          {intro ? <Popup username={user} loading={loading} error={error} /> : ""}
         </div>
       }
     </>

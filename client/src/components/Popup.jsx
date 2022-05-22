@@ -72,7 +72,10 @@ export default function Popup({ username, loading, error }) {
     });
   }
 
-  const handleClose = () => setShow(false);
+  const handleClose = () => {
+
+    setShow(false);
+  }
   const handleNext = () => setNext(next + 1);
   const handleShow = () => setShow(true);
 
