@@ -1,17 +1,29 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { Loading } from "../../../components/Loading.jsx";
 import imageSawEffect from "./sag-effekt.png";
-import iben from "./Iben.png";
 import { StoryCard } from "./StoryCard.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 
 export function History({ username }) {
+  const [error, setEror] = useState();
   const { listHistory } = useContext(DatabaseContext);
-  const { data, error, loading, reload } = useLoading(
-    async () => await listHistory()
-  );
+  const {
+    data,
+    error: errorHistory,
+    loading,
+    reload,
+  } = useLoading(async () => await listHistory());
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (errorHistory) {
+    setEror(errorHistory);
+    return <div>{error.toString()}</div>;
+  }
 
   if (!username) {
     return <NotLoggedIn />;
@@ -29,16 +41,9 @@ export function History({ username }) {
         src={imageSawEffect}
         alt="bilde av vann sag effekt bakgrunn"
       />
-      <img
-        style={{ marginTop: "7rem", zIndex: "1", position: "absolute" }}
-        src={iben}
-        alt="bilde av figur"
-      />
-      {loading && <Loading />}
-      {error && <div>{error.toString()}</div>}
       {data && (
         // dette er parenten til hele siden
-        <div className={"p-4"}>
+        <div>
           {data?.map((historyCapsule, index) => {
             return (
               <div key={index}>
