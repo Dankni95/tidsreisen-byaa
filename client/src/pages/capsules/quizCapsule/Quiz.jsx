@@ -16,13 +16,14 @@ export function Quiz({ username }) {
 
   const { loading, error, data } = useLoading(async () => await listQuiz(), []);
 
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   if (!username) {
     return <NotLoggedIn />;
   }
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   if (error) {
     return (
       <div>

@@ -16,16 +16,16 @@ import { useNavigate } from "react-router-dom";
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
-export function Map() {
+export function Map({username, loading, error}) {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [user, setUser] = useState(false);
 
-  const { getUser } = useContext(UserContext);
-  const { data: username, reload, loading, error } = useLoading(getUser);
+
 
   const [geo, setGeo] = useState(null);
 
@@ -224,6 +224,12 @@ export function Map() {
   function handleClick() {
     navigate("/camera");
   }
+  useEffect(() => {
+    username ? (
+      setUser(username[0].name)
+    ) : ""
+  }, [username]);
+
 
   return (
     <>
@@ -263,7 +269,7 @@ export function Map() {
               <Col></Col>
             </Row>
           </Container>
-          <Popup username={username} loading={loading} error={error} />
+          <Popup username={user} loading={loading} error={error} />
         </div>
       }
     </>
