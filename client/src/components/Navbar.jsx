@@ -44,15 +44,25 @@ export function Navbar() {
               </li>
               {NavbarData.map((item, index) => {
                 return (
-                  <li key={index} className={item.className}>
-                    <Link to={item.path}>
-                      {item.icon}
-                      <span>{item.title}</span>
-                    </Link>
-                  </li>
+                  <div id={"navbar-children-container"}>
+                    <li key={index} className={item.className}>
+                      {item.logout ? (
+                        // only returns the onClick if the object is the logout object
+                        <Link onClick={logOut} to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                      ) : (
+                        // returns the rest of the objects
+                        <Link to={item.path}>
+                          {item.icon}
+                          <span>{item.title}</span>
+                        </Link>
+                      )}
+                    </li>
+                  </div>
                 );
               })}
-              <button onClick={logOut}>Logg ut</button>
             </ul>
           </nav>
         </IconContext.Provider>
