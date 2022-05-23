@@ -68,6 +68,7 @@ const Play = ({ songInfo, setSongInfo, setDrag }) => {
           <FaPlay onClick={handlePlay} size={25} />
         )}
       </div>
+
       <audio
         onLoadedMetadata={timeUpdateHandler}
         onTimeUpdate={timeUpdateHandler}
