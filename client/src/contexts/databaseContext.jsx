@@ -6,6 +6,6 @@ export const DatabaseContext = createContext({
     return await fetchJSON_client("/api/history");
   },
   async listQuiz(query) {
-    return await fetchJSON("/api/quiz?" + new URLSearchParams(query))
-  }
+    return await fetchJSON_client("/api/quiz?" + new URLSearchParams(query));
+  },
 });
