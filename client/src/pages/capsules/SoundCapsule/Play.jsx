@@ -9,7 +9,7 @@ const Play = ({ songInfo, setSongInfo, setDrag }) => {
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  let audioUrl = require("./Sound/dovregubben.mp3");
+  let audioUrl = require("./Sound/david.wav");
   /*  const { data, error, loading, reload } = useLoading(() =>
     fetchJSON("/api/sound")
   ); */
