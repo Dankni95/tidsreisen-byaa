@@ -1,7 +1,7 @@
 import React from "react";
-import { MdAudiotrack, MdQuiz } from "react-icons/md";
-import { GiBackwardTime } from "react-icons/gi";
 import { FaMapSigns, FaUser } from "react-icons/fa";
+import { BiLogOut } from "react-icons/bi";
+import "./navbar.css";
 
 export const NavbarData = [
   {
@@ -11,27 +11,16 @@ export const NavbarData = [
     className: "nav-text-map",
   },
   {
-    title: "Quiz",
-    path: "/quiz",
-    icon: <MdQuiz />,
-    className: "nav-text-child",
-  },
-  {
-    title: "Historie",
-    path: "/history",
-    icon: <GiBackwardTime />,
-    className: "nav-text-child",
-  },
-  {
-    title: "Lyd",
-    path: "/audio",
-    icon: <MdAudiotrack />,
-    className: "nav-text-child",
-  },
-  {
     title: "Min profil",
     path: "/profile",
     icon: <FaUser />,
     className: "nav-text-profile",
+  },
+  {
+    title: "Logg ut",
+    path: "/login",
+    icon: <BiLogOut />,
+    className: "nav-text-logout",
+    logout: true,
   },
 ];
