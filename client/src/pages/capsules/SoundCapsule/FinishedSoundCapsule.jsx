@@ -7,7 +7,7 @@ const FinishedSoundCapsule = () => {
       <h3 className="text-capsule fw-bold">Fullført lydkapselen</h3>
       <h4>+20 poeng</h4>
       <Link to="/">
-        <button>Finn flere</button>
+        <CapsuleButton />
       </Link>
     </div>
   );
