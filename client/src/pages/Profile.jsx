@@ -1,5 +1,6 @@
 import React from "react";
 import { NotLoggedIn } from "../components/NotLoggedIn.jsx";
+import "./profile.css";
 
 function ProgressBar({ color, progress }) {
 
@@ -43,8 +44,8 @@ export function Profile({username}) {
     }
 
     return (
-        <div>
-            <h1>{username}</h1>
+        <div className="container">
+            <h1>{username} hello</h1>
             <br/>
             <br/>
             <br/>
