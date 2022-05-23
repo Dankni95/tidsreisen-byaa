@@ -57,8 +57,8 @@ export function Quiz({ username }) {
                   Du har {score}/{data.length} riktige
                 </h3>
                 <h5 className="points">+ {points} poeng!</h5>
-                <a href={"/"}>Finn flere </a>
-                <a href={"/"}>Mine funn</a>
+                <a href={"/map"}>Finn flere </a>
+                <a href={"/myfindings"}>Mine funn</a>
               </div>
           ) : (
               <Container className="quiz-items">
