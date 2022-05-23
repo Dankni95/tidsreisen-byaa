@@ -1,45 +1,59 @@
 import "./login.css";
 import logo from "./relingenLogo.png";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "./CapsuleButton.jsx";
 import { checkUser, postJSON } from "../helpers/http.jsx";
 import Alert from "react-bootstrap/Alert";
+import { useLoading } from "../helpers/useLoading";
+import { UserContext } from "../application";
 
 //TODO: Lagre bruker i cookie
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const [user, setUser] = useContext(UserContext)
+  const [userState, setUserState] = useState("")
+
   const [exists, setExists] = useState("");
   const [oldUser, setOldUser] = useState("");
   const location = useLocation();
 
   const navigate = useNavigate();
+  const { getUser } = useContext(UserContext);
+  const { data: username, reload, loading, error } = useLoading(getUser);
 
   async function handleSubmit(event) {
-    console.log(location.search);
     event.preventDefault();
 
-    console.log("up: " + event.nativeEvent.submitter.value);
 
     if (event.nativeEvent.submitter.value !== "") {
       await postJSON("api/login", { user: oldUser, force: true });
       navigate("/map");
     } else {
-      const res = await checkUser(`name=${username}`);
+      const res = await checkUser(`name=${userState}`);
       console.log("resss in login: " + res);
 
       if (res.length > 0) {
         setExists(true);
         setOldUser(res[0].name);
       } else {
-        console.log("creating user: " + username);
-        await postJSON("/api/login", { user: username });
+        console.log("creating user: " + userState);
+        await postJSON("/api/login", { user: userState });
         navigate("/map");
       }
     }
   }
+
+
+  useEffect(() => {
+    console.log("username: " + username);
+    username ? setUser(
+      ...user,
+      user
+    )
+      : reload();
+  }, [username]);
 
   return (
     <section id="login">
@@ -54,7 +68,7 @@ export default function Login() {
             name="username"
             required
             value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={(e) => setUserState(e.target.value)}
           />
         </div>
         {exists ? (

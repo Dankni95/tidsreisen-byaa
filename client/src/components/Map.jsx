@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -9,19 +9,22 @@ import Popup from "./Popup.jsx";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { postJSON } from "../helpers/http.jsx";
+import { UserContext } from "../application";
+
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
-export function Map({ username, loading, error }) {
+export function Map() {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState(false);
   const [intro, setIntro] = useState(true);
+
+  const [user, setUser] = useContext(UserContext)
 
   const [geo, setGeo] = useState(null);
 
@@ -29,13 +32,6 @@ export function Map({ username, loading, error }) {
 
   let navigate = useNavigate();
 
-  const [userCoords, setUserCoords] = useState(0);
-
-  if (userCoords === 0) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setUserCoords([position.coords.longitude, position.coords.latitude]);
-    });
-  }
 
   async function handleWalkClick() {
     loaded
@@ -211,13 +207,13 @@ export function Map({ username, loading, error }) {
   }
 
   useEffect(() => {
-    username
-      ? (console.log(username),
-        setUser(username[0]),
-        setWalk(username[0].walk),
-        setIntro(username[0].intro))
+    user
+      ? (console.log(user),
+        setUser(user[0]),
+        setWalk(user[0].walk),
+        setIntro(user[0].intro))
       : "";
-  }, [username]);
+  }, [user]);
 
   return (
     <>
