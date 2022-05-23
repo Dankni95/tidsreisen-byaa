@@ -1,10 +1,10 @@
 import React from "react";
-import "./myfindings.css";
+import { MyFindingsCard } from "../components/MyFindingsCard.jsx";
 
-export function MyFindings() {
+export function MyFindings({ user }) {
   return (
     <div id={"container"} className={"container"}>
-      <p>Liste over mine funn nedover her... (WORK NOT STARTED ON)</p>
+      <MyFindingsCard user={user} />
     </div>
   );
 }

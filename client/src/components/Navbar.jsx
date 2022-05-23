@@ -56,8 +56,8 @@ export function Navbar() {
               </li>
               {NavbarData.map((item, index) => {
                 return (
-                  <div id={"navbar-children-container"}>
-                    <li key={index} className={item.className}>
+                  <div key={index} id={"navbar-children-container"}>
+                    <li className={item.className}>
                       {item.logout ? (
                         // only returns the onClick if the object is the logout object
                         <Link onClick={logOut} to={item.path}>
