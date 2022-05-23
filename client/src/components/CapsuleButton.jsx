@@ -6,6 +6,7 @@ export const CapsuleButtonYellow = (props) => {
       <button
         onClick={props.onClick}
         type={props.submit}
+        value={props.exists}
         id="button-capsules-yellow"
       >
         {props.buttonText}

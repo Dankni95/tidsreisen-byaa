@@ -7,6 +7,9 @@ import { Scrollbar } from "swiper";
 import { SwiperSlide } from "swiper/react/swiper-react.js";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
+import olafLeft from "./olaf-left.png";
+import olafInfront from "./olaf-infront.png";
+import "./storycard.css";
 
 export function StoryCard({ historyCapsule, error, loading }) {
   const navigate = useNavigate();
@@ -15,129 +18,157 @@ export function StoryCard({ historyCapsule, error, loading }) {
   const navigateToMap = () => navigate("/map");
   const navigateToMyFindings = () => navigate("/myfindings");
 
+  const olafHiderLeft = () =>
+    (document.querySelector("#olaf-left").style.display = "none");
+
+  const olafDisplayerLeft = () =>
+    (document.querySelector("#olaf-left").style.display = "block");
+
   if (historyCapsule.category.toLowerCase() === id.toLowerCase()) {
     return (
-      <div
-        /*className={"swiper-wrapper"}*/
-        style={{ position: "relative", zIndex: "0" }}
-      >
-        <div style={{ position: "relative" }}>
-          <h3
-            className={"text-center"}
-            style={{
-              color: "var(--textColorGray)",
-              fontFamily: "Source Sans Pro Semibold",
-            }}
-          >
-            Historiekapsel
-          </h3>
-          <h1
-            className={"text-center"}
-            style={{
-              color: "var(--backgroundColorGreeny)",
-              fontFamily: "Source Sans Pro Bold",
-            }}
-          >
-            {historyCapsule.category}
-          </h1>
+      <div>
+        <div id={"olaf-left-div"}>
+          <img
+            id={"olaf-left"}
+            src={olafLeft}
+            alt="bilde av olaf på venstre side"
+          />
         </div>
-        <Swiper
-          modules={[Scrollbar]}
-          spaceBetween={100}
-          slidesPerView={1}
-          scrollbar={{ draggable: true }}
-          onSlideChange={() => console.log("slide change")}
-          onSwiper={(swiper) => console.log(swiper)}
-        >
-          {historyCapsule.story.map((historyCapsule, index) => {
-            return (
-              <SwiperSlide key={index} className={"slide"}>
-                {historyCapsule.done === true ? (
-                  <div style={{ height: "35rem" }}>
-                    <div className={"d-flex justify-content-center mt-3"}>
-                      <h1
-                        style={{
-                          fontSize: "1.5rem",
-                          fontFamily: "Source Sans Pro Bold",
-                          color: "var(--backgroundColorGreeny)",
-                        }}
-                      >
-                        Fullført historiekapselen!
-                      </h1>
-                    </div>
-                    <div
-                      className={
-                        "d-flex justify-content-center flex-column align-items-center h-100"
-                      }
-                    >
-                      <div className={"mb-5"}>
-                        <p
+        <div className={"p-4"} style={{ position: "relative", zIndex: "0" }}>
+          <div style={{ position: "relative" }}>
+            <h3
+              className={"text-center"}
+              style={{
+                color: "var(--textColorGray)",
+                fontFamily: "Source Sans Pro Semibold",
+              }}
+            >
+              Historiekapsel
+            </h3>
+            <h1
+              className={"text-center"}
+              style={{
+                color: "var(--backgroundColorGreeny)",
+                fontFamily: "Source Sans Pro Bold",
+              }}
+            >
+              {historyCapsule.category}
+            </h1>
+          </div>
+          <Swiper
+            modules={[Scrollbar]}
+            centeredSlides={true}
+            spaceBetween={100}
+            slidesPerView={1}
+            scrollbar={{ draggable: true }}
+            onSlideNextTransitionStart={() => olafHiderLeft()}
+            onReachBeginning={() => olafDisplayerLeft()}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            {historyCapsule.story.map((historyCapsule, index) => {
+              return (
+                <SwiperSlide key={index} className={"slide"}>
+                  {historyCapsule.done === true ? (
+                    <div style={{ height: "35rem" }}>
+                      <div className={"d-flex justify-content-center mt-3"}>
+                        <h1
                           style={{
-                            fontFamily: "Source Sans Pro Semibold",
-                            fontSize: "1.7rem",
+                            fontSize: "1.5rem",
+                            fontFamily: "Source Sans Pro Bold",
+                            color: "var(--backgroundColorGreeny)",
                           }}
                         >
-                          +20 poeng
-                        </p>
+                          Fullført historiekapselen!
+                        </h1>
                       </div>
-                      <div className={"d-flex flex-column mt-5"}>
-                        <div className={"mb-3"}>
-                          <CapsuleButtonGreen
-                            onClick={navigateToMap}
-                            buttonText={"Finn flere"}
+                      <div
+                        id={"olaf-infront-div"}
+                        className={
+                          "w-100 h-50 d-flex align-content-center flex-row justify-content-center gap-3"
+                        }
+                      >
+                        <div style={{ marginTop: "3rem" }}>
+                          <img
+                            height={200}
+                            /*className={"img-fluid"}*/
+                            src={olafInfront}
+                            alt="bilde av olaf på fullført side"
                           />
                         </div>
-                        <div>
-                          <CapsuleButtonGreen
-                            onClick={navigateToMyFindings}
-                            buttonText={"Mine funn"}
-                          />
+
+                        <div
+                          style={{ marginTop: "2rem" }}
+                          className={"flex-shrink-1"}
+                        >
+                          <div className="left-point"></div>
+                          <p id={"finish-paragraph"}>
+                            Godt jobbet!
+                            <br /> Du har gjennomført en kapsel og fått poeng
+                            for det, og kanskje til og med lært noe nytt om
+                            Byåa!
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        className={
+                          "d-flex justify-content-center flex-column align-items-center"
+                        }
+                      >
+                        <div className={"mb-5"}>
+                          <p id={"history-points"}>+20 poeng</p>
+                        </div>
+                        <div className={"d-flex flex-column"}>
+                          <div className={"mb-3"}>
+                            <CapsuleButtonGreen
+                              onClick={navigateToMap}
+                              buttonText={"Finn flere"}
+                            />
+                          </div>
+                          <div>
+                            <CapsuleButtonGreen
+                              onClick={navigateToMyFindings}
+                              buttonText={"Mine funn"}
+                            />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                ) : (
-                  <div /*className={"swiper-slide"}*/ key={index}>
-                    {/*{year === historyCapsule.year ? (*/}
-                    <div className={"slide-content"}>
-                      <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
-                        {historyCapsule.image && (
-                          <img
-                            className={"card-img"}
-                            src={historyCapsule.image}
-                            alt={"bilde av vannsag"}
-                          />
-                        )}
-                      </div>
-                      <section
-                        style={{
-                          minHeight: "12rem",
-                          fontFamily: "Source Sans Pro Semibold",
-                        }}
-                        className={"mt-4"}
-                      >
-                        <p>{historyCapsule.story}</p>
-                      </section>
-                      {/*<div>
+                  ) : (
+                    <div /*className={"swiper-slide"}*/ key={index}>
+                      {/*{year === historyCapsule.year ? (*/}
+                      <div className={"slide-content"}>
+                        <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
+                          {historyCapsule.image && (
+                            <img
+                              className={"card-img"}
+                              src={historyCapsule.image}
+                              alt={"bilde av vannsag"}
+                            />
+                          )}
+                        </div>
+                        <section id={"story-section"} className={"mt-4"}>
+                          <p id={"story-paragraph"}>{historyCapsule.story}</p>
+                        </section>
+                        {/*<div>
                       <p className={"blockquote-footer"}>
                         år {historyCapsule.year}
                       </p>
                     </div>*/}
-                      <div
-                        style={{ margin: "1rem", background: "transparent" }}
-                        className={"swiper-scrollbar text-center"}
-                      >
-                        {historyCapsule.year}
+                        <div
+                          id={"year"}
+                          className={"swiper-scrollbar text-center"}
+                        >
+                          <p>{historyCapsule.year}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                )}
-              </SwiperSlide>
-            );
-          })}
-        </Swiper>
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
 
-        {/*        <div className={"d-flex justify-content-between gap-3 flex-column"}>
+          {/*        <div className={"d-flex justify-content-between gap-3 flex-column"}>
           {userCoordinates.story.map((buttonYear, index) => {
             return (
               <div key={index} style={{ textAlign: "center" }}>
@@ -153,6 +184,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
             );
           })}
         </div>*/}
+        </div>
       </div>
     );
   }
