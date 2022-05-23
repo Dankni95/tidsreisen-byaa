@@ -134,30 +134,27 @@ export function StoryCard({ historyCapsule, error, loading }) {
                       </div>
                     </div>
                   ) : (
-                    <div /*className={"swiper-slide"}*/ key={index}>
+                    <div className={"swiper-slide"} key={index}>
                       {/*{year === historyCapsule.year ? (*/}
                       <div className={"slide-content"}>
-                        <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
-                          {historyCapsule.image && (
-                            <img
-                              className={"card-img"}
-                              src={historyCapsule.image}
-                              alt={"bilde av vannsag"}
-                            />
-                          )}
+                        <div>
+                          <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
+                            {historyCapsule.image && (
+                              <section>
+                                <img
+                                  id={"history-image"}
+                                  className={"card-img"}
+                                  src={historyCapsule.image}
+                                  alt={"bilde av historie-element"}
+                                />
+                              </section>
+                            )}
+                          </div>
+                          <section id={"story-section"} className={"mt-4"}>
+                            <p id={"story-paragraph"}>{historyCapsule.story}</p>
+                          </section>
                         </div>
-                        <section id={"story-section"} className={"mt-4"}>
-                          <p id={"story-paragraph"}>{historyCapsule.story}</p>
-                        </section>
-                        {/*<div>
-                      <p className={"blockquote-footer"}>
-                        år {historyCapsule.year}
-                      </p>
-                    </div>*/}
-                        <div
-                          id={"year"}
-                          className={"swiper-scrollbar text-center"}
-                        >
+                        <div id={"year"}>
                           <p>{historyCapsule.year}</p>
                         </div>
                       </div>

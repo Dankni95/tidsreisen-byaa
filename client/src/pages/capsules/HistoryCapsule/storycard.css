@@ -1,23 +1,87 @@
 #olaf-left {
-    position: absolute;
-    margin-top: 7rem;
-    z-index: 5;
-    pointer-events: none;
+  position: absolute;
+  margin-top: 7rem;
+  z-index: 5;
+  pointer-events: none;
 }
 
+#history-image {
+  max-height: 340px;
+
+  /*todo fjerne shadow på alle bilder og heller gjøre det via css*/
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
 
 #olaf-infront {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 #finish-paragraph {
-    padding: 0.7rem;
-    border-radius: 20px;
-    color: var(--textColorGray);
-    background-color: #fff;
+  padding: 0.7rem;
+  border-radius: 20px;
+  color: var(--textColorGray);
+  background-color: #fff;
 }
 
-.left-point{
+.left-point {
+  z-index: -1;
+  width: 0;
+  height: 0;
+  border-left: 2vh solid transparent;
+  border-right: 2vh solid transparent;
+  border-top: 5vh solid #fff;
+  position: fixed;
+  top: 23%;
+  left: 40%;
+  transform: rotate(60deg);
+}
+
+.swiper-horizontal > .swiper-scrollbar {
+  height: 1rem;
+  position: fixed;
+  margin: 2rem;
+  width: 80%;
+}
+
+.swiper-slide {
+  height: 100vh;
+  width: 100%;
+}
+
+#year {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  width: 100%;
+  bottom: 23%;
+}
+
+#year p {
+  font-family: "Source Sans Pro Semibold", sans-serif;
+  background: transparent;
+  font-size: 2rem;
+}
+
+#year,
+#story-paragraph,
+#finish-paragraph {
+  font-family: "Source Sans Pro Bold", sans-serif;
+  font-size: 1.125rem;
+}
+
+#story-section {
+  min-height: 12rem;
+  color: var(--textColorGray);
+}
+
+#history-points {
+  font-family: "Source Sans Pro Bold", sans-serif;
+  font-size: 1.7rem;
+}
+
+@media (min-width: 1024px) {
+  .left-point {
     z-index: -1;
     width: 0;
     height: 0;
@@ -25,50 +89,8 @@
     border-right: 2vh solid transparent;
     border-top: 5vh solid #fff;
     position: absolute;
-    top: 35%;
-    left: 40%;
+    top: 20%;
+    left: 15%;
     transform: rotate(60deg);
+  }
 }
-
-.swiper-horizontal > .swiper-scrollbar {
-    height: 1rem;
-}
-
-#year, #year p {
-    font-family: "Source Sans Pro Semibold", sans-serif;
-    margin-bottom: 3rem;
-    background: transparent;
-    font-size: 2rem;
-}
-
-#year, #story-paragraph, #finish-paragraph {
-    font-family: "Source Sans Pro Bold", sans-serif;
-    font-size: 1.125rem;
-}
-
-#story-section {
-    min-height: 12rem;
-    color: var(--textColorGray);
-}
-
-#history-points {
-    font-family: "Source Sans Pro Bold", sans-serif;
-    font-size: 1.7rem;
-}
-
-@media (min-width: 1024px) {
-    .left-point{
-        z-index: -1;
-        width: 0;
-        height: 0;
-        border-left: 2vh solid transparent;
-        border-right: 2vh solid transparent;
-        border-top: 5vh solid #fff;
-        position: absolute;
-        top: 20%;
-        left: 15%;
-        transform: rotate(60deg);
-    }
-}
-
-
