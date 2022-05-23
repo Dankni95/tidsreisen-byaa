@@ -7,15 +7,19 @@ import FinishedSoundCapsule from "./FinishedSoundCapsule";
 const Sound = () => {
   const [drag, setDrag] = useState();
   const [songInfo, setSongInfo] = useState({
-    currentTime: 0,
+    currentTime: null,
     duration: null,
   });
-  console.log(songInfo.duration === songInfo.currentTime);
+
   console.log(songInfo.currentTime);
+
   return (
     <>
       {songInfo.duration === songInfo.currentTime ? (
-        <FinishedSoundCapsule currentTime={songInfo.currentTime} />
+        <FinishedSoundCapsule
+          setSongInfo={setSongInfo}
+          currentTime={songInfo.currentTime}
+        />
       ) : (
         <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
           <div
