@@ -20,6 +20,11 @@ export function Navbar() {
     await fetchJSON_client("/api/deleteCookie");
   }
 
+  const hamburgerColorDetermination =
+    window.location.pathname === "/myfindings" ||
+    window.location.pathname === "/profile" ||
+    window.location.pathname === "/map";
+
   if (
     window.location.pathname !== "/" &&
     window.location.pathname !== "/login"
@@ -29,7 +34,14 @@ export function Navbar() {
         <IconContext.Provider value={{ color: "#F2F2F2" }}>
           <div className={"navbar"}>
             <Link to={"#"} className={"menu-bars"}>
-              <GoThreeBars onClick={showSidebar} style={{ color: "#4A8554" }} />
+              <GoThreeBars
+                onClick={showSidebar}
+                style={
+                  hamburgerColorDetermination
+                    ? { color: "var(--backgroundColorLetthet)" }
+                    : { color: "var(--backgroundColorGreeny)" }
+                }
+              />
             </Link>
           </div>
           <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
