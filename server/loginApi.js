@@ -13,7 +13,7 @@ export function LoginApi(mongoDatabase) {
 
     const userData = await mongoDatabase
       .collection("user")
-      .find({ name: user.toLowerCase() })
+      .find({ name: user })
       .map(({ name, intro, walk }) => ({
         name,
         intro,
@@ -21,6 +21,8 @@ export function LoginApi(mongoDatabase) {
       }))
       .limit(1)
       .toArray();
+
+    console.log("userdata from api: " + userData.toString());
     res.json(userData);
   });
 
@@ -28,6 +30,7 @@ export function LoginApi(mongoDatabase) {
     const { user, force } = req.body;
 
     if (force === true) {
+      res.clearCookie("user");
       res.cookie("user", user, { signed: true });
       res.sendStatus(200);
     } else {
@@ -35,6 +38,7 @@ export function LoginApi(mongoDatabase) {
         .collection("user")
         .insertOne({ name: user.toLowerCase(), intro: true, walk: false });
 
+      res.clearCookie();
       res.cookie("user", user, { signed: true });
       res.sendStatus(200);
     }

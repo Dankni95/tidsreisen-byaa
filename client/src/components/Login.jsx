@@ -1,7 +1,7 @@
 import "./login.css";
 import logo from "./relingenLogo.png";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "./CapsuleButton.jsx";
 import { checkUser, postJSON } from "../helpers/http.jsx";
 import Alert from "react-bootstrap/Alert";
@@ -13,10 +13,12 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [exists, setExists] = useState("");
   const [oldUser, setOldUser] = useState("");
+  const location = useLocation();
 
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
+    console.log(location.search);
     event.preventDefault();
 
     console.log("up: " + event.nativeEvent.submitter.value);
@@ -26,12 +28,13 @@ export default function Login() {
       navigate("/map");
     } else {
       const res = await checkUser(`name=${username}`);
-      console.log(res);
+      console.log("resss in login: " + res);
 
       if (res.length > 0) {
         setExists(true);
         setOldUser(res[0].name);
       } else {
+        console.log("creating user: " + username);
         await postJSON("/api/login", { user: username });
         navigate("/map");
       }

@@ -212,7 +212,8 @@ export function Map({ username, loading, error }) {
 
   useEffect(() => {
     username
-      ? (setUser(username[0]),
+      ? (console.log(username),
+        setUser(username[0]),
         setWalk(username[0].walk),
         setIntro(username[0].intro))
       : "";
