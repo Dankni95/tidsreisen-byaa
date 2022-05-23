@@ -9,27 +9,32 @@ const Sound = () => {
     currentTime: null,
     duration: null,
   });
-  console.log(songInfo.currentTime);
-  if (songInfo.currentTime >= songInfo.duration) {
-    return <FinishedSoundCapsule />;
-  }
+  console.log(songInfo.duration === songInfo.currentTime);
 
   return (
     <>
-      <div className=" d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
-        <div className="position-absolute top-4 index">
+      {(songInfo.duration === songInfo.currentTime) === false ? (
+        <FinishedSoundCapsule />
+      ) : (
+        <div className=" d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
+          {/*  <div className="position-absolute top-4 index">
           <FaItunesNote size={300} />
-        </div>
+        </div> */}
 
-        <h3 className="pb-3">Lydkapsel</h3>
-        <h1 className="pb-3 fw-bolder text-capsule">Byåa</h1>
-        <img className="p-2" src={sawmillwork} alt="" srcset="" />
-        <Play songInfo={songInfo} setSongInfo={setSongInfo} setDrag={setDrag} />
-        <h4 className="my-5 fw-bold">Sagbruket - År 1700-1800</h4>
-        <p className="fst-italic fw-bold">
-          Lytt ferdig lydlkapselen for å få poeng
-        </p>
-      </div>
+          <h3 className="pb-3">Lydkapsel</h3>
+          <h1 className="pb-3 fw-bolder text-capsule">Byåa</h1>
+          <img className="p-2" src={sawmillwork} alt="" srcset="" />
+          <Play
+            songInfo={songInfo}
+            setSongInfo={setSongInfo}
+            setDrag={setDrag}
+          />
+          <h4 className="my-5 fw-bold">Sagbruket - År 1700-1800</h4>
+          <p className="fst-italic fw-bold">
+            Lytt ferdig lydlkapselen for å få poeng
+          </p>
+        </div>
+      )}
     </>
   );
 };
