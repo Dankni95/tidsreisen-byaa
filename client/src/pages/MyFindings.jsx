@@ -1,12 +1,10 @@
 import React from "react";
+import { MyFindingsCard } from "../components/MyFindingsCard.jsx";
 
-/**
- * rendring av map fra database, bruker */
-
-export function MyFindings() {
+export function MyFindings({ user }) {
   return (
-    <div>
-      <p>Liste over mine funn nedover her... (WORK NOT STARTED ON)</p>
+    <div id={"container"} className={"container"}>
+      <MyFindingsCard user={user} />
     </div>
   );
 }
