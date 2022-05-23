@@ -10,11 +10,17 @@ import { MyFindings } from "./pages/MyFindings.jsx";
 import Sound from "./pages/capsules/SoundCapsule/Sound.jsx";
 import { UserContext } from "./contexts/userContext.jsx";
 import { useLoading } from "./helpers/useLoading.jsx";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 
 export function Application() {
+  const [user, setUser] = useState("");
+
   const { getUser } = useContext(UserContext);
   const { data: username, reload, loading, error } = useLoading(getUser);
+
+  useEffect(() => {
+    username ? setUser(username) : reload();
+  }, [username]);
 
   return (
     <BrowserRouter>
@@ -25,12 +31,12 @@ export function Application() {
         <Routes>
           <Route path="/" element={<StartPage style={{ height: "100vh" }} />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/map" element={<Map />} />
-          <Route path="/quiz/:id" element={<Quiz username={username} />} />
           <Route
-            path="/history/:id"
-            element={<History username={username} />}
+            path="/map"
+            element={<Map username={user} loading={loading} error={error} />}
           />
+          <Route path="/quiz/:id" element={<Quiz username={user} />} />
+          <Route path="/history/:id" element={<History username={user} />} />
           <Route path="/camera" element={<Camera />} />
           <Route path="/myfindings" element={<MyFindings />} />
           {/*<Route path="/intro" element={<IntroMap />} />*/}

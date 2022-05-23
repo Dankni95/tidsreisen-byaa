@@ -1,36 +1,31 @@
-import React, { useRef, useEffect, useState, useContext } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
-import Camera from "./Camera";
 import Button from "react-bootstrap/Button";
 import AnimatedPopup from "mapbox-gl-animated-popup";
 import Popup from "./Popup.jsx";
-import { UserContext } from "../contexts/userContext.jsx";
-import { useLoading } from "../helpers/useLoading.jsx";
-import { Button, Container, Row, Col } from "react-bootstrap";
-import AnimatedPopup from "mapbox-gl-animated-popup";
+import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { postJSON } from "../helpers/http.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
-export function Map() {
+export function Map({ username, loading, error }) {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
-
-  const { getUser } = useContext(UserContext);
-  const { data: username, reload, loading, error } = useLoading(getUser);
+  const [user, setUser] = useState(false);
+  const [intro, setIntro] = useState(true);
 
   const [geo, setGeo] = useState(null);
 
-  const [dbWalk, dbSetWalk] = useState(true);
-  const [walk, setWalk] = useState(dbWalk);
+  const [walk, setWalk] = useState(false);
 
   let navigate = useNavigate();
 
@@ -42,16 +37,12 @@ export function Map() {
     });
   }
 
-  // Initialize map when component mounts
-
-  // Styles:
-  // mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui - Material
-  // mapbox://styles/dankni95/ckx99rrti122914qpusg9wm8j - Treasure
-  // mapbox://styles/dankni95/ckwra5on906i515t7dtjqwujy - Outdoor
-  function handleWalkClick() {
+  async function handleWalkClick() {
     loaded
       ? walk
-        ? (geo.trigger(), setWalk(false))
+        ? (geo.trigger(),
+          setWalk(false),
+          await postJSON("/api/update-state", { user: user.name, walk: true }))
         : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
           map.flyTo({
             // These options control the ending camera position: centered at
@@ -63,7 +54,9 @@ export function Map() {
             // this animation is considered essential with respect to prefers-reduced-motion
             essential: true,
           }),
-          setWalk(true))
+          setWalk(true),
+          console.log("hit"),
+          await postJSON("/api/update-state", { user: user.name, walk: false }))
       : "";
   }
 
@@ -198,72 +191,57 @@ export function Map() {
     });
 
     geolocate.on("geolocate", () => {
-      document.getElementById("stien").innerText = "På stien";
       document.getElementById("scan-btn").style.display = "block";
     });
 
     geolocate.on("trackuserlocationend", () => {
-      document.getElementById("stien").innerText = "På skolen";
       document.getElementById("scan-btn").style.display = "none";
     });
 
     setMap(map);
     return () => map.remove();
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
-    loaded
-      ? (document.getElementById("stien").style.backgroundColor = "blue")
-      : (document.getElementById("stien").style.backgroundColor = "grey");
-  }, [loaded, walk]);
-
-  useEffect(() => {
-    loaded ? (walk ? (geo.trigger(), setWalk(false)) : "") : "";
+    loaded ? (walk ? geo.trigger() : "") : "";
   }, [loaded]);
 
   function handleClick() {
     navigate("/camera");
   }
 
+  useEffect(() => {
+    username
+      ? (console.log(username),
+        setUser(username[0]),
+        setWalk(username[0].walk),
+        setIntro(username[0].intro))
+      : "";
+  }, [username]);
+
   return (
     <>
       {
         <div>
           <div className="map-container" ref={mapContainerRef} />
-
-          <Container id="container">
-            <Row md={8}>
-              <Col></Col>
-              <Col></Col>
-              <Col></Col>
-              <Col xs={4}>
-                <Button
-                  size="g"
-                  id="stien"
-                  variant="primary"
-                  onClick={() => {
-                    handleWalkClick();
-                  }}
-                >
-                  På skolen
-                </Button>
-              </Col>
-              <Col xs={4}>
-                <Button
-                  size="g"
-                  id="scan-btn"
-                  variant="primary"
-                  onClick={() => handleClick()}
-                >
-                  Scan QR
-                </Button>
-              </Col>
-              <Col></Col>
-              <Col></Col>
-              <Col></Col>
-            </Row>
-          </Container>
-          <Popup username={username} loading={loading} error={error} />
+          <Button
+            size="g"
+            id="scan-btn"
+            variant="primary"
+            onClick={() => handleClick()}
+          >
+            Scan QR
+          </Button>
+          {intro ? (
+            <Popup
+              username={user.name}
+              intro={user.intro}
+              loading={loading}
+              error={error}
+            />
+          ) : (
+            ""
+          )}
         </div>
       }
     </>

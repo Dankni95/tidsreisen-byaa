@@ -7,6 +7,8 @@ import { MongoClient } from "mongodb";
 import { QuizApi } from "./quizApi.js";
 import { HistoryApi } from "./historyApi.js";
 import { SoundApi } from "./soundApi.js";
+import { LoginApi } from "./loginApi.js";
+import { UserState } from "./UserState.js";
 
 dotenv.config();
 
@@ -16,7 +18,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //MONGODB//
 const mongoClient = new MongoClient(process.env.MONGODB_URL);
-mongoClient.connect().then(async () => {
+await mongoClient.connect().then(async () => {
   console.log("Connected to MongoDB");
   app.use(
     "/api/quiz",
@@ -31,19 +33,16 @@ mongoClient.connect().then(async () => {
     "/api/sound",
     SoundApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
   );
-});
 
-app.post("/api/login", (req, res) => {
-  const { user } = req.body;
-  res.cookie("user", user, { signed: true });
-  res.sendStatus(200);
-});
+  app.use(
+    "/api/login",
+    LoginApi(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+  );
 
-app.get("/api/login", (req, res) => {
-  const { user } = req.signedCookies;
-
-  console.log(`username from get response: ${user}`);
-  res.json(user);
+  app.use(
+    "/api/update-state",
+    UserState(mongoClient.db(process.env.MONGODB_DATABASE || "quiz_db"))
+  );
 });
 
 app.get("/api/deleteCookie", (req, res) => {

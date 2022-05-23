@@ -38,3 +38,8 @@ export async function postJSON(url, object) {
     throw new Error(`Failed to post ${res.status}: ${res.statusText}`);
   }
 }
+
+export async function checkUser(query) {
+  console.log("in :" + query);
+  return await fetchJSON_client("/api/login?" + new URLSearchParams(query));
+}
