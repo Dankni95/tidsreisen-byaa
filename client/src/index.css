@@ -24,9 +24,9 @@
 
 @font-face {
   font-family: "Bubblegum Sans";
-  src: url("/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff2")
+  src: url("/client/fonts/bubblegum_sans/BubblegumSans-Regular.woff2")
       format("woff2"),
-    url("/client/fonts/bubblegum_sans/bubblegumsans-regular-webfont.woff")
+    url("/client/fonts/bubblegum_sans/BubblegumSans-Regular.woff")
       format("woff");
 }
 
