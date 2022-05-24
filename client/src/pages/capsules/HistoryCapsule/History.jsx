@@ -29,6 +29,7 @@ export function History() {
     return <div>{error.toString()}</div>;
   }
 
+
   if (name === undefined) {
     return <NotLoggedIn />;
   }

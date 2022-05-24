@@ -1,26 +1,25 @@
 import React from "react";
 import { FaMapSigns, FaUser } from "react-icons/fa";
-import { BiLogOut } from "react-icons/bi";
 import "./navbar.css";
+import { IoScan } from "react-icons/io5";
 
 export const NavbarData = [
   {
     title: "Kart",
     path: "/map",
-    icon: <FaMapSigns />,
-    className: "nav-text-map",
+    icon: <FaMapSigns size={20} />,
+    id: "nav-text-map",
   },
   {
-    title: "Min profil",
+    title: "QR-scan",
+    path: "/camera",
+    icon: <IoScan size={20} />,
+    id: "nav-text-qr",
+  },
+  {
+    title: "Profil",
     path: "/profile",
-    icon: <FaUser />,
-    className: "nav-text-profile",
-  },
-  {
-    title: "Logg ut",
-    path: "/login",
-    icon: <BiLogOut />,
-    className: "nav-text-logout",
-    logout: true,
+    icon: <FaUser size={20} />,
+    id: "nav-text-profile",
   },
 ];
