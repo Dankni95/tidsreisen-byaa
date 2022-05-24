@@ -25,7 +25,7 @@ export function History({ username }) {
     return <div>{error.toString()}</div>;
   }
 
-  if (username !== [] || username === null || username === undefined) {
+  if (username.length === 0) {
     return <NotLoggedIn />;
   }
 
