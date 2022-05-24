@@ -6,6 +6,7 @@ import imageSawEffect from "./sag-effekt.png";
 import { StoryCard } from "./StoryCard.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { User } from "../../../application.jsx";
+import { ErrorModal } from "../../../components/ErrorModal.jsx";
 
 export function History() {
   const { user, setUser } = useContext(User);
@@ -26,9 +27,9 @@ export function History() {
 
   if (errorHistory) {
     setEror(errorHistory);
-    return <div>{error.toString()}</div>;
+    console.error(error.toString());
+    return <ErrorModal error={error} />;
   }
-
 
   if (name === undefined) {
     return <NotLoggedIn />;
