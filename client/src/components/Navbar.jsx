@@ -4,24 +4,20 @@ import { NavbarData } from "./navbarData.jsx";
 import "./navbar.css";
 
 export function Navbar() {
-  const navigate = useNavigate();
-  const [activeIcon, setActiveIcon] = useState(false);
+  const [clickedIconColor, setClickedIconColor] = useState({
+    id: null,
+  });
 
-  /*function showActiveColor() {
-    return setActiveIcon(!activeIcon);
-  }*/
+  function clickedIconColorHandler(itemId) {
+    setClickedIconColor({
+      id: itemId,
+    });
+  }
 
-  /*function pathLocation() {
-    setActiveIcon(!activeIcon);
-  }*/
-
-  // todo not in use, logout moves to /profile
-  /*async function logOut() {
-    navigate("/login");
-    await fetchJSON_client("/api/deleteCookie");
-  }*/
-
-  if (window.location.pathname !== "/" && window.location.pathname !== "/") {
+  if (
+    window.location.pathname !== "/" &&
+    window.location.pathname !== "/login"
+  ) {
     return (
       <div id={"navbar-container"}>
         <div className={"navbar"}>
@@ -29,9 +25,19 @@ export function Navbar() {
             <ul className={"nav-menu-items"}>
               {NavbarData.map((item, index) => {
                 return (
-                  <div key={index} id={"navbar-children-container"}>
-                    <li className={item.className}>
-                      <Link className={"icon-and-title"} to={item.path}>
+                  <div key={index}>
+                    <li>
+                      <Link
+                        onClick={() => clickedIconColorHandler(item.id)}
+                        id={item.id}
+                        style={
+                          item.id === clickedIconColor.id
+                            ? { color: "#4a8554" }
+                            : { color: "#333333" }
+                        }
+                        className={"icon-and-title"}
+                        to={item.path}
+                      >
                         {item.icon}
                         <span>{item.title}</span>
                       </Link>

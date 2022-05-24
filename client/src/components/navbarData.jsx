@@ -8,18 +8,18 @@ export const NavbarData = [
     title: "Kart",
     path: "/map",
     icon: <FaMapSigns size={20} />,
-    className: "nav-text-map",
+    id: "nav-text-map",
   },
   {
     title: "QR-scan",
     path: "/camera",
     icon: <IoScan size={20} />,
-    className: "nav-text-qr",
+    id: "nav-text-qr",
   },
   {
     title: "Profil",
     path: "/profile",
     icon: <FaUser size={20} />,
-    className: "nav-text-profile",
+    id: "nav-text-profile",
   },
 ];

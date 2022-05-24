@@ -33,23 +33,6 @@
 
 .icon-and-title {
   text-decoration: none;
-  color: #333333;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.icon-and-title:active {
-  text-decoration: none;
-  color: var(--backgroundColorGreeny);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.icon-and-title:focus {
-  text-decoration: none;
-  color: var(--backgroundColorGreeny);
   display: flex;
   flex-direction: column;
   align-items: center;

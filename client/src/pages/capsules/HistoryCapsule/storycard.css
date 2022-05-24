@@ -40,6 +40,7 @@
   height: 1rem;
   position: fixed;
   margin: 2rem;
+  bottom: 5%;
   width: 80%;
 }
 
@@ -54,7 +55,7 @@
   justify-content: center;
   align-content: center;
   width: 100%;
-  bottom: 23%;
+  bottom: 28%;
 }
 
 #year p {
