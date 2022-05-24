@@ -8,7 +8,7 @@ export function Navbar() {
     id: null,
   });
 
-  function clickedIconColorHandler(itemId) {
+  function clickedIconNavbarHandler(itemId) {
     setClickedIconColor({
       id: itemId,
     });
@@ -28,17 +28,19 @@ export function Navbar() {
                   <div key={index}>
                     <li>
                       <Link
-                        onClick={() => clickedIconColorHandler(item.id)}
+                        onClick={() => clickedIconNavbarHandler(item.id)}
                         id={item.id}
                         style={
                           item.id === clickedIconColor.id
-                            ? { color: "#4a8554" }
-                            : { color: "#333333" }
+                            ? { color: "#000000", opacity: "1" }
+                            : { color: "#000000", opacity: "0.6" }
                         }
                         className={"icon-and-title"}
                         to={item.path}
                       >
-                        {item.icon}
+                        {item.id === clickedIconColor.id
+                          ? item.iconActive
+                          : item.icon}
                         <span>{item.title}</span>
                       </Link>
                     </li>
