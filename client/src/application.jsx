@@ -42,7 +42,7 @@ export function Application() {
           <Route path="/myfindings" element={<MyFindings user={user} />} />
           {/*<Route path="/intro" element={<IntroMap />} />*/}
           <Route path="/audio/:id" element={<Sound />} />
-          <Route path="/profile" element={<Profile username={username} />} />
+          <Route path="/profile" element={<Profile username={user} />} />
           <Route path={"*"} element={<h1>Not found</h1>} />
         </Routes>
       </main>
