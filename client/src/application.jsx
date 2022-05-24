@@ -15,7 +15,6 @@ import { useLoading } from "./helpers/useLoading.jsx";
 
 export const User = createContext("");
 
-
 export function Application() {
   const [user, setUser] = useState([]);
 
