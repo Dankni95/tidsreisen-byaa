@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState, useContext } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -8,9 +8,7 @@ import AnimatedPopup from "mapbox-gl-animated-popup";
 import Popup from "./Popup.jsx";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { postJSON } from "../helpers/http.jsx";
-import { UserContext } from "../application";
-
+import { User } from "../application";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -22,16 +20,14 @@ export function Map() {
   const [zoom, setZoom] = useState(15.869822538911004);
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const [intro, setIntro] = useState(true);
-
-  const [user, setUser] = useContext(UserContext)
 
   const [geo, setGeo] = useState(null);
 
-  const [walk, setWalk] = useState(false);
-
   let navigate = useNavigate();
 
+  const { user, setUser } = useContext(User);
+  const { name, intro, walk } = user;
+  /*
 
   async function handleWalkClick() {
     loaded
@@ -55,6 +51,7 @@ export function Map() {
           await postJSON("/api/update-state", { user: user.name, walk: false }))
       : "";
   }
+  */
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -206,15 +203,6 @@ export function Map() {
     navigate("/camera");
   }
 
-  useEffect(() => {
-    user
-      ? (console.log(user),
-        setUser(user[0]),
-        setWalk(user[0].walk),
-        setIntro(user[0].intro))
-      : "";
-  }, [user]);
-
   return (
     <>
       {
@@ -228,16 +216,7 @@ export function Map() {
           >
             Scan QR
           </Button>
-          {intro ? (
-            <Popup
-              username={user.name}
-              intro={user.intro}
-              loading={loading}
-              error={error}
-            />
-          ) : (
-            ""
-          )}
+          {intro ? <Popup key={name} username={name} intro={intro} /> : ""}
         </div>
       }
     </>

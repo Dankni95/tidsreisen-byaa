@@ -9,37 +9,38 @@ import Camera from "./components/Camera";
 import { MyFindings } from "./pages/MyFindings.jsx";
 import Sound from "./pages/capsules/SoundCapsule/Sound.jsx";
 import { UserContext } from "./contexts/userContext.jsx";
+import { Profile } from "./pages/Profile.jsx";
+import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useLoading } from "./helpers/useLoading.jsx";
-import { Profile } from "./pages/Profile.jsx"
-import { useContext, useEffect, useState, createContext, useMemo } from "react";
 
-export const UserContext = createContext("");
-
+export const User = createContext("");
 
 export function Application() {
   const [user, setUser] = useState([]);
 
-  const providerValue = useMemo(
-    () => ({ user, setUser }),
-    [user, setUser]
-  );
+  const { getUser } = useContext(UserContext);
+  const { data: username, reload, loading, error } = useLoading(getUser);
 
+  const providerValue = useMemo(() => ({ user, setUser }), [user, setUser]);
 
+  useEffect(() => {
+    username ? setUser(...username, username) : reload();
+  }, [username]);
 
   return (
-    <UserContext.Provider value={providerValue}>
+    <User.Provider value={providerValue}>
       <BrowserRouter>
         <header style={{ position: "fixed", zIndex: "20", width: "100%" }}>
           <Navbar />
         </header>
         <main>
           <Routes>
-            <Route path="/" element={<StartPage style={{ height: "100vh" }} />} />
-            <Route path="/login" element={<Login />} />
             <Route
-              path="/map"
-              element={<Map />}
+              path="/"
+              element={<StartPage style={{ height: "100vh" }} />}
             />
+            <Route path="/login" element={<Login />} />
+            <Route path="/map" element={<Map />} />
             <Route path="/quiz/:id" element={<Quiz />} />
             <Route path="/history/:id" element={<History />} />
             <Route path="/camera" element={<Camera />} />
@@ -51,6 +52,6 @@ export function Application() {
           </Routes>
         </main>
       </BrowserRouter>
-    </UserContext.Provider>
+    </User.Provider>
   );
 }

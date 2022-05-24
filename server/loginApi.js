@@ -9,8 +9,6 @@ export function LoginApi(mongoDatabase) {
 
     if (name !== undefined) user = name;
 
-    console.log("this " + user);
-
     const userData = await mongoDatabase
       .collection("user")
       .find({ name: user })
@@ -22,7 +20,6 @@ export function LoginApi(mongoDatabase) {
       .limit(1)
       .toArray();
 
-    console.log("userdata from api: " + userData.toString());
     res.json(userData);
   });
 
