@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -8,34 +8,26 @@ import AnimatedPopup from "mapbox-gl-animated-popup";
 import Popup from "./Popup.jsx";
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { postJSON } from "../helpers/http.jsx";
+import { User } from "../application";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
-export function Map({ username, loading, error }) {
+export function Map() {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState(false);
-  const [intro, setIntro] = useState(true);
 
   const [geo, setGeo] = useState(null);
 
-  const [walk, setWalk] = useState(false);
-
   let navigate = useNavigate();
 
-  const [userCoords, setUserCoords] = useState(0);
-
-  if (userCoords === 0) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setUserCoords([position.coords.longitude, position.coords.latitude]);
-    });
-  }
+  const { user, setUser } = useContext(User);
+  const { name, intro, walk } = user;
+  /*
 
   async function handleWalkClick() {
     loaded
@@ -59,6 +51,7 @@ export function Map({ username, loading, error }) {
           await postJSON("/api/update-state", { user: user.name, walk: false }))
       : "";
   }
+  */
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -210,15 +203,6 @@ export function Map({ username, loading, error }) {
     navigate("/camera");
   }
 
-  useEffect(() => {
-    username
-      ? (console.log(username),
-        setUser(username[0]),
-        setWalk(username[0].walk),
-        setIntro(username[0].intro))
-      : "";
-  }, [username]);
-
   return (
     <>
       {
@@ -232,16 +216,7 @@ export function Map({ username, loading, error }) {
           >
             Scan QR
           </Button>
-          {intro ? (
-            <Popup
-              username={user.name}
-              intro={user.intro}
-              loading={loading}
-              error={error}
-            />
-          ) : (
-            ""
-          )}
+          {intro ? <Popup key={name} username={name} intro={intro} /> : ""}
         </div>
       }
     </>
