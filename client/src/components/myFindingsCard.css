@@ -1,0 +1,21 @@
+#container {
+  background-color: var(--backgroundColorGreeny);
+}
+
+.card {
+  top: 10%;
+  filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+}
+
+#card {
+  background-color: var(--backgroundColorLetthet);
+}
+
+.card-title {
+  font-family: "Source Sans Pro Bold", sans-serif;
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-family: "Source Sans Pro Semibold Italic", sans-serif;
+}
