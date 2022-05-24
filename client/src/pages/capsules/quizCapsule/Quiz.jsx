@@ -1,6 +1,7 @@
 import "./quiz.css";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
+import { UserContext } from "../../../contexts/userContext.jsx";
 import { useContext, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
@@ -16,6 +17,7 @@ export function Quiz() {
   const [points, setPoints] = useState(0);
 
   const { listQuiz } = useContext(DatabaseContext);
+  const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
   const { name } = user;
 
@@ -51,6 +53,7 @@ export function Quiz() {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowPoints(true);
+      updateUser({ points, user})
     }
   }
 

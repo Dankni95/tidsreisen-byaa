@@ -25,7 +25,7 @@ function ProgressBar({ color, progress }) {
 
 export function Profile() {
   const { user, setUser } = useContext(User);
-  const { name } = user;
+  const { name, points, level, finishedCapsules } = user;
 
   if (name === undefined) {
     return <NotLoggedIn />;
@@ -34,20 +34,13 @@ export function Profile() {
   return (
     <div className="container">
       <main id="main">
-        <h1 id="userName">{user.name}</h1>
+        <h1 id="userName">{name}</h1>
         <div id="circle">
           <IoPersonOutline id="icon" />
         </div>
-
-        {/*Level endres til user.level*/}
-        <h2 id="userLevel">Level 2</h2>
-
-        {/*Progress-verdien endres til user.points*/}
-        <ProgressBar color="#333333" progress="90" />
-
-        {/*Poeng endres til user.points*/}
-        <p id="userPoints">90/100 poeng</p>
-
+        <h2 id="userLevel">Level {level}</h2>
+        <ProgressBar color="#333333" progress={points} />
+        <p id="userPoints">{points}/100 poeng</p>
         <div id="linkBox">
           <a id="myFindingsLink" href="/myfindings">
             Mine funn
