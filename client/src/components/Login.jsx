@@ -30,6 +30,8 @@ export default function Login() {
       await postJSON("api/login", { user: oldUser.name, force: true });
       setUser({ name: oldUser.name, intro: oldUser.intro, walk: oldUser.walk });
       navigate("/map");
+      // meeh fix for at navbaren skal dukke opp etter login
+      window.location.reload();
     } else {
       const res = await checkUser(`name=${newUser}`);
 

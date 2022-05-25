@@ -4,16 +4,17 @@ export function HistoryApi(mongoDb) {
   const router = new Router();
 
   router.get("/", async (req, res) => {
-    const quiz = await mongoDb
+    const history = await mongoDb
       .collection("history")
       .find({})
-      .map(({ _id, category, story }) => ({
+      .map(({ _id, name, category, story }) => ({
         _id,
+        name,
         category,
         story,
       }))
       .toArray();
-    res.json(quiz);
+    res.json(history);
   });
 
   return router;

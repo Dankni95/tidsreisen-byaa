@@ -80,6 +80,8 @@ export default function Popup({ username, intro }) {
       intro: false,
     });
     setShow(false);
+    // for å fikse navbar show etter man har gjennomført intro
+    window.location.reload();
   };
   const handleNext = () => setNext(next + 1);
   const handleShow = () => setShow(true);
