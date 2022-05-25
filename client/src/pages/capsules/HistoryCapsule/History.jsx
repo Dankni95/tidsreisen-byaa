@@ -54,6 +54,7 @@ export function History() {
             return (
               <div key={index}>
                 <StoryCard
+                  user={user}
                   loading={loading}
                   error={error}
                   historyCapsule={historyCapsule}
