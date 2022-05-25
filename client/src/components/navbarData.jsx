@@ -8,9 +8,6 @@ import {
   RiUser3Fill,
   RiUser3Line,
 } from "react-icons/ri";
-import { FaMapSigns, FaUser } from "react-icons/fa";
-import "./navbar.css";
-import { IoScan } from "react-icons/io5";
 
 export const NavbarData = [
   {
@@ -18,7 +15,6 @@ export const NavbarData = [
     path: "/map",
     icon: <RiMap2Line size={20} />,
     iconActive: <RiMap2Fill size={20} />,
-    icon: <FaMapSigns size={20} />,
     id: "nav-text-map",
   },
   {
@@ -26,7 +22,6 @@ export const NavbarData = [
     path: "/camera",
     icon: <RiQrScan2Line size={20} />,
     iconActive: <RiQrScan2Fill size={20} />,
-    icon: <IoScan size={20} />,
     id: "nav-text-qr",
   },
   {
@@ -34,7 +29,6 @@ export const NavbarData = [
     path: "/profile",
     icon: <RiUser3Line size={20} />,
     iconActive: <RiUser3Fill size={20} />,
-    icon: <FaUser size={20} />,
     id: "nav-text-profile",
   },
 ];
