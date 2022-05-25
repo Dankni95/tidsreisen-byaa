@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { NavbarData } from "./navbarData.jsx";
 import "./navbar.css";
 
@@ -8,7 +8,8 @@ export function Navbar() {
     id: null,
   });
 
-  function clickedIconColorHandler(itemId) {
+
+  function clickedIconNavbarHandler(itemId) {
     setClickedIconColor({
       id: itemId,
     });
@@ -28,6 +29,12 @@ export function Navbar() {
                   <div key={index}>
                     <li>
                       <Link
+                        onClick={() => clickedIconNavbarHandler(item.id)}
+                        id={item.id}
+                        style={
+                          item.id === clickedIconColor.id
+                            ? { color: "#000000", opacity: "1" }
+                            : { color: "#000000", opacity: "0.6" }
                         onClick={() => clickedIconColorHandler(item.id)}
                         id={item.id}
                         style={
@@ -38,6 +45,9 @@ export function Navbar() {
                         className={"icon-and-title"}
                         to={item.path}
                       >
+                        {item.id === clickedIconColor.id
+                          ? item.iconActive
+                          : item.icon}
                         {item.icon}
                         <span>{item.title}</span>
                       </Link>
