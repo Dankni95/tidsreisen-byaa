@@ -43,3 +43,16 @@ export async function checkUser(query) {
   console.log("in :" + query);
   return await fetchJSON_client("/api/login?" + new URLSearchParams(query));
 }
+
+export async function putJSON(url, body) {
+  const res = await fetch(url, {
+    method: "put",
+    headers: {
+      "content-type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) {
+    throw new Error(`${res.status}: ${res.statusText}`);
+  }
+}

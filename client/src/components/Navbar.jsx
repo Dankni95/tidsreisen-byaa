@@ -8,6 +8,7 @@ export function Navbar() {
     id: null,
   });
 
+
   function clickedIconNavbarHandler(itemId) {
     setClickedIconColor({
       id: itemId,
@@ -34,6 +35,12 @@ export function Navbar() {
                           item.id === clickedIconColor.id
                             ? { color: "#000000", opacity: "1" }
                             : { color: "#000000", opacity: "0.6" }
+                        onClick={() => clickedIconColorHandler(item.id)}
+                        id={item.id}
+                        style={
+                          item.id === clickedIconColor.id
+                            ? { color: "#4a8554" }
+                            : { color: "#333333" }
                         }
                         className={"icon-and-title"}
                         to={item.path}
@@ -41,6 +48,7 @@ export function Navbar() {
                         {item.id === clickedIconColor.id
                           ? item.iconActive
                           : item.icon}
+                        {item.icon}
                         <span>{item.title}</span>
                       </Link>
                     </li>
