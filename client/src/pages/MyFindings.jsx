@@ -1,10 +1,10 @@
 import React from "react";
 import { MyFindingsCard } from "../components/MyFindingsCard.jsx";
 
-export function MyFindings({ user }) {
+export function MyFindings() {
   return (
     <div id={"container"} className={"container"}>
-      <MyFindingsCard user={user} />
+      <MyFindingsCard />
     </div>
   );
 }
