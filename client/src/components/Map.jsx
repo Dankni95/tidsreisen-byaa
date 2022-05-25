@@ -3,12 +3,12 @@ import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
-import Button from "react-bootstrap/Button";
 import AnimatedPopup from "mapbox-gl-animated-popup";
 import Popup from "./Popup.jsx";
-import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { User } from "../application";
+import { postJSON } from "../helpers/http.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -27,14 +27,14 @@ export function Map() {
 
   const { user, setUser } = useContext(User);
   const { name, intro, walk } = user;
-  /*
 
   async function handleWalkClick() {
+    console.log(user);
     loaded
-      ? walk
+      ? !walk
         ? (geo.trigger(),
-          setWalk(false),
-          await postJSON("/api/update-state", { user: user.name, walk: true }))
+          await postJSON("/api/update-state", { user: name, walk: true }),
+          setUser({ name: name, intro: intro, walk: true }))
         : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
           map.flyTo({
             // These options control the ending camera position: centered at
@@ -46,12 +46,10 @@ export function Map() {
             // this animation is considered essential with respect to prefers-reduced-motion
             essential: true,
           }),
-          setWalk(true),
-          console.log("hit"),
-          await postJSON("/api/update-state", { user: user.name, walk: false }))
+          setUser({ name: name, intro: intro, walk: false }),
+          await postJSON("/api/update-state", { user: name, walk: false }))
       : "";
   }
-  */
 
   useEffect(() => {
     const map = new mapboxgl.Map({
@@ -184,11 +182,11 @@ export function Map() {
     });
 
     geolocate.on("geolocate", () => {
-      document.getElementById("scan-btn").style.display = "block";
+      document.getElementById("nav-text-qr").style.display = "";
     });
 
     geolocate.on("trackuserlocationend", () => {
-      document.getElementById("scan-btn").style.display = "none";
+      document.getElementById("nav-text-qr").style.display = "none";
     });
 
     setMap(map);
@@ -196,7 +194,12 @@ export function Map() {
   }, []);
 
   useEffect(() => {
-    loaded ? (walk ? geo.trigger() : "") : "";
+    loaded
+      ? walk
+        ? (geo.trigger(),
+          (document.getElementById("nav-text-qr").style.display = "none"))
+        : ""
+      : "";
   }, [loaded]);
 
   function handleClick() {
@@ -208,14 +211,15 @@ export function Map() {
       {
         <div>
           <div className="map-container" ref={mapContainerRef} />
-          <Button
-            size="g"
-            id="scan-btn"
-            variant="primary"
-            onClick={() => handleClick()}
-          >
-            Scan QR
-          </Button>
+          <Form id="custom-switch">
+            <Form.Check
+              defaultChecked={walk}
+              disabled={!loaded}
+              type="switch"
+              label="Gå turstien"
+              onClick={() => handleWalkClick()}
+            />
+          </Form>
           {intro ? <Popup key={name} username={name} intro={intro} /> : ""}
         </div>
       }
