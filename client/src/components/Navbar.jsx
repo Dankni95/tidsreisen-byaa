@@ -41,7 +41,6 @@ export function Navbar() {
                         {item.id === clickedIconColor.id
                           ? item.iconActive
                           : item.icon}
-                        {item.icon}
                         <span>{item.title}</span>
                       </Link>
                     </li>
