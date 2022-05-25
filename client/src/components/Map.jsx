@@ -20,6 +20,7 @@ export function Map() {
   const [zoom, setZoom] = useState(15.869822538911004);
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [disabled, setDisabled] = useState(true);
 
   const [geo, setGeo] = useState(null);
 
@@ -146,6 +147,9 @@ export function Map() {
 
     map.on("load", () => {
       setLoaded(true);
+      setTimeout(() => {
+        setDisabled(false);
+      }, 4000);
       map.addSource("route", {
         type: "geojson",
         data: {
@@ -198,7 +202,7 @@ export function Map() {
       ? walk
         ? (geo.trigger(),
           (document.getElementById("nav-text-qr").style.display = "none"))
-        : ""
+        : setDisabled(false)
       : "";
   }, [loaded]);
 
@@ -214,10 +218,17 @@ export function Map() {
           <Form id="custom-switch">
             <Form.Check
               defaultChecked={walk}
-              disabled={!loaded}
+              disabled={disabled}
               type="switch"
               label="Gå turstien"
-              onClick={() => handleWalkClick()}
+              onClick={() => {
+                setDisabled(true);
+                handleWalkClick().then((r) =>
+                  setTimeout(() => {
+                    setDisabled(false);
+                  }, 4000)
+                );
+              }}
             />
           </Form>
           {intro ? <Popup key={name} username={name} intro={intro} /> : ""}
