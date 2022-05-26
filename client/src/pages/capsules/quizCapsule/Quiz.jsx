@@ -2,7 +2,7 @@ import "./quiz.css";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
@@ -19,12 +19,23 @@ export function Quiz() {
   const { listQuiz } = useContext(DatabaseContext);
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
-  const { name } = user;
+  const { name, intro, walk, points: prevPoints, finishedCapsules } = user;
 
   const { loading, error, data } = useLoading(
     async () => await listQuiz({ id }),
     [id]
   );
+
+  useEffect(async () => {
+    await updateUser({ points, user, capsuleObject });
+    setUser({
+      name: name,
+      intro: intro,
+      walk: walk,
+      points: prevPoints + points,
+      finishedCapsules: finishedCapsules
+    });
+  }, [showPoints, updateUser]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -43,17 +54,33 @@ export function Quiz() {
     );
   }
 
+  const capsuleObject = {
+    name_: data[currentQuestion].name_,
+    category: data[currentQuestion].category
+  }
+
+  function incPoints() {
+    setPoints((state) => {
+      return state + 10;
+    });
+  }
+
+  function incScore() {
+    setScore((state) => {
+      return state + 1;
+    });
+  }
+
   function handleAnswerClick(isCorrect) {
     if (isCorrect) {
-      setScore(score + 1);
-      setPoints(points + 10);
+      incPoints();
+      incScore();
     }
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowPoints(true);
-      updateUser({ points, user})
     }
   }
 
@@ -73,7 +100,7 @@ export function Quiz() {
         <Container className="quiz-items">
           <div>
             <h1 className="capsule-title">Quizkapsel</h1>
-            <h3 className="category">{data[currentQuestion].category}</h3>
+            <h3 className="category">{data[currentQuestion].name_}</h3>
             <p className="question">{data[currentQuestion].question_}</p>
           </div>
 
