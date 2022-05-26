@@ -54,6 +54,7 @@ export function LoginApi(mongoDatabase) {
 
   router.put("/updateuser", (req, res) => {
     const { points, user, finishedCapsules } = req.body;
+    console.log(finishedCapsules);
     mongoDatabase.collection("user").updateOne(
       { name: user.name },
       {

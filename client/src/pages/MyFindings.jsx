@@ -3,7 +3,7 @@ import { MyFindingsCard } from "../components/MyFindingsCard.jsx";
 
 export function MyFindings() {
   return (
-    <div id={"container"} className={"container"}>
+    <div className={"container"}>
       <MyFindingsCard />
     </div>
   );
