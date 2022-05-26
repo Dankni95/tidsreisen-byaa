@@ -8,7 +8,8 @@ export function MyFindingsCard() {
   const { user } = useContext(User);
 
   /**
-   * TODO: må finne ut av hvordan vi skal hente bilde og matche det med user.finishedCapsules.name*/
+   * TODO: må finne ut av hvordan vi skal hente bilde og matche det med user.finishedCapsules.name
+   * */
 
   return (
     <>

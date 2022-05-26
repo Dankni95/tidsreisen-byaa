@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Loading } from "../../../components/Loading.jsx";
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.css";
@@ -25,15 +25,29 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
     category: historyCapsule.category,
   };
 
-  const updateToDatabase = () => {
-    updateUser({
-      user,
-      finishedCapsules: capsuleObject,
-      points: 20,
-    });
-  };
+  const getCapsuleNameRdyForDatabase = user.finishedCapsules.map(
+    (capsuleName) => {
+      return capsuleName.name;
+    }
+  );
 
-  console.log(historyCapsule.category);
+  const filteredCapsuleNames = getCapsuleNameRdyForDatabase.find(
+    (capsuleName) => {
+      return capsuleName === historyCapsule.name;
+    }
+  );
+
+  console.log(filteredCapsuleNames);
+
+  const updateToDatabase = async () => {
+    if (filteredCapsuleNames !== historyCapsule.name) {
+      await updateUser({
+        user,
+        finishedCapsules: capsuleObject,
+        points: 20,
+      });
+    }
+  };
 
   const olafHiderLeft = () =>
     (document.querySelector("#olaf-left").style.display = "none");
@@ -80,9 +94,7 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
             scrollbar={{ draggable: true }}
             onSlideNextTransitionStart={() => olafHiderLeft()}
             onReachBeginning={() => olafDisplayerLeft()}
-            onReachEnd={() => {
-              updateToDatabase();
-            }}
+            onReachEnd={async () => await updateToDatabase()}
             onSwiper={(swiper) => console.log(swiper)}
           >
             {historyCapsule.story.map((historyCapsule, index) => {
