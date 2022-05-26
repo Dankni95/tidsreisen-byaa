@@ -35,7 +35,8 @@ export function Map() {
       ? !walk
         ? (geo.trigger(),
           await postJSON("/api/update-state", { user: name, walk: true }),
-          setUser({ name: name, intro: intro, walk: true }))
+          setUser({ name: name, intro: intro, walk: true }),
+          forceRepaintPopups(true))
         : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
           map.flyTo({
             // These options control the ending camera position: centered at
@@ -48,7 +49,8 @@ export function Map() {
             essential: true,
           }),
           setUser({ name: name, intro: intro, walk: false }),
-          await postJSON("/api/update-state", { user: name, walk: false }))
+          await postJSON("/api/update-state", { user: name, walk: false }),
+          forceRepaintPopups(false))
       : "";
   }
 
@@ -84,66 +86,6 @@ export function Map() {
       console.log("Pitch: " + map.getCenter());
       */
     });
-
-    function anim(target) {
-      map.flyTo({
-        // These options control the ending camera position: centered at
-        // the target, at zoom level 9, and north up.
-        center: target.anim_coords,
-        zoom: target.anim_zoom,
-        bearing: target.anim_bearing,
-
-        // These options control the flight curve, making it move
-        // slowly and zoom out almost completely before starting
-        // to pan.
-        speed: 0.5, // make the flying slow
-        curve: 1, // change the speed at which it zooms out
-
-        // This can be any easing function: it takes a number between
-        // 0 and 1 and returns another number between 0 and 1.
-        easing: (t) => t,
-
-        // this animation is considered essential with respect to prefers-reduced-motion
-        essential: true,
-      });
-    }
-
-    // add markers to map
-    for (const feature of GeoJson().features) {
-      // create a HTML element for each feature
-      const el = document.createElement("div");
-      el.className = "marker";
-      el.id = feature.properties.id;
-      el.addEventListener("click", () => anim(feature.properties), false);
-
-      let popup = new AnimatedPopup({
-        offset: 25,
-        openingAnimation: {
-          duration: 200,
-          easing: "linear",
-          transform: "scale",
-        },
-        closingAnimation: {
-          duration: 200,
-          easing: "easeInBack",
-          transform: "scale",
-        },
-      });
-
-      // make a marker for each feature and add it to the map
-      new mapboxgl.Marker(el)
-        .setLngLat(feature.geometry.coordinates)
-        .setPopup(
-          popup // add popups
-            .setHTML(
-              `<div>
-              <h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>
-              <button class="capsule-btn" onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
-              </div>`
-            )
-        )
-        .addTo(map);
-    }
 
     map.on("load", () => {
       setLoaded(true);
@@ -197,18 +139,92 @@ export function Map() {
     return () => map.remove();
   }, []);
 
+  function anim(target) {
+    map.flyTo({
+      // These options control the ending camera position: centered at
+      // the target, at zoom level 9, and north up.
+      center: target.anim_coords,
+      zoom: target.anim_zoom,
+      bearing: target.anim_bearing,
+
+      // These options control the flight curve, making it move
+      // slowly and zoom out almost completely before starting
+      // to pan.
+      speed: 0.5, // make the flying slow
+      curve: 1, // change the speed at which it zooms out
+
+      // This can be any easing function: it takes a number between
+      // 0 and 1 and returns another number between 0 and 1.
+      easing: (t) => t,
+
+      // this animation is considered essential with respect to prefers-reduced-motion
+      essential: true,
+    });
+  }
+
+  function forceRepaintPopups(repaint) {
+    // delete all markers
+    const markerDiv = document.getElementById("popups");
+    markerDiv ? (markerDiv.remove(), console.log("removed")) : "";
+
+    // repopulate
+    const popupDiv = document.getElementById("mapboxgl-popup-content");
+    popupDiv ? popupDiv.remove() : "";
+    // add markers to map
+    for (const feature of GeoJson().features) {
+      // create a HTML element for each feature
+      const el = document.createElement("div");
+      el.className = "marker";
+      el.id = "popups";
+      el.addEventListener("click", () => anim(feature.properties), false);
+
+      let popup = new AnimatedPopup({
+        offset: 25,
+        openingAnimation: {
+          duration: 200,
+          easing: "linear",
+          transform: "scale",
+        },
+        closingAnimation: {
+          duration: 200,
+          easing: "easeInBack",
+          transform: "scale",
+        },
+      });
+
+      // make a marker for each feature and add it to the map
+      let display;
+      repaint ? (display = "none") : (display = "inline-block");
+
+      // location.href='${feature.properties.url}
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
+          popup // add popups
+            .setHTML(
+              `<div>
+              <h3>${feature.properties.title}</h3>
+              <div><img src="${feature.properties.image}" style="height: 200px; width: 200px;" alt="popup image"/></div>
+              <br>
+              <button id="to-capsule" class="capsule-btn" style="display:${display}"
+               onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
+              </div>`
+            )
+        )
+        .addTo(map);
+    }
+  }
+
   useEffect(() => {
     loaded
       ? walk
         ? (geo.trigger(),
-          (document.getElementById("nav-text-qr").style.display = "none"))
-        : setDisabled(false)
+          (document.getElementById("nav-text-qr").style.display = "none"),
+          forceRepaintPopups(true))
+        : (setDisabled(false), forceRepaintPopups(false))
       : "";
   }, [loaded]);
-
-  function handleClick() {
-    navigate("/camera");
-  }
 
   return (
     <>
