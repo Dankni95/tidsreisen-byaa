@@ -27,7 +27,6 @@ export function Quiz() {
   );
 
   useEffect(async () => {
-    console.log(points, score);
     await updateUser({ points, user });
     setUser({
       name: name,
@@ -68,7 +67,6 @@ export function Quiz() {
 
   function handleAnswerClick(isCorrect) {
     if (isCorrect) {
-      console.log("Korrekt, nå skal poeng og score inkrementeres!");
       incPoints();
       incScore();
     }
