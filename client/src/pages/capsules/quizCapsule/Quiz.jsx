@@ -19,7 +19,7 @@ export function Quiz() {
   const { listQuiz } = useContext(DatabaseContext);
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
-  const { name } = user;
+  const { name, intro, walk, points: prevPoints} = user;
 
   const { loading, error, data } = useLoading(
     async () => await listQuiz({ id }),
@@ -43,16 +43,35 @@ export function Quiz() {
     );
   }
 
+  function incPoints() {
+    setPoints((state) => {
+      return state + 10;
+    })
+    console.log(points)
+  }
+
+  function incScore() {
+    setScore((state) => {
+      return state + 1;
+    })
+    console.log(score)
+  }
+
+
   function handleAnswerClick(isCorrect) {
     if (isCorrect) {
-      setScore(score + 1);
-      setPoints(points + 10);
+      console.log("Korrekt, nå skal poeng og score inkrementeres!")
+      incPoints()
+      incScore()
     }
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowPoints(true);
+      setUser({name: name, intro: intro, walk: walk, points: prevPoints  })
+      console.log("Previous points: " + prevPoints)
+      console.log("Added points: " + points)
       updateUser({ points, user})
     }
   }

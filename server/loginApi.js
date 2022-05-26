@@ -12,12 +12,11 @@ export function LoginApi(mongoDatabase) {
     const userData = await mongoDatabase
       .collection("user")
       .find({ name: user })
-      .map(({ name, intro, walk, points, level, finishedCapsules }) => ({
+      .map(({ name, intro, walk, points, finishedCapsules }) => ({
         name,
         intro,
         walk,
         points,
-        level,
         finishedCapsules
       }))
       .limit(1)
@@ -37,7 +36,7 @@ export function LoginApi(mongoDatabase) {
       mongoDatabase
         .collection("user")
           //HARDKODET POENG OG LEVEL FOR Å TESTE
-        .insertOne({ name: user.toLowerCase(), intro: true, walk: false, points: 50, level: 2, finishedCapsules: [] });
+        .insertOne({ name: user.toLowerCase(), intro: true, walk: false, points: 0, finishedCapsules: [] });
 
       res.clearCookie();
       res.cookie("user", user, { signed: true });
