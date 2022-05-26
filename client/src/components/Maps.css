@@ -48,18 +48,7 @@ body {
   text-align: center;
 }
 
-#custom-switch{
-  margin: 0;
-  position: absolute;
-  top: 90%;
-  left: 50%;
-  z-index: 10;
-  text-align: center;
-  color: red;
-  display: inline-block;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-}
+
 
 .capsule-btn {
   align-items: center;
@@ -149,4 +138,24 @@ body {
 
 .mapboxgl-control-container {
   display: none;
+}
+
+.form-check, .form-switch{
+  font-size: 1.5rem;
+}
+
+#custom-switch{
+  margin: 0;
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  z-index: 10;
+  text-align: center;
+  display: inline-block;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+.form-check-label{
+  padding-left: 10px;
+  color: black;
 }

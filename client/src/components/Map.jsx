@@ -55,6 +55,8 @@ export function Map() {
   }
 
   useEffect(() => {
+    if (!walk) document.getElementById("nav-text-qr").style.display = "none";
+
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
@@ -196,8 +198,6 @@ export function Map() {
       let display;
       repaint ? (display = "none") : (display = "inline-block");
 
-      // location.href='${feature.properties.url}
-
       const marker = new mapboxgl.Marker(el)
         .setLngLat(feature.geometry.coordinates)
         .setPopup(
@@ -219,9 +219,7 @@ export function Map() {
   useEffect(() => {
     loaded
       ? walk
-        ? (geo.trigger(),
-          (document.getElementById("nav-text-qr").style.display = "none"),
-          forceRepaintPopups(true))
+        ? (geo.trigger(), forceRepaintPopups(true))
         : (setDisabled(false), forceRepaintPopups(false))
       : "";
   }, [loaded]);
@@ -236,7 +234,7 @@ export function Map() {
               defaultChecked={walk}
               disabled={disabled}
               type="switch"
-              label="Gå turstien"
+              label={walk ? "På turstien" : "På skolen"}
               onClick={() => {
                 setDisabled(true);
                 handleWalkClick().then((r) =>
