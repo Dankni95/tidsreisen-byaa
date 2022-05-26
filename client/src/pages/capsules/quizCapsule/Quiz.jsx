@@ -2,7 +2,7 @@ import "./quiz.css";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
-import { useContext, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
@@ -19,12 +19,17 @@ export function Quiz() {
   const { listQuiz } = useContext(DatabaseContext);
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
-  const { name, intro, walk, points: prevPoints} = user;
+  const { name, intro, walk, points: prevPoints } = user;
 
   const { loading, error, data } = useLoading(
     async () => await listQuiz({ id }),
     [id]
   );
+
+  useEffect(async () => {
+    console.log(points, score);
+    await updateUser({ points, user });
+  }, [showPoints, updateUser]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -46,33 +51,30 @@ export function Quiz() {
   function incPoints() {
     setPoints((state) => {
       return state + 10;
-    })
-    console.log(points)
+    });
   }
 
   function incScore() {
     setScore((state) => {
       return state + 1;
-    })
-    console.log(score)
+    });
   }
-
 
   function handleAnswerClick(isCorrect) {
     if (isCorrect) {
-      console.log("Korrekt, nå skal poeng og score inkrementeres!")
-      incPoints()
-      incScore()
+      console.log("Korrekt, nå skal poeng og score inkrementeres!");
+      incPoints();
+      incScore();
     }
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowPoints(true);
-      setUser({name: name, intro: intro, walk: walk, points: prevPoints  })
-      console.log("Previous points: " + prevPoints)
-      console.log("Added points: " + points)
-      updateUser({ points, user})
+      setUser({ name: name, intro: intro, walk: walk, points: prevPoints });
+      console.log("Previous points: " + prevPoints);
+      console.log("Added points: " + points);
+      //updateUser({ points, user });
     }
   }
 

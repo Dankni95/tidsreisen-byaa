@@ -17,7 +17,7 @@ export function LoginApi(mongoDatabase) {
         intro,
         walk,
         points,
-        finishedCapsules
+        finishedCapsules,
       }))
       .limit(1)
       .toArray();
@@ -35,8 +35,14 @@ export function LoginApi(mongoDatabase) {
     } else {
       mongoDatabase
         .collection("user")
-          //HARDKODET POENG OG LEVEL FOR Å TESTE
-        .insertOne({ name: user.toLowerCase(), intro: true, walk: false, points: 0, finishedCapsules: [] });
+        //HARDKODET POENG OG LEVEL FOR Å TESTE
+        .insertOne({
+          name: user.toLowerCase(),
+          intro: true,
+          walk: false,
+          points: 0,
+          finishedCapsules: [],
+        });
 
       res.clearCookie();
       res.cookie("user", user, { signed: true });
@@ -44,18 +50,19 @@ export function LoginApi(mongoDatabase) {
     }
   });
 
-    router.put("/updateuser", (req, res) => {
-        const { points, user } = req.body;
-        mongoDatabase.collection("user").updateOne(
-            { name: user.name },
-            {
-                $inc: {
-                    points: points
-                },
-            }
-        );
-        res.sendStatus(200);
-    });
+  router.put("/updateuser", (req, res) => {
+    const { points, user } = req.body;
+    console.log(points);
+    mongoDatabase.collection("user").updateOne(
+      { name: user.name },
+      {
+        $inc: {
+          points: points,
+        },
+      }
+    );
+    res.sendStatus(200);
+  });
 
   return router;
 }
