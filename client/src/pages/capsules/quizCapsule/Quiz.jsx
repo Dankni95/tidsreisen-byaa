@@ -2,7 +2,7 @@ import "./quiz.css";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
@@ -29,6 +29,12 @@ export function Quiz() {
   useEffect(async () => {
     console.log(points, score);
     await updateUser({ points, user });
+    setUser({
+      name: name,
+      intro: intro,
+      walk: walk,
+      points: prevPoints + points,
+    });
   }, [showPoints, updateUser]);
 
   if (loading) {
@@ -71,10 +77,6 @@ export function Quiz() {
       setCurrentQuestion(nextQuestion);
     } else {
       setShowPoints(true);
-      setUser({ name: name, intro: intro, walk: walk, points: prevPoints });
-      console.log("Previous points: " + prevPoints);
-      console.log("Added points: " + points);
-      //updateUser({ points, user });
     }
   }
 
