@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { NavbarData } from "./navbarData.jsx";
 import "./navbar.css";
 
@@ -8,17 +8,14 @@ export function Navbar() {
     id: null,
   });
 
-  function clickedIconColorHandler(itemId) {
+  function clickedIconNavbarHandler(itemId) {
     setClickedIconColor({
       id: itemId,
     });
   }
 
-  if (
-    window.location.pathname !== "/" &&
-    window.location.pathname !== "/login"
-  ) {
-    return (
+  return (
+    <header style={{ position: "fixed", zIndex: "20", width: "100%" }}>
       <div id={"navbar-container"}>
         <div className={"navbar"}>
           <nav className={"nav-menu"}>
@@ -28,17 +25,20 @@ export function Navbar() {
                   <div key={index}>
                     <li>
                       <Link
-                        onClick={() => clickedIconColorHandler(item.id)}
+                        replace={true}
+                        onClick={() => clickedIconNavbarHandler(item.id)}
                         id={item.id}
                         style={
                           item.id === clickedIconColor.id
-                            ? { color: "#4a8554" }
-                            : { color: "#333333" }
+                            ? { color: "#000000", opacity: "1" }
+                            : { color: "#000000", opacity: "0.6" }
                         }
                         className={"icon-and-title"}
                         to={item.path}
                       >
-                        {item.icon}
+                        {item.id === clickedIconColor.id
+                          ? item.iconActive
+                          : item.icon}
                         <span>{item.title}</span>
                       </Link>
                     </li>
@@ -49,8 +49,6 @@ export function Navbar() {
           </nav>
         </div>
       </div>
-    );
-  } else {
-    return null;
-  }
+    </header>
+  );
 }

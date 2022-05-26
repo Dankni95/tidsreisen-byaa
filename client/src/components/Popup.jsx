@@ -81,6 +81,7 @@ export default function Popup({ username, intro }) {
     });
     setShow(false);
   };
+
   const handleNext = () => setNext(next + 1);
   const handleShow = () => setShow(true);
 

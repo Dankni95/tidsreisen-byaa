@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Loading } from "../../../components/Loading.jsx";
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.css";
@@ -10,13 +10,30 @@ import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import olafLeft from "./olaf-left.png";
 import olafInfront from "./olaf-infront.png";
 import "./storycard.css";
+import { UserContext } from "../../../contexts/userContext.jsx";
 
-export function StoryCard({ historyCapsule, error, loading }) {
+export function StoryCard({ user, historyCapsule, error, loading }) {
   const navigate = useNavigate();
   const { id } = useParams();
+  const { updateUser } = useContext(UserContext);
 
   const navigateToMap = () => navigate("/map");
   const navigateToMyFindings = () => navigate("/myfindings");
+
+  const capsuleObject = {
+    name: historyCapsule.name,
+    category: historyCapsule.category,
+  };
+
+  const updateToDatabase = () => {
+    updateUser({
+      user,
+      finishedCapsules: capsuleObject,
+      points: 20,
+    });
+  };
+
+  console.log(historyCapsule.category);
 
   const olafHiderLeft = () =>
     (document.querySelector("#olaf-left").style.display = "none");
@@ -24,7 +41,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
   const olafDisplayerLeft = () =>
     (document.querySelector("#olaf-left").style.display = "block");
 
-  if (historyCapsule.category.toLowerCase() === id.toLowerCase()) {
+  if (historyCapsule.name.toLowerCase() === id.toLowerCase()) {
     return (
       <div>
         <div id={"olaf-left-div"}>
@@ -52,7 +69,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
                 fontFamily: "Source Sans Pro Bold",
               }}
             >
-              {historyCapsule.category}
+              {historyCapsule.name}
             </h1>
           </div>
           <Swiper
@@ -63,6 +80,9 @@ export function StoryCard({ historyCapsule, error, loading }) {
             scrollbar={{ draggable: true }}
             onSlideNextTransitionStart={() => olafHiderLeft()}
             onReachBeginning={() => olafDisplayerLeft()}
+            onReachEnd={() => {
+              updateToDatabase();
+            }}
             onSwiper={(swiper) => console.log(swiper)}
           >
             {historyCapsule.story.map((historyCapsule, index) => {
