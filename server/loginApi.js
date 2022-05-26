@@ -35,7 +35,6 @@ export function LoginApi(mongoDatabase) {
     } else {
       mongoDatabase
         .collection("user")
-        //HARDKODET POENG OG LEVEL FOR Å TESTE
         .insertOne({
           name: user.toLowerCase(),
           intro: true,
@@ -51,13 +50,16 @@ export function LoginApi(mongoDatabase) {
   });
 
   router.put("/updateuser", (req, res) => {
-    const { points, user } = req.body;
+    const { points, user, capsuleObject } = req.body;
     mongoDatabase.collection("user").updateOne(
       { name: user.name },
       {
         $inc: {
           points: points,
         },
+        $push: {
+            finishedCapsules: capsuleObject
+        }
       }
     );
     res.sendStatus(200);

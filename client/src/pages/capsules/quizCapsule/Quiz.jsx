@@ -19,7 +19,7 @@ export function Quiz() {
   const { listQuiz } = useContext(DatabaseContext);
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
-  const { name, intro, walk, points: prevPoints } = user;
+  const { name, intro, walk, points: prevPoints, finishedCapsules } = user;
 
   const { loading, error, data } = useLoading(
     async () => await listQuiz({ id }),
@@ -27,12 +27,13 @@ export function Quiz() {
   );
 
   useEffect(async () => {
-    await updateUser({ points, user });
+    await updateUser({ points, user, capsuleObject });
     setUser({
       name: name,
       intro: intro,
       walk: walk,
       points: prevPoints + points,
+      finishedCapsules: finishedCapsules
     });
   }, [showPoints, updateUser]);
 
@@ -51,6 +52,11 @@ export function Quiz() {
         <div id="error-text">{error.toString()}</div>
       </div>
     );
+  }
+
+  const capsuleObject = {
+    name_: data[currentQuestion].name_,
+    category: data[currentQuestion].category
   }
 
   function incPoints() {
@@ -94,7 +100,7 @@ export function Quiz() {
         <Container className="quiz-items">
           <div>
             <h1 className="capsule-title">Quizkapsel</h1>
-            <h3 className="category">{data[currentQuestion].category}</h3>
+            <h3 className="category">{data[currentQuestion].name_}</h3>
             <p className="question">{data[currentQuestion].question_}</p>
           </div>
 
