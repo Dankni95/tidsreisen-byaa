@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Loading } from "../../../components/Loading.jsx";
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.css";
@@ -16,6 +16,7 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
+  const [stateCapsule, setStateCapsule] = useState();
 
   const navigateToMap = () => navigate("/map");
   const navigateToMyFindings = () => navigate("/myfindings");
@@ -31,23 +32,27 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
     }
   );
 
-  const filteredCapsuleNames = getCapsuleNameRdyForDatabase.find(
-    (capsuleName) => {
+  const filteredCapsuleNamesFromUserDatabase =
+    getCapsuleNameRdyForDatabase.find((capsuleName) => {
       return capsuleName === historyCapsule.name;
-    }
-  );
-
-  console.log(filteredCapsuleNames);
+    });
 
   const updateToDatabase = async () => {
-    if (filteredCapsuleNames !== historyCapsule.name) {
-      await updateUser({
-        user,
-        finishedCapsules: capsuleObject,
-        points: 20,
-      });
-    }
+    console.log(`db capsule: ${filteredCapsuleNamesFromUserDatabase}`);
+    console.log(`capsule on right now: ${historyCapsule.name}`);
+    await updateUser({
+      user,
+      finishedCapsules: capsuleObject,
+      points: 20,
+    });
+    //setStateCapsule(capsuleObject.name);
   };
+
+  const capsuleSetter = async () => {
+    await setStateCapsule(capsuleObject.name);
+  };
+
+  //useEffect(() => {}, [updateUser]);
 
   const olafHiderLeft = () =>
     (document.querySelector("#olaf-left").style.display = "none");
@@ -94,13 +99,15 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
             scrollbar={{ draggable: true }}
             onSlideNextTransitionStart={() => olafHiderLeft()}
             onReachBeginning={() => olafDisplayerLeft()}
-            onReachEnd={async () => await updateToDatabase()}
+            onReachEnd={async () => {
+              await updateToDatabase(), await capsuleSetter();
+            }}
             onSwiper={(swiper) => console.log(swiper)}
           >
-            {historyCapsule.story.map((historyCapsule, index) => {
+            {historyCapsule.story.map((capsuleStory, index) => {
               return (
                 <SwiperSlide key={index} className={"slide"}>
-                  {historyCapsule.done === true ? (
+                  {capsuleStory.done === true ? (
                     <div style={{ height: "35rem" }}>
                       <div className={"d-flex justify-content-center mt-3"}>
                         <h1
@@ -133,12 +140,16 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
                           className={"flex-shrink-1"}
                         >
                           <div className="left-point"></div>
-                          <p id={"finish-paragraph"}>
-                            Godt jobbet!
-                            <br /> Du har gjennomført en kapsel og fått poeng
-                            for det, og kanskje til og med lært noe nytt om
-                            Byåa!
-                          </p>
+                          {stateCapsule === historyCapsule.name ? (
+                            <p>Denne har du allerede gjort!</p>
+                          ) : (
+                            <p id={"finish-paragraph"}>
+                              Godt jobbet!
+                              <br /> Du har gjennomført en kapsel og fått poeng
+                              for det, og kanskje til og med lært noe nytt om
+                              Byåa!
+                            </p>
+                          )}
                         </div>
                       </div>
                       <div
@@ -171,23 +182,23 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
                       <div className={"slide-content"}>
                         <div>
                           <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
-                            {historyCapsule.image && (
+                            {capsuleStory.image && (
                               <section>
                                 <img
                                   id={"history-image"}
                                   className={"card-img"}
-                                  src={historyCapsule.image}
+                                  src={capsuleStory.image}
                                   alt={"bilde av historie-element"}
                                 />
                               </section>
                             )}
                           </div>
                           <section id={"story-section"} className={"mt-4"}>
-                            <p id={"story-paragraph"}>{historyCapsule.story}</p>
+                            <p id={"story-paragraph"}>{capsuleStory.story}</p>
                           </section>
                         </div>
                         <div id={"year"}>
-                          <p>{historyCapsule.year}</p>
+                          <p>{capsuleStory.year}</p>
                         </div>
                       </div>
                     </div>
