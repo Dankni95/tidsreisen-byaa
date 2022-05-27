@@ -27,7 +27,7 @@ export function Quiz() {
   );
 
   useEffect(async () => {
-    await updateUser({ points, user, capsuleObject });
+    await updateUser({ points, user, finishedCapsules: capsuleObject });
     setUser({
       name: name,
       intro: intro,
