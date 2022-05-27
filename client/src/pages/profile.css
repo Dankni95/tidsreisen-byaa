@@ -1,9 +1,9 @@
 .profileContainer {
-    background-color: #4A8554;
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  background-color: #4a8554;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 #main {
@@ -19,15 +19,15 @@
 }
 
 #circle {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background-color: #F2F1E8;
-    height: 10em;
-    width: 10em;
-    border-radius: 100px;
-    margin-bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #f2f1e8;
+  height: 10em;
+  width: 10em;
+  border-radius: 100px;
+  margin-bottom: 1em;
 }
 
 #icon {
@@ -53,16 +53,8 @@
   border-radius: 50px;
 }
 
-#linkBox {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  margin: 2em;
-  background-color: #f2f1e8;
-  height: 3em;
-  width: 15em;
+#myfindings-button-container {
+  margin-top: 5rem;
 }
 
 #myFindingsLink {

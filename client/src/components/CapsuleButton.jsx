@@ -24,3 +24,13 @@ export const CapsuleButtonGreen = (props) => {
     </>
   );
 };
+
+export const CapsuleButtonLetthet = (props) => {
+  return (
+    <>
+      <button onClick={props.onClick} id="button-capsules-letthet">
+        {props.buttonText}
+      </button>
+    </>
+  );
+};

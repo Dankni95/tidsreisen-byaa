@@ -15,12 +15,14 @@ export function MyFindingsCard() {
     <>
       {user.finishedCapsules?.map((capsule, index) => {
         return (
-          <div id={"card"} className="card mb-3" style={{ maxWidth: "540px" }}>
-            <div
-              onClick={() => console.log("Opens capsule but not 'done'-page")}
-              key={index}
-              className="row g-0"
-            >
+          <div
+            id={"card"}
+            className="card mb-3"
+            style={{ maxWidth: "540px" }}
+            onClick={() => console.log("Opens capsule but not 'done'-page")}
+            key={index}
+          >
+            <div className="row g-0">
               <div className="col-5">
                 <img
                   height={100}

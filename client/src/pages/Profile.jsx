@@ -3,6 +3,8 @@ import { NotLoggedIn } from "../components/NotLoggedIn.jsx";
 import "./profile.css";
 import { IoPersonOutline } from "react-icons/io5";
 import { User } from "../application.jsx";
+import { Link } from "react-router-dom";
+import { CapsuleButtonLetthet } from "../components/CapsuleButton.jsx";
 
 function ProgressBar({ color, progress }) {
   // SKAMLØST STJÅLET FRA
@@ -11,7 +13,7 @@ function ProgressBar({ color, progress }) {
   const fillerStyles = {
     height: "100%",
     maxWidth: "15rem",
-    width: `${progress/10}rem`,
+    width: `${progress / 10}rem`,
     backgroundColor: color,
     borderRadius: "inherit",
     textAlign: "right",
@@ -42,10 +44,10 @@ export function Profile() {
         <ProgressBar color="#333333" progress={points} />
         {/*TODO: Endre poeng her når vi vet hvor mange man kan få totalt*/}
         <p id="userPoints">{points}/150 poeng</p>
-        <div id="linkBox">
-          <a id="myFindingsLink" href="/myfindings">
-            Mine funn
-          </a>
+        <div id={"myfindings-button-container"}>
+          <Link id="myFindingsLink" to="/myfindings">
+            <CapsuleButtonLetthet buttonText={"Mine funn"} />
+          </Link>
         </div>
       </main>
     </div>
