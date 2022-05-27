@@ -14,11 +14,8 @@ export function Navbar() {
     });
   }
 
-  if (
-    window.location.pathname !== "/" &&
-    window.location.pathname !== "/login"
-  ) {
-    return (
+  return (
+    <header style={{ position: "fixed", zIndex: "20", width: "100%" }}>
       <div id={"navbar-container"}>
         <div className={"navbar"}>
           <nav className={"nav-menu"}>
@@ -28,6 +25,7 @@ export function Navbar() {
                   <div key={index}>
                     <li>
                       <Link
+                        replace={true}
                         onClick={() => clickedIconNavbarHandler(item.id)}
                         id={item.id}
                         style={
@@ -51,8 +49,6 @@ export function Navbar() {
           </nav>
         </div>
       </div>
-    );
-  } else {
-    return null;
-  }
+    </header>
+  );
 }

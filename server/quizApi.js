@@ -8,12 +8,13 @@ export function QuizApi(mongoDb) {
         const correctId = id[0].toUpperCase() + id.slice(1).toLowerCase();
         const quiz = await mongoDb
             .collection("quiz")
-            .find({ category: correctId})
-            .map(({ _id, category, question_, answers }) => ({
+            .find({ name_: correctId})
+            .map(({ _id, category, question_, answers, name_ }) => ({
                 _id,
                 category,
                 question_,
-                answers
+                answers,
+                name_
             }))
             .toArray();
         res.json(quiz);

@@ -10,7 +10,8 @@ function ProgressBar({ color, progress }) {
 
   const fillerStyles = {
     height: "100%",
-    width: `${progress}%`,
+    maxWidth: "15rem",
+    width: `${progress/10}rem`,
     backgroundColor: color,
     borderRadius: "inherit",
     textAlign: "right",
@@ -25,22 +26,22 @@ function ProgressBar({ color, progress }) {
 
 export function Profile() {
   const { user, setUser } = useContext(User);
-  const { name, points, level, finishedCapsules } = user;
+  const { name, points, finishedCapsules } = user;
 
   if (name === undefined) {
     return <NotLoggedIn />;
   }
 
   return (
-    <div className="container">
+    <div className="profileContainer">
       <main id="main">
         <h1 id="userName">{name}</h1>
         <div id="circle">
           <IoPersonOutline id="icon" />
         </div>
-        <h2 id="userLevel">Level {level}</h2>
         <ProgressBar color="#333333" progress={points} />
-        <p id="userPoints">{points}/100 poeng</p>
+        {/*TODO: Endre poeng her når vi vet hvor mange man kan få totalt*/}
+        <p id="userPoints">{points}/150 poeng</p>
         <div id="linkBox">
           <a id="myFindingsLink" href="/myfindings">
             Mine funn

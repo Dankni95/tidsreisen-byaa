@@ -12,12 +12,11 @@ export function LoginApi(mongoDatabase) {
     const userData = await mongoDatabase
       .collection("user")
       .find({ name: user })
-      .map(({ name, intro, walk, points, level, finishedCapsules }) => ({
+      .map(({ name, intro, walk, points, finishedCapsules }) => ({
         name,
         intro,
         walk,
         points,
-        level,
         finishedCapsules,
       }))
       .limit(1)
@@ -28,7 +27,7 @@ export function LoginApi(mongoDatabase) {
 
   router.post("/", async (req, res) => {
     const { user, force } = req.body;
-
+    console.log(force);
     if (force === true) {
       res.clearCookie("user");
       res.cookie("user", user, { signed: true });
@@ -36,13 +35,11 @@ export function LoginApi(mongoDatabase) {
     } else {
       mongoDatabase
         .collection("user")
-        //HARDKODET POENG OG LEVEL FOR Å TESTE
         .insertOne({
           name: user.toLowerCase(),
           intro: true,
           walk: false,
-          points: 50,
-          level: 2,
+          points: 0,
           finishedCapsules: [],
         });
 
@@ -53,7 +50,7 @@ export function LoginApi(mongoDatabase) {
   });
 
   router.put("/updateuser", (req, res) => {
-    const { points, user, finishedCapsules } = req.body;
+    const { points, user, capsuleObject } = req.body;
     mongoDatabase.collection("user").updateOne(
       {
         name: user.name,
@@ -66,8 +63,8 @@ export function LoginApi(mongoDatabase) {
           points: points,
         },
         $push: {
-          finishedCapsules: finishedCapsules,
-        },
+            finishedCapsules: capsuleObject
+        }
       }
     );
     res.sendStatus(200);
