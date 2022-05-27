@@ -22,6 +22,8 @@ export function Quiz() {
   const { user, setUser } = useContext(User);
   const { name, intro, walk, points: prevPoints, finishedCapsules } = user;
 
+  let capsuleObject = {}
+
   const { loading, error, data } = useLoading(
     async () => await listQuiz({ id }),
     [id]
@@ -55,7 +57,7 @@ export function Quiz() {
     );
   }
 
-  const capsuleObject = {
+  capsuleObject = {
     name_: data[currentQuestion].name_,
     category: data[currentQuestion].category
   }
