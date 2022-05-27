@@ -28,7 +28,7 @@ export function LoginApi(mongoDatabase) {
 
   router.post("/", async (req, res) => {
     const { user, force } = req.body;
-
+    console.log(force);
     if (force === true) {
       res.clearCookie("user");
       res.cookie("user", user, { signed: true });

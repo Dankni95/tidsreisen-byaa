@@ -11,7 +11,7 @@ const calcTimeleft = (t) => {
 
 export function useCountDown(endTime) {
   const [end, setEndTime] = useState(endTime);
-  const [timeLeft, setTimeLeft] = useState(() => calcTimeleft(endTime));
+  const [timeLeft, setTimeLeft] = useState(() => calcTimeleft(end));
 
   useEffect(() => {
     setTimeLeft(calcTimeleft(end));

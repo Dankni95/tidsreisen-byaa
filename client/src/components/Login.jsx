@@ -25,6 +25,7 @@ export default function Login() {
 
     if (event.nativeEvent.submitter.value !== "") {
       await postJSON("api/login", { user: oldUser, force: true });
+      console.log(user);
       navigate("/map");
     } else {
       const res = await checkUser(`name=${username}`);
