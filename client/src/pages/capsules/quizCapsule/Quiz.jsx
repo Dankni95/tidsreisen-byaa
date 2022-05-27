@@ -4,7 +4,7 @@ import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
 import { useContext, useEffect, useState } from "react";
 import { Container } from "react-bootstrap";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { User } from "../../../application.jsx";
@@ -15,6 +15,7 @@ export function Quiz() {
   const [showPoints, setShowPoints] = useState(false);
   const [score, setScore] = useState(0);
   const [points, setPoints] = useState(0);
+  const navigate = useNavigate();
 
   const { listQuiz } = useContext(DatabaseContext);
   const { updateUser } = useContext(UserContext);
@@ -93,8 +94,16 @@ export function Quiz() {
             Du har {score}/{data.length} riktige
           </h3>
           <h5 className="points">+ {points} poeng!</h5>
-          <a href={"/map"}>Finn flere </a>
-          <a href={"/myfindings"}>Mine funn</a>
+          <div className={"links"}>
+            <CapsuleButtonGreen
+              buttonText={"Finn flere"}
+              onClick={() => navigate("/map")}
+            ></CapsuleButtonGreen>
+            <CapsuleButtonGreen
+                buttonText={"Mine funn"}
+                onClick={() => navigate("/myfindings")}
+            ></CapsuleButtonGreen>
+          </div>
         </div>
       ) : (
         <Container className="quiz-items">
@@ -106,7 +115,7 @@ export function Quiz() {
 
           <div className="button-container">
             {data[currentQuestion].answers.map((a, index) => (
-              <div key={index} className={"mb-3"}>
+              <div key={index} className={"answer-btn"}>
                 <CapsuleButtonGreen
                   onClick={() => handleAnswerClick(a.isCorrect)}
                   buttonText={a.answer}

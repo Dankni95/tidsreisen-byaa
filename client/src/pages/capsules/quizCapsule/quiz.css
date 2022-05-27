@@ -38,14 +38,76 @@
 .quiz {
   text-align: center;
 }
-.completed {
-  font-weight: bold;
-}
-
-.result {
-  font-weight: bold;
-}
 
 .points {
   text-align: center;
+  margin-bottom: 2rem;
+}
+
+.completed, .result {
+  font-weight: bold;
+}
+
+/*IPAD MEDIA QUERIES
+  Sliter med font-størrelse på knappene
+*/
+@media only screen
+and (min-device-width: 768px)
+and (max-device-width: 1024px)
+and (-webkit-min-device-pixel-ratio: 2) {
+
+  .question {
+    color: white;
+    background-color: var(--backgroundColorGreeny);
+    font-family: 'Bubblegum Sans',cursive;
+    border: solid;
+    text-align: center;
+    padding: 1rem;
+    font-size: 2rem;
+    margin-bottom: 3rem;
+    border-radius: 10px;
+  }
+
+  .capsule-title {
+    font-size: 4rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .category {
+    font-weight: bold;
+    font-size: 3rem;
+    padding-top: 0.5rem;
+    text-align: center;
+    padding-bottom: 6rem;
+    color: var(--backgroundColorGreeny);
+  }
+
+  .button-container {
+    display: grid;
+    justify-content: center;
+  }
+
+  .completed {
+    font-weight: bold;
+    font-size: 4rem;
+    margin-bottom: 5rem;
+  }
+
+  .result {
+    font-weight: bold;
+    font-size: 2rem;
+  }
+
+  .points {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .links {
+    display: grid;
+    place-items: center;
+  }
+
 }

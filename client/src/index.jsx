@@ -6,7 +6,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 // *** PWA Functionality START ***
 
-navigator.serviceWorker
+/*navigator.serviceWorker
   .register(new URL("service-worker.js", import.meta.url), { type: "module" })
   .then((reg) => {
     reg.onupdatefound = () => {
@@ -44,7 +44,7 @@ async function promptUserToRefresh() {
   }
 
    */
-}
+//}
 
 // *** PWA Functionality END *
 
