@@ -50,7 +50,7 @@ export function LoginApi(mongoDatabase) {
   });
 
   router.put("/updateuser", (req, res) => {
-    const { points, user, capsuleObject } = req.body;
+    const { points, user, finishedCapsules } = req.body;
     mongoDatabase.collection("user").updateOne(
       {
         name: user.name,
@@ -63,7 +63,7 @@ export function LoginApi(mongoDatabase) {
           points: points,
         },
         $push: {
-            finishedCapsules: capsuleObject
+            finishedCapsules: finishedCapsules
         }
       }
     );
