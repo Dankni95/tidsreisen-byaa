@@ -16,7 +16,7 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
   const navigate = useNavigate();
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
-  const [stateCapsule, setStateCapsule] = useState();
+  const [stateCapsule, setStateCapsule] = useState({});
 
   const navigateToMap = () => navigate("/map");
   const navigateToMyFindings = () => navigate("/myfindings");
@@ -26,33 +26,31 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
     category: historyCapsule.category,
   };
 
-  const getCapsuleNameRdyForDatabase = user.finishedCapsules.map(
+  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
+    return capsuleName.name;
+  });
+
+  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
     (capsuleName) => {
-      return capsuleName.name;
+      return capsuleName === historyCapsule.name;
     }
   );
 
-  const filteredCapsuleNamesFromUserDatabase =
-    getCapsuleNameRdyForDatabase.find((capsuleName) => {
-      return capsuleName === historyCapsule.name;
-    });
-
   const updateToDatabase = async () => {
-    console.log(`db capsule: ${filteredCapsuleNamesFromUserDatabase}`);
-    console.log(`capsule on right now: ${historyCapsule.name}`);
     await updateUser({
       user,
       finishedCapsules: capsuleObject,
       points: 20,
     });
-    //setStateCapsule(capsuleObject.name);
   };
 
   const capsuleSetter = async () => {
-    await setStateCapsule(capsuleObject.name);
+    await setStateCapsule(filteredCapsuleNamesFromUserDatabase);
   };
 
-  //useEffect(() => {}, [updateUser]);
+  useEffect(async () => {
+    await capsuleSetter();
+  }, [stateCapsule, updateToDatabase]);
 
   const olafHiderLeft = () =>
     (document.querySelector("#olaf-left").style.display = "none");
@@ -140,8 +138,11 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
                           className={"flex-shrink-1"}
                         >
                           <div className="left-point"></div>
-                          {stateCapsule === historyCapsule.name ? (
-                            <p>Denne har du allerede gjort!</p>
+                          {historyCapsule.name === stateCapsule ? (
+                            <p id={"finish-paragraph"}>
+                              Woops! Det ser ut som du allerede har vært på
+                              denne kapselen. Gå til neste kapsel.
+                            </p>
                           ) : (
                             <p id={"finish-paragraph"}>
                               Godt jobbet!
@@ -158,7 +159,9 @@ export function StoryCard({ user, historyCapsule, error, loading }) {
                         }
                       >
                         <div className={"mb-5"}>
-                          <p id={"history-points"}>+20 poeng</p>
+                          {historyCapsule.name === stateCapsule ? null : (
+                            <p id={"history-points"}>+20 poeng</p>
+                          )}
                         </div>
                         <div className={"d-flex flex-column"}>
                           <div className={"mb-3"}>
