@@ -52,7 +52,12 @@ export function LoginApi(mongoDatabase) {
   router.put("/updateuser", (req, res) => {
     const { points, user, capsuleObject } = req.body;
     mongoDatabase.collection("user").updateOne(
-      { name: user.name },
+      {
+        name: user.name,
+        finishedCapsules: {
+          $ne: finishedCapsules,
+        },
+      },
       {
         $inc: {
           points: points,

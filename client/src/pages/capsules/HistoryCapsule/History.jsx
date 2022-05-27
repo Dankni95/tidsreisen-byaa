@@ -9,7 +9,7 @@ import { User } from "../../../application.jsx";
 import { ErrorModal } from "../../../components/ErrorModal.jsx";
 
 export function History() {
-  const { user, setUser } = useContext(User);
+  const { user } = useContext(User);
   const { name } = user;
 
   const [error, setEror] = useState();
@@ -18,7 +18,6 @@ export function History() {
     data,
     error: errorHistory,
     loading,
-    reload,
   } = useLoading(async () => await listHistory());
 
   if (loading) {
@@ -48,13 +47,11 @@ export function History() {
         alt="bilde av vann sag effekt bakgrunn"
       />
       {data && (
-        // dette er parenten til hele siden
         <div>
           {data?.map((historyCapsule, index) => {
             return (
               <div key={index}>
                 <StoryCard
-                  user={user}
                   loading={loading}
                   error={error}
                   historyCapsule={historyCapsule}
