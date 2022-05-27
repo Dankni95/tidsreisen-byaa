@@ -1,61 +1,53 @@
-import React from "react";
+import React, { useContext } from "react";
 import { NotLoggedIn } from "../components/NotLoggedIn.jsx";
 import "./profile.css";
+import { IoPersonOutline } from "react-icons/io5";
+import { User } from "../application.jsx";
 
 function ProgressBar({ color, progress }) {
+  // SKAMLØST STJÅLET FRA
+  // https://dev.to/ramonak/react-how-to-create-a-custom-progress-bar-component-in-5-minutes-2lcl
 
-// SKAMLØST STJÅLET FRA
-// https://dev.to/ramonak/react-how-to-create-a-custom-progress-bar-component-in-5-minutes-2lcl
+  const fillerStyles = {
+    height: "100%",
+    maxWidth: "15rem",
+    width: `${progress/10}rem`,
+    backgroundColor: color,
+    borderRadius: "inherit",
+    textAlign: "right",
+  };
 
-    const containerStyles = {
-        height: "1.5em",
-        width: "15em",
-        backgroundColor: "red",
-        borderRadius: 50,
-        margin: 50
-    };
-
-    const fillerStyles = {
-        height: '100%',
-        width: `${progress}%`,
-        backgroundColor: color,
-        borderRadius: 'inherit',
-        textAlign: 'right'
-    };
-
-    const labelStyles = {
-        padding: 10,
-        color: 'white',
-    };
-
-    return (
-        <div style={containerStyles}>
-            <div style={fillerStyles}>
-                <span style={labelStyles}>{`${progress}%`}</span>
-            </div>
-        </div>
-    )
+  return (
+    <div id="progressBar">
+      <div style={fillerStyles}></div>
+    </div>
+  );
 }
 
-export function Profile({username}) {
+export function Profile() {
+  const { user, setUser } = useContext(User);
+  const { name, points, finishedCapsules } = user;
 
-    if (!username) {
-        return <NotLoggedIn />;
-    }
+  if (name === undefined) {
+    return <NotLoggedIn />;
+  }
 
-    return (
-        <div className="container">
-            <h1>{username} hello</h1>
-            <br/>
-            <br/>
-            <br/>
-            <br/>
-            {/*br fordi navbar overlapper, posisjonèr med css etterhvert,
-            level og progress hentes fra db*/}
-            <h2>Level 2</h2>
-            <ProgressBar color="#333333" progress="90"/>
-            <p>90/100 poeng</p>
-            <a href="/myfindings">Mine funn</a>
+  return (
+    <div className="profileContainer">
+      <main id="main">
+        <h1 id="userName">{name}</h1>
+        <div id="circle">
+          <IoPersonOutline id="icon" />
         </div>
-    );
+        <ProgressBar color="#333333" progress={points} />
+        {/*TODO: Endre poeng her når vi vet hvor mange man kan få totalt*/}
+        <p id="userPoints">{points}/150 poeng</p>
+        <div id="linkBox">
+          <a id="myFindingsLink" href="/myfindings">
+            Mine funn
+          </a>
+        </div>
+      </main>
+    </div>
+  );
 }

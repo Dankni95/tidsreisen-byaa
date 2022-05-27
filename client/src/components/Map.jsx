@@ -1,48 +1,42 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "./Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
 import GeoJson from "../helpers/MapHelpers";
-import Button from "react-bootstrap/Button";
 import AnimatedPopup from "mapbox-gl-animated-popup";
 import Popup from "./Popup.jsx";
-import { Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { User } from "../application";
 import { postJSON } from "../helpers/http.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
-export function Map({ username, loading, error }) {
+export function Map() {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
   const [map, setMap] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const [user, setUser] = useState(false);
-  const [intro, setIntro] = useState(true);
+  const [disabled, setDisabled] = useState(true);
 
   const [geo, setGeo] = useState(null);
 
-  const [walk, setWalk] = useState(false);
-
   let navigate = useNavigate();
 
-  const [userCoords, setUserCoords] = useState(0);
-
-  if (userCoords === 0) {
-    navigator.geolocation.getCurrentPosition(function (position) {
-      setUserCoords([position.coords.longitude, position.coords.latitude]);
-    });
-  }
+  const { user, setUser } = useContext(User);
+  const { name, intro, walk } = user;
 
   async function handleWalkClick() {
+    console.log(user);
     loaded
-      ? walk
+      ? !walk
         ? (geo.trigger(),
-          setWalk(false),
-          await postJSON("/api/update-state", { user: user.name, walk: true }))
+          await postJSON("/api/update-state", { user: name, walk: true }),
+          setUser({ name: name, intro: intro, walk: true }),
+          forceRepaintPopups(true))
         : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
           map.flyTo({
             // These options control the ending camera position: centered at
@@ -54,13 +48,15 @@ export function Map({ username, loading, error }) {
             // this animation is considered essential with respect to prefers-reduced-motion
             essential: true,
           }),
-          setWalk(true),
-          console.log("hit"),
-          await postJSON("/api/update-state", { user: user.name, walk: false }))
+          setUser({ name: name, intro: intro, walk: false }),
+          await postJSON("/api/update-state", { user: name, walk: false }),
+          forceRepaintPopups(false))
       : "";
   }
 
   useEffect(() => {
+    if (!walk) document.getElementById("nav-text-qr").style.display = "none";
+
     const map = new mapboxgl.Map({
       container: mapContainerRef.current,
       style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
@@ -93,68 +89,11 @@ export function Map({ username, loading, error }) {
       */
     });
 
-    function anim(target) {
-      map.flyTo({
-        // These options control the ending camera position: centered at
-        // the target, at zoom level 9, and north up.
-        center: target.anim_coords,
-        zoom: target.anim_zoom,
-        bearing: target.anim_bearing,
-
-        // These options control the flight curve, making it move
-        // slowly and zoom out almost completely before starting
-        // to pan.
-        speed: 0.5, // make the flying slow
-        curve: 1, // change the speed at which it zooms out
-
-        // This can be any easing function: it takes a number between
-        // 0 and 1 and returns another number between 0 and 1.
-        easing: (t) => t,
-
-        // this animation is considered essential with respect to prefers-reduced-motion
-        essential: true,
-      });
-    }
-
-    // add markers to map
-    for (const feature of GeoJson().features) {
-      // create a HTML element for each feature
-      const el = document.createElement("div");
-      el.className = "marker";
-      el.id = feature.properties.id;
-      el.addEventListener("click", () => anim(feature.properties), false);
-
-      let popup = new AnimatedPopup({
-        offset: 25,
-        openingAnimation: {
-          duration: 200,
-          easing: "linear",
-          transform: "scale",
-        },
-        closingAnimation: {
-          duration: 200,
-          easing: "easeInBack",
-          transform: "scale",
-        },
-      });
-
-      // make a marker for each feature and add it to the map
-      new mapboxgl.Marker(el)
-        .setLngLat(feature.geometry.coordinates)
-        .setPopup(
-          popup // add popups
-            .setHTML(
-              `<div>
-              <h3>${feature.properties.title}</h3><p>${feature.properties.description}</p>
-              <button class="capsule-btn" onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
-              </div>`
-            )
-        )
-        .addTo(map);
-    }
-
     map.on("load", () => {
       setLoaded(true);
+      setTimeout(() => {
+        setDisabled(false);
+      }, 4000);
       map.addSource("route", {
         type: "geojson",
         data: {
@@ -191,57 +130,122 @@ export function Map({ username, loading, error }) {
     });
 
     geolocate.on("geolocate", () => {
-      document.getElementById("scan-btn").style.display = "block";
+      document.getElementById("nav-text-qr").style.display = "";
     });
 
     geolocate.on("trackuserlocationend", () => {
-      document.getElementById("scan-btn").style.display = "none";
+      document.getElementById("nav-text-qr").style.display = "none";
     });
 
     setMap(map);
     return () => map.remove();
   }, []);
 
-  useEffect(() => {
-    loaded ? (walk ? geo.trigger() : "") : "";
-  }, [loaded]);
+  function anim(target) {
+    map.flyTo({
+      // These options control the ending camera position: centered at
+      // the target, at zoom level 9, and north up.
+      center: target.anim_coords,
+      zoom: target.anim_zoom,
+      bearing: target.anim_bearing,
 
-  function handleClick() {
-    navigate("/camera");
+      // These options control the flight curve, making it move
+      // slowly and zoom out almost completely before starting
+      // to pan.
+      speed: 0.5, // make the flying slow
+      curve: 1, // change the speed at which it zooms out
+
+      // This can be any easing function: it takes a number between
+      // 0 and 1 and returns another number between 0 and 1.
+      easing: (t) => t,
+
+      // this animation is considered essential with respect to prefers-reduced-motion
+      essential: true,
+    });
+  }
+
+  function forceRepaintPopups(repaint) {
+    // delete all markers
+    const markerDiv = document.getElementById("popups");
+    markerDiv ? (markerDiv.remove(), console.log("removed")) : "";
+
+    // repopulate
+    const popupDiv = document.getElementById("mapboxgl-popup-content");
+    popupDiv ? popupDiv.remove() : "";
+    // add markers to map
+    for (const feature of GeoJson().features) {
+      // create a HTML element for each feature
+      const el = document.createElement("div");
+      el.className = "marker";
+      el.id = "popups";
+      el.addEventListener("click", () => anim(feature.properties), false);
+
+      let popup = new AnimatedPopup({
+        offset: 25,
+        openingAnimation: {
+          duration: 200,
+          easing: "linear",
+          transform: "scale",
+        },
+        closingAnimation: {
+          duration: 200,
+          easing: "easeInBack",
+          transform: "scale",
+        },
+      });
+
+      // make a marker for each feature and add it to the map
+      let display;
+      repaint ? (display = "none") : (display = "inline-block");
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
+          popup // add popups
+            .setHTML(
+              `<div>
+              <h3>${feature.properties.title}</h3>
+              <div><img src="${feature.properties.image}" style="height: 200px; width: 200px;" alt="popup image"/></div>
+              <br>
+              <button id="to-capsule" class="capsule-btn" style="display:${display}"
+               onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
+              </div>`
+            )
+        )
+        .addTo(map);
+    }
   }
 
   useEffect(() => {
-    username
-      ? (console.log(username),
-        setUser(username[0]),
-        setWalk(username[0].walk),
-        setIntro(username[0].intro))
+    loaded
+      ? walk
+        ? (geo.trigger(), forceRepaintPopups(true))
+        : (setDisabled(false), forceRepaintPopups(false))
       : "";
-  }, [username]);
+  }, [loaded]);
 
   return (
     <>
       {
         <div>
           <div className="map-container" ref={mapContainerRef} />
-          <Button
-            size="g"
-            id="scan-btn"
-            variant="primary"
-            onClick={() => handleClick()}
-          >
-            Scan QR
-          </Button>
-          {intro ? (
-            <Popup
-              username={user.name}
-              intro={user.intro}
-              loading={loading}
-              error={error}
+          <Form id="custom-switch">
+            <Form.Check
+              defaultChecked={walk}
+              disabled={disabled}
+              type="switch"
+              label={walk ? "På turstien" : "På skolen"}
+              onClick={() => {
+                setDisabled(true);
+                handleWalkClick().then((r) =>
+                  setTimeout(() => {
+                    setDisabled(false);
+                  }, 4000)
+                );
+              }}
             />
-          ) : (
-            ""
-          )}
+          </Form>
+          {intro ? <Popup key={name} username={name} intro={intro} /> : ""}
         </div>
       }
     </>

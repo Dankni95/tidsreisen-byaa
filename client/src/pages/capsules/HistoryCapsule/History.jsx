@@ -5,8 +5,13 @@ import { Loading } from "../../../components/Loading.jsx";
 import imageSawEffect from "./sag-effekt.png";
 import { StoryCard } from "./StoryCard.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
+import { User } from "../../../application.jsx";
+import { ErrorModal } from "../../../components/ErrorModal.jsx";
 
-export function History({ username }) {
+export function History() {
+  const { user, setUser } = useContext(User);
+  const { name } = user;
+
   const [error, setEror] = useState();
   const { listHistory } = useContext(DatabaseContext);
   const {
@@ -22,10 +27,11 @@ export function History({ username }) {
 
   if (errorHistory) {
     setEror(errorHistory);
-    return <div>{error.toString()}</div>;
+    console.error(error.toString());
+    return <ErrorModal error={error} />;
   }
 
-  if (username !== [] || username === null || username === undefined) {
+  if (name === undefined) {
     return <NotLoggedIn />;
   }
 
@@ -48,6 +54,7 @@ export function History({ username }) {
             return (
               <div key={index}>
                 <StoryCard
+                  user={user}
                   loading={loading}
                   error={error}
                   historyCapsule={historyCapsule}

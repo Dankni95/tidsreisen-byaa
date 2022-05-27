@@ -1,13 +1,15 @@
 import "./quiz.css";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
-import { useState, react, useContext } from "react";
-import { Container, Button } from "react-bootstrap";
+import { UserContext } from "../../../contexts/userContext.jsx";
+import { useContext, useEffect, useState } from "react";
+import { Container } from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
+import { User } from "../../../application.jsx";
 
-export function Quiz({ username }) {
+export function Quiz() {
   const { id } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPoints, setShowPoints] = useState(false);
@@ -15,14 +17,31 @@ export function Quiz({ username }) {
   const [points, setPoints] = useState(0);
 
   const { listQuiz } = useContext(DatabaseContext);
+  const { updateUser } = useContext(UserContext);
+  const { user, setUser } = useContext(User);
+  const { name, intro, walk, points: prevPoints, finishedCapsules } = user;
 
-  const { loading, error, data } = useLoading(async () => await listQuiz({id}), [id]);
+  const { loading, error, data } = useLoading(
+    async () => await listQuiz({ id }),
+    [id]
+  );
+
+  useEffect(async () => {
+    await updateUser({ points, user, capsuleObject });
+    setUser({
+      name: name,
+      intro: intro,
+      walk: walk,
+      points: prevPoints + points,
+      finishedCapsules: finishedCapsules
+    });
+  }, [showPoints, updateUser]);
 
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  if (!username) {
+  if (!name) {
     return <NotLoggedIn />;
   }
 
@@ -35,10 +54,27 @@ export function Quiz({ username }) {
     );
   }
 
+  const capsuleObject = {
+    name_: data[currentQuestion].name_,
+    category: data[currentQuestion].category
+  }
+
+  function incPoints() {
+    setPoints((state) => {
+      return state + 10;
+    });
+  }
+
+  function incScore() {
+    setScore((state) => {
+      return state + 1;
+    });
+  }
+
   function handleAnswerClick(isCorrect) {
     if (isCorrect) {
-      setScore(score + 1);
-      setPoints(points + 10);
+      incPoints();
+      incScore();
     }
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
@@ -48,38 +84,38 @@ export function Quiz({ username }) {
     }
   }
 
-    return (
-        <main className="quiz" style={{display: "grid", placeItems: "center"}}>
-          {showPoints ? (
-              <div>
-                <h1 className="completed">Fullført quizkapsel</h1>
-                <h3 className="result">
-                  Du har {score}/{data.length} riktige
-                </h3>
-                <h5 className="points">+ {points} poeng!</h5>
-                <a href={"/map"}>Finn flere </a>
-                <a href={"/myfindings"}>Mine funn</a>
-              </div>
-          ) : (
-              <Container className="quiz-items">
-                <div>
-                  <h1 className="capsule-title">Quizkapsel</h1>
-                  <h3 className="category">{data[currentQuestion].category}</h3>
-                  <p className="question">{data[currentQuestion].question_}</p>
-                </div>
+  return (
+    <main className="quiz" style={{ display: "grid", placeItems: "center" }}>
+      {showPoints ? (
+        <div>
+          <h1 className="completed">Fullført quizkapsel</h1>
+          <h3 className="result">
+            Du har {score}/{data.length} riktige
+          </h3>
+          <h5 className="points">+ {points} poeng!</h5>
+          <a href={"/map"}>Finn flere </a>
+          <a href={"/myfindings"}>Mine funn</a>
+        </div>
+      ) : (
+        <Container className="quiz-items">
+          <div>
+            <h1 className="capsule-title">Quizkapsel</h1>
+            <h3 className="category">{data[currentQuestion].name_}</h3>
+            <p className="question">{data[currentQuestion].question_}</p>
+          </div>
 
-                <div className="button-container">
-                  {data[currentQuestion].answers.map((a, index) => (
-                      <div key={index} className={"mb-3"}>
-                        <CapsuleButtonGreen
-                            onClick={() => handleAnswerClick(a.isCorrect)}
-                            buttonText={a.answer}
-                        />
-                      </div>
-                  ))}
-                </div>
-              </Container>
-          )}
-        </main>
-    );
+          <div className="button-container">
+            {data[currentQuestion].answers.map((a, index) => (
+              <div key={index} className={"mb-3"}>
+                <CapsuleButtonGreen
+                  onClick={() => handleAnswerClick(a.isCorrect)}
+                  buttonText={a.answer}
+                />
+              </div>
+            ))}
+          </div>
+        </Container>
+      )}
+    </main>
+  );
 }

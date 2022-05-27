@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import Modal from "react-bootstrap/Modal";
-import { Loading } from "./Loading.jsx";
 import { CapsuleButtonGreen } from "./CapsuleButton.jsx";
 import { BsArrowRight } from "react-icons/bs";
 import "./popup.css";
 import olaf from "./iben-from-front.png";
 import { postJSON } from "../helpers/http.jsx";
 
-export default function Popup({ username, intro , loading, error }) {
+export default function Popup({ username, intro }) {
   const [show, setShow] = useState(true);
+
+  console.log(intro, username);
 
   const [message, setMessage] = useState(() => {
     return (
@@ -77,19 +78,17 @@ export default function Popup({ username, intro , loading, error }) {
     await postJSON("/api/update-state", {
       user: username,
       intro: false,
-    })
+    });
     setShow(false);
-  }
+  };
+
   const handleNext = () => setNext(next + 1);
   const handleShow = () => setShow(true);
-
 
   if (intro) window.addEventListener("load", handleShow);
 
   return (
     <div>
-      {loading && <Loading />}
-      {error && <div>{error.toString()}</div>}
       {username && (
         <Modal
           className={"d-flex justify-content-center align-items-center"}

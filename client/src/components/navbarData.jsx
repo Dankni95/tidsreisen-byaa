@@ -1,26 +1,34 @@
 import React from "react";
-import { FaMapSigns, FaUser } from "react-icons/fa";
-import { BiLogOut } from "react-icons/bi";
 import "./navbar.css";
+import {
+  RiMap2Fill,
+  RiMap2Line,
+  RiQrScan2Fill,
+  RiQrScan2Line,
+  RiUser3Fill,
+  RiUser3Line,
+} from "react-icons/ri";
 
 export const NavbarData = [
   {
     title: "Kart",
     path: "/map",
-    icon: <FaMapSigns />,
-    className: "nav-text-map",
+    icon: <RiMap2Line size={20} />,
+    iconActive: <RiMap2Fill size={20} />,
+    id: "nav-text-map",
   },
   {
-    title: "Min profil",
+    title: "QR-scan",
+    path: "/camera",
+    icon: <RiQrScan2Line size={20} />,
+    iconActive: <RiQrScan2Fill size={20} />,
+    id: "nav-text-qr",
+  },
+  {
+    title: "Profil",
     path: "/profile",
-    icon: <FaUser />,
-    className: "nav-text-profile",
-  },
-  {
-    title: "Logg ut",
-    path: "/login",
-    icon: <BiLogOut />,
-    className: "nav-text-logout",
-    logout: true,
+    icon: <RiUser3Line size={20} />,
+    iconActive: <RiUser3Fill size={20} />,
+    id: "nav-text-profile",
   },
 ];

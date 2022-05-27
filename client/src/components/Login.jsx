@@ -1,16 +1,20 @@
 import "./login.css";
 import logo from "./relingenLogo.png";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "./CapsuleButton.jsx";
 import { checkUser, postJSON } from "../helpers/http.jsx";
 import Alert from "react-bootstrap/Alert";
+import { User } from "../application";
 
 //TODO: Lagre bruker i cookie
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
 
 export default function Login() {
-  const [username, setUsername] = useState("");
+  const { user, setUser } = useContext(User);
+
+  const [newUser, setNewUser] = useState("");
+
   const [exists, setExists] = useState("");
   const [oldUser, setOldUser] = useState("");
   const location = useLocation();
@@ -18,25 +22,24 @@ export default function Login() {
   const navigate = useNavigate();
 
   async function handleSubmit(event) {
-    console.log(location.search);
     event.preventDefault();
 
-    console.log("up: " + event.nativeEvent.submitter.value);
+    const { name, intro, walk } = user;
 
     if (event.nativeEvent.submitter.value !== "") {
-      await postJSON("api/login", { user: oldUser, force: true });
-      console.log(user);
+      await postJSON("api/login", { user: oldUser.name, force: true });
+      setUser({ name: oldUser.name, intro: oldUser.intro, walk: oldUser.walk });
       navigate("/map");
     } else {
-      const res = await checkUser(`name=${username}`);
-      console.log("resss in login: " + res);
+      const res = await checkUser(`name=${newUser}`);
 
       if (res.length > 0) {
         setExists(true);
-        setOldUser(res[0].name);
+        setOldUser(res[0]);
       } else {
-        console.log("creating user: " + username);
-        await postJSON("/api/login", { user: username });
+        console.log("creating user: " + newUser);
+        await postJSON("/api/login", { user: newUser });
+        setUser({ name: newUser, intro: true, walk: false });
         navigate("/map");
       }
     }
@@ -54,20 +57,23 @@ export default function Login() {
             type="text"
             name="username"
             required
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
+            value={newUser}
+            onChange={(e) => {
+              setNewUser(e.target.value);
+              setExists(false);
+            }}
           />
         </div>
         {exists ? (
           <>
             <Alert variant="danger">
-              <Alert.Heading>{oldUser} allerede eksisterer</Alert.Heading>
+              <Alert.Heading>{oldUser.name} allerede eksisterer</Alert.Heading>
               <p>Er dette deg?</p>
             </Alert>
             <CapsuleButtonYellow
               submit={"submit"}
               buttonText={"Ja, gå videre"}
-              exists={oldUser}
+              exists={oldUser.name}
             />
           </>
         ) : (

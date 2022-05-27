@@ -1,4 +1,5 @@
 import React from "react";
+import kvernhus from "../components/mapbox-images/12322-Kvernhus-molle-historie.jpg";
 
 const GeoJson = () => {
   const geojson = {
@@ -20,6 +21,7 @@ const GeoJson = () => {
           description:
             "Langs sidene på Byåa er det murt opp stein på begge sider, på sørsiden er den 1,4 meter lang, mer utydelig på nordsiden, men det ligger en stor steinblokk på 50 x 50 cm på kanten. Det er også stein på kantene som ser ut som fundament til en liten bygning, mest på sørsiden.",
           url: "/audio/vesledammen",
+          image: "",
         },
       },
       {
@@ -38,6 +40,7 @@ const GeoJson = () => {
           description:
             "Langs sidene på Byåa er det murt opp stein på begge sider, på sørsiden er den 1,4 meter lang, mer utydelig på nordsiden, men det ligger en stor steinblokk på 50 x 50 cm på kanten. Det er også stein på kantene som ser ut som fundament til en liten bygning, mest på sørsiden.",
           url: "/history/kvernhus",
+          image: kvernhus,
         },
       },
       {

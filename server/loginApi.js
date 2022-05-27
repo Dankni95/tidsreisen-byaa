@@ -9,20 +9,19 @@ export function LoginApi(mongoDatabase) {
 
     if (name !== undefined) user = name;
 
-    console.log("this " + user);
-
     const userData = await mongoDatabase
       .collection("user")
       .find({ name: user })
-      .map(({ name, intro, walk }) => ({
+      .map(({ name, intro, walk, points, finishedCapsules }) => ({
         name,
         intro,
         walk,
+        points,
+        finishedCapsules,
       }))
       .limit(1)
       .toArray();
 
-    console.log("userdata from api: " + userData.toString());
     res.json(userData);
   });
 
@@ -36,12 +35,34 @@ export function LoginApi(mongoDatabase) {
     } else {
       mongoDatabase
         .collection("user")
-        .insertOne({ name: user.toLowerCase(), intro: true, walk: false });
+        .insertOne({
+          name: user.toLowerCase(),
+          intro: true,
+          walk: false,
+          points: 0,
+          finishedCapsules: [],
+        });
 
       res.clearCookie();
       res.cookie("user", user, { signed: true });
       res.sendStatus(200);
     }
+  });
+
+  router.put("/updateuser", (req, res) => {
+    const { points, user, capsuleObject } = req.body;
+    mongoDatabase.collection("user").updateOne(
+      { name: user.name },
+      {
+        $inc: {
+          points: points,
+        },
+        $push: {
+            finishedCapsules: capsuleObject
+        }
+      }
+    );
+    res.sendStatus(200);
   });
 
   return router;
