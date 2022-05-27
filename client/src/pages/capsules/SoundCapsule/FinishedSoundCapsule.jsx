@@ -3,15 +3,12 @@ import { Link, useNavigate } from "react-router-dom";
 import note from "../../../images/soundcapsule/note2.svg";
 import singleNote from "../../../images/soundcapsule/note3.svg";
 import { useCountDown } from "./useCountDown";
-const FinishedSoundCapsule = ({ setSongInfo }) => {
-  const remaining = 20000;
-  const endTime = new Date().getTime() + remaining; // 24 hour
-  const [timeLeft, setTimeleft] = useCountDown(endTime);
-  setInterval(() => {
-    setSongInfo({ currentTime: 0 });
-  }, remaining);
+const FinishedSoundCapsule = ({ songInfo, setSongInfo }) => {
+  const remaining = 1000;
+  /* const endTime = new Date().getTime() + remaining; // 24 hour
+  const [timeLeft, setTimeleft] = useCountDown(endTime); */
 
-  const second = 1000;
+  /*   const second = 1000;
   const minute = second * 60;
   const hour = minute * 60;
   const day = hour * 24;
@@ -19,7 +16,7 @@ const FinishedSoundCapsule = ({ setSongInfo }) => {
   const d = Math.floor(timeLeft / day);
   const h = Math.floor((timeLeft % day) / hour);
   const m = Math.floor((timeLeft % hour) / minute);
-  const s = Math.floor((timeLeft % minute) / second);
+  const s = Math.floor((timeLeft % minute) / second); */
 
   return (
     <div className="d-flex justify-content-around align-items-center flex-column vh-100 bg-capsule">
@@ -95,10 +92,10 @@ const FinishedSoundCapsule = ({ setSongInfo }) => {
           </button>
         </Link>
       </div>
-      <div className="text-center bg-white p-2 rounded m-0 shadow-sm">
+      {/* <div className="text-center bg-white p-2 rounded m-0 shadow-sm">
         <p className="m-0 text-capsule fw-bold">Kapsel låses opp om</p>
         <p className="m-0 text-capsule fw-bold ">{`${d} : ${h} : ${m} : ${s}`}</p>
-      </div>
+      </div> */}
     </div>
   );
 };

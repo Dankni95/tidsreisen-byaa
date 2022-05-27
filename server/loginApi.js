@@ -27,7 +27,7 @@ export function LoginApi(mongoDatabase) {
 
   router.post("/", async (req, res) => {
     const { user, force } = req.body;
-
+    console.log(force);
     if (force === true) {
       res.clearCookie("user");
       res.cookie("user", user, { signed: true });
@@ -52,7 +52,12 @@ export function LoginApi(mongoDatabase) {
   router.put("/updateuser", (req, res) => {
     const { points, user, capsuleObject } = req.body;
     mongoDatabase.collection("user").updateOne(
-      { name: user.name },
+      {
+        name: user.name,
+        finishedCapsules: {
+          $ne: finishedCapsules,
+        },
+      },
       {
         $inc: {
           points: points,
