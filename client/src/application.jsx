@@ -35,13 +35,9 @@ export function Application() {
         <main>
           <Routes>
             <Route element={<WithoutNavbar />}>
-              <Route
-                path="/"
-                element={<StartPage style={{ height: "100vh" }} />}
-              />
+              <Route path="/" element={<Login />} />
             </Route>
             <Route element={<WithNavbar />}>
-              <Route path="/login" element={<Login />} />
               <Route path="/map" element={<Map />} />
               <Route path="/quiz/:id" element={<Quiz />} />
               <Route path="/history/:id" element={<History />} />

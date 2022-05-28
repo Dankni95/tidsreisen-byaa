@@ -67,7 +67,9 @@ export default function Login() {
         {exists ? (
           <>
             <Alert variant="danger">
-              <Alert.Heading>{oldUser.name} allerede eksisterer</Alert.Heading>
+              <Alert.Heading>
+                Brukernavnet "{oldUser.name}" eksisterer allerede.
+              </Alert.Heading>
               <p>Er dette deg?</p>
             </Alert>
             <CapsuleButtonYellow
@@ -82,7 +84,9 @@ export default function Login() {
           </div>
         )}
       </form>
-      <img id="logoPic" src={logo} alt="Rælingen logo" />
+      <div id={"logo-container"}>
+        <img id="logoPic" width={75} src={logo} alt="Rælingen logo" />
+      </div>
     </section>
   );
 }
