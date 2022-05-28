@@ -13,6 +13,7 @@ import { createContext, useContext, useEffect, useMemo, useState } from "react";
 import { useLoading } from "./helpers/useLoading.jsx";
 import WithoutNavbar from "./components/WithoutNavbar";
 import WithNavbar from "./components/WithNavbar";
+import { NotFound } from "./components/NotFound.jsx";
 
 export const User = createContext("");
 
@@ -46,10 +47,9 @@ export function Application() {
               <Route path="/history/:id" element={<History />} />
               <Route path="/camera" element={<Camera />} />
               <Route path="/myfindings" element={<MyFindings />} />
-              {/*<Route path="/intro" element={<IntroMap />} />*/}
               <Route path="/audio/:id" element={<Sound />} />
               <Route path="/profile" element={<Profile />} />
-              <Route path={"*"} element={<h1>Not found</h1>} />
+              <Route path={"*"} element={<NotFound />} />
             </Route>
           </Routes>
         </main>
