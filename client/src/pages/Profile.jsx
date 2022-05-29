@@ -3,7 +3,7 @@ import { NotLoggedIn } from "../components/NotLoggedIn.jsx";
 import "./profile.css";
 import { IoPersonOutline } from "react-icons/io5";
 import { User } from "../application.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { CapsuleButtonLetthet } from "../components/CapsuleButton.jsx";
 
 function ProgressBar({ color, progress }) {
@@ -29,6 +29,7 @@ function ProgressBar({ color, progress }) {
 export function Profile() {
   const { user, setUser } = useContext(User);
   const { name, points, finishedCapsules } = user;
+  const navigate = useNavigate();
 
   if (name === undefined) {
     return <NotLoggedIn />;
@@ -45,9 +46,10 @@ export function Profile() {
         {/*TODO: Endre poeng her når vi vet hvor mange man kan få totalt*/}
         <p id="userPoints">{points}/150 poeng</p>
         <div id={"myfindings-button-container"}>
-          <Link id="myFindingsLink" to="/myfindings">
-            <CapsuleButtonLetthet buttonText={"Mine funn"} />
-          </Link>
+          <CapsuleButtonLetthet
+            onClick={() => navigate("/myfindings")}
+            buttonText={"Mine funn"}
+          />
         </div>
       </main>
     </div>

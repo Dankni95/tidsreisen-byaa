@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login.jsx";
 import { Map } from "./components/Map.jsx";
-import StartPage from "./pages/StartPage.jsx";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import Camera from "./components/Camera";

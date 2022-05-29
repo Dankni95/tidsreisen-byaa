@@ -5,8 +5,7 @@ import { FiCheck } from "react-icons/fi";
 import { User } from "../application.jsx";
 
 export function MyFindingsCard() {
-  const { user } = useContext(User);
-
+  const { user, setUser } = useContext(User);
   /**
    * TODO: må finne ut av hvordan vi skal hente bilde og matche det med user.finishedCapsules.name
    * */
