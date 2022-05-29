@@ -42,7 +42,10 @@ export function Application() {
               <Route path="/quiz/:id" element={<Quiz />} />
               <Route path="/history/:id" element={<History />} />
               <Route path="/camera" element={<Camera />} />
-              <Route path="/myfindings" element={<MyFindings />} />
+              <Route
+                path="/myfindings"
+                element={<MyFindings loading={loading} error={error} />}
+              />
               <Route path="/audio/:id" element={<Sound />} />
               <Route path="/profile" element={<Profile />} />
               <Route path={"*"} element={<NotFound />} />
