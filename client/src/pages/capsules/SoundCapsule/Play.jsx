@@ -17,10 +17,6 @@ const Play = ({ songInfo, setSongInfo, setDrag }) => {
     return <h1>Loading..</h1>;
   } */
 
-  /* var snd = new Audio("data:audio/wav;base64," + data[0].sound); */
-
-  /* const audio = new Audio(audioUrl); */
-
   const timeUpdateHandler = (e) => {
     const current = e.target.currentTime;
     const duration = e.target.duration;
