@@ -1,6 +1,5 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Play from "./Play";
-import sawmillwork from "../../../assets/images/soundcapsule/image1.svg";
 import note from "../../../assets/images/soundcapsule/note2.svg";
 import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import FinishedSoundCapsule from "./FinishedSoundCapsule";
@@ -14,13 +13,14 @@ const Sound = () => {
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
+  const { name, intro, walk, points, level } = user;
   const [count, setCount] = useState(0);
   const [drag, setDrag] = useState();
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: null,
   });
-  const { name } = user;
+
   const { listAudio } = useContext(DatabaseContext);
   const { data, error, loading } = useLoading(async () => await listAudio());
   let finishedCapsules = [];
@@ -33,8 +33,8 @@ const Sound = () => {
   }
 
   const capsuleObject = {
-    name: data.title,
-    category: data.category,
+    name: id.charAt(0).toUpperCase() + id.slice(1),
+    category: "Lydkapsel",
   };
 
   const updateToDatabase = async () => {
@@ -65,7 +65,7 @@ const Sound = () => {
   return (
     <>
       {songInfo.duration === songInfo.currentTime ? (
-        <FinishedSoundCapsule update={updateToDatabase} name={data.title} />
+        <FinishedSoundCapsule id={id} update={updateToDatabase} />
       ) : (
         <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
           <div
@@ -133,6 +133,7 @@ const Sound = () => {
                       {item.title}
                     </h1>
                     <img className="p-2" src={item.image} alt={item.image} />
+
                     <Play
                       songInfo={songInfo}
                       setSongInfo={setSongInfo}

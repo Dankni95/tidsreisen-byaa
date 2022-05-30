@@ -2,34 +2,21 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import note from "../../../assets/images/soundcapsule/note2.svg";
 import singleNote from "../../../assets/images/soundcapsule/note3.svg";
-import { useCountDown } from "./useCountDown";
-import { User } from "../../../application.jsx";
-const FinishedSoundCapsule = ({ name, update }) => {
-  const { user } = useContext(User);
-  const remaining = 1000;
-  /* const endTime = new Date().getTime() + remaining; // 24 hour
-  const [timeLeft, setTimeleft] = useCountDown(endTime); */
-
-  /*   const second = 1000;
-  const minute = second * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-
-  const d = Math.floor(timeLeft / day);
-  const h = Math.floor((timeLeft % day) / hour);
-  const m = Math.floor((timeLeft % hour) / minute);
-  const s = Math.floor((timeLeft % minute) / second); */
-
-  useEffect(() => {
-    update();
+import { User } from "../../../application";
+const FinishedSoundCapsule = ({ update, id }) => {
+  const { user, setUser } = useContext(User);
+  useEffect(async () => {
+    await update();
   }, []);
+
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
     return capsuleName.name;
   });
 
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
     (capsuleName) => {
-      return capsuleName === name;
+      console.log(capsuleName);
+      return capsuleName === id;
     }
   );
 
@@ -87,13 +74,25 @@ const FinishedSoundCapsule = ({ name, update }) => {
       >
         <img width={50} src={singleNote} alt="Some note" />
       </div>
-      <div className="text-center">
-        <h3 className="text-capsule fw-bold">Fullført lydkapselen</h3>
-      </div>
+      {filteredCapsuleNamesFromUserDatabase ? (
+        <>
+          <div className="text-center">
+            <h3 className="text-capsule fw-bold">
+              Du har allerede fullført denne lydkapselen
+            </h3>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="text-center">
+            <h3 className="text-capsule fw-bold">Fullført lydkapselen</h3>
+          </div>
 
-      <div>
-        <h4>+20 poeng</h4>
-      </div>
+          <div>
+            <h4>+20 poeng</h4>
+          </div>
+        </>
+      )}
 
       <div className="text-center">
         <Link to="/map">
