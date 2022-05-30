@@ -9,6 +9,7 @@ import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { User } from "../application";
 import { postJSON } from "../helpers/http.jsx";
+import { MapContext } from "../application.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -18,16 +19,18 @@ export function Map() {
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
-  const [map, setMap] = useState(null);
+  const [map, setMap] = useState("");
+
+  // const { setMap, map } = useContext(MapContext);
   const [loaded, setLoaded] = useState(false);
   const [disabled, setDisabled] = useState(true);
-
   const [geo, setGeo] = useState(null);
 
   let navigate = useNavigate();
 
   const { user, setUser } = useContext(User);
   const { name, intro, walk } = user;
+  let previousState = { ...user };
 
   async function handleWalkClick() {
     console.log(user);
@@ -35,7 +38,8 @@ export function Map() {
       ? !walk
         ? (geo.trigger(),
           await postJSON("/api/update-state", { user: name, walk: true }),
-          setUser({ name: name, intro: intro, walk: true }),
+          (previousState.walk = true),
+          setUser({ ...previousState }),
           forceRepaintPopups(true))
         : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
           map.flyTo({
@@ -48,7 +52,8 @@ export function Map() {
             // this animation is considered essential with respect to prefers-reduced-motion
             essential: true,
           }),
-          setUser({ name: name, intro: intro, walk: false }),
+          (previousState.walk = false),
+          setUser({ ...previousState }),
           await postJSON("/api/update-state", { user: name, walk: false }),
           forceRepaintPopups(false))
       : "";
@@ -57,89 +62,92 @@ export function Map() {
   useEffect(() => {
     if (!walk) document.getElementById("nav-text-qr").style.display = "none";
 
-    const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
-      style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
-      center: [lng, lat],
-      pitch: 59.49999999999986, // pitch in degrees
-      bearing: -136.86837902659892, // bearing in degrees
-      zoom: zoom,
-    });
+    const initializeMap = ({ setMap, mapContainerRef }) => {
+      const map = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
+        center: [lng, lat],
+        pitch: 59.49999999999986, // pitch in degrees
+        bearing: -136.86837902659892, // bearing in degrees
+        zoom: zoom,
+      });
 
-    // Initialize the geolocate control.
-    const geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true,
-      },
-      trackUserLocation: true,
-    });
+      // Initialize the geolocate control.
+      const geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      });
 
-    map.addControl(geolocate);
+      map.addControl(geolocate);
 
-    setGeo(geolocate);
-    // Add navigation control (the +/- zoom buttons)
-    // map.addControl(new mapboxgl.NavigationControl(), "top-right");
+      setGeo(geolocate);
+      // Add navigation control (the +/- zoom buttons)
+      // map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-    map.on("move", () => {
-      /*
-      console.log("Bearing: " + map.getBearing());
-      console.log("Zoom: " + map.getZoom());
-      console.log("Pitch: " + map.getPitch());
-      console.log("Pitch: " + map.getCenter());
-      */
-    });
+      map.on("move", () => {
+        /*
+        console.log("Bearing: " + map.getBearing());
+        console.log("Zoom: " + map.getZoom());
+        console.log("Pitch: " + map.getPitch());
+        console.log("Pitch: " + map.getCenter());
+        */
+      });
 
-    map.on("load", () => {
-      setLoaded(true);
-      setTimeout(() => {
-        setDisabled(false);
-      }, 4000);
-      map.addSource("route", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates: [
-              [11.099034, 59.851039],
-              [11.101616, 59.851307],
-              [11.100541, 59.8528],
-              [11.10087238, 59.85371299],
-              [11.102064, 59.853905],
-              [11.107697, 59.854386],
-              [11.110563, 59.854391],
-              [11.114554, 59.85441],
-            ],
+      map.on("load", () => {
+        setLoaded(true);
+        setTimeout(() => {
+          setDisabled(false);
+        }, 4000);
+        map.addSource("route", {
+          type: "geojson",
+          data: {
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "LineString",
+              coordinates: [
+                [11.099034, 59.851039],
+                [11.101616, 59.851307],
+                [11.100541, 59.8528],
+                [11.10087238, 59.85371299],
+                [11.102064, 59.853905],
+                [11.107697, 59.854386],
+                [11.110563, 59.854391],
+                [11.114554, 59.85441],
+              ],
+            },
           },
-        },
+        });
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: "route",
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "blue",
+            "line-width": 8,
+          },
+        });
       });
-      map.addLayer({
-        id: "route",
-        type: "line",
-        source: "route",
-        layout: {
-          "line-join": "round",
-          "line-cap": "round",
-        },
-        paint: {
-          "line-color": "blue",
-          "line-width": 8,
-        },
+
+      geolocate.on("geolocate", () => {
+        document.getElementById("nav-text-qr").style.display = "";
       });
-    });
 
-    geolocate.on("geolocate", () => {
-      document.getElementById("nav-text-qr").style.display = "";
-    });
+      geolocate.on("trackuserlocationend", () => {
+        document.getElementById("nav-text-qr").style.display = "none";
+      });
 
-    geolocate.on("trackuserlocationend", () => {
-      document.getElementById("nav-text-qr").style.display = "none";
-    });
+      setMap(map);
+    };
 
-    setMap(map);
-    return () => map.remove();
-  }, []);
+    if (!map) initializeMap({ setMap, mapContainerRef });
+  }, [map, setMap]);
 
   function anim(target) {
     map.flyTo({
@@ -228,7 +236,11 @@ export function Map() {
     <>
       {
         <div>
-          <div className="map-container" ref={mapContainerRef} />
+          <div
+            className="map-container"
+            ref={(el) => (mapContainerRef.current = el)}
+          />
+
           <Form id="custom-switch">
             <Form.Check
               defaultChecked={walk}
@@ -245,7 +257,7 @@ export function Map() {
               }}
             />
           </Form>
-          {intro ? <Popup key={name} username={name} intro={intro} /> : ""}
+          {intro ? <Popup key={name} /> : ""}
         </div>
       }
     </>
