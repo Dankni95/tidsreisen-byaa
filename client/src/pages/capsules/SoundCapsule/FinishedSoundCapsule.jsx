@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import note from "../../../images/soundcapsule/note2.svg";
 import singleNote from "../../../images/soundcapsule/note3.svg";
 import { useCountDown } from "./useCountDown";
-const FinishedSoundCapsule = ({ songInfo, setSongInfo }) => {
+import { User } from "../../../application.jsx";
+const FinishedSoundCapsule = ({ name, update }) => {
+  const { user } = useContext(User);
   const remaining = 1000;
   /* const endTime = new Date().getTime() + remaining; // 24 hour
   const [timeLeft, setTimeleft] = useCountDown(endTime); */
@@ -17,6 +19,19 @@ const FinishedSoundCapsule = ({ songInfo, setSongInfo }) => {
   const h = Math.floor((timeLeft % day) / hour);
   const m = Math.floor((timeLeft % hour) / minute);
   const s = Math.floor((timeLeft % minute) / second); */
+
+  useEffect(() => {
+    update();
+  }, []);
+  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
+    return capsuleName.name;
+  });
+
+  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
+    (capsuleName) => {
+      return capsuleName === name;
+    }
+  );
 
   return (
     <div className="d-flex justify-content-around align-items-center flex-column vh-100 bg-capsule">

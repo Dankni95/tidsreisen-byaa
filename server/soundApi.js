@@ -7,10 +7,13 @@ export function SoundApi(mongoDb) {
     const quiz = await mongoDb
       .collection("sound")
       .find({})
-      .map(({ _id, title, sound }) => ({
+      .map(({ _id, title, sound, category, year, image }) => ({
         _id,
         title,
         sound,
+        category,
+        year,
+        image,
       }))
       .toArray();
     res.json(quiz);
