@@ -25,7 +25,6 @@ export function Navbar() {
                   <div key={index}>
                     <li>
                       <Link
-                        replace={true}
                         onClick={() => clickedIconNavbarHandler(item.id)}
                         id={item.id}
                         style={

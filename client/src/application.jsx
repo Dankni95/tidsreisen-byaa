@@ -13,6 +13,7 @@ import { useLoading } from "./helpers/useLoading.jsx";
 import WithoutNavbar from "./components/WithoutNavbar";
 import WithNavbar from "./components/WithNavbar";
 import { NotFound } from "./components/NotFound.jsx";
+import WithoutBackButton from "./components/WithoutBackButton";
 
 export const User = createContext("");
 
@@ -36,8 +37,10 @@ export function Application() {
             <Route element={<WithoutNavbar />}>
               <Route path="/" element={<LoginPage />} />
             </Route>
-            <Route element={<WithNavbar />}>
+            <Route element={<WithoutBackButton />}>
               <Route path="/map" element={<MapPage />} />
+            </Route>
+            <Route element={<WithNavbar />}>
               <Route path="/quiz/:id" element={<Quiz />} />
               <Route path="/history/:id" element={<History />} />
               <Route path="/camera" element={<Camera />} />
