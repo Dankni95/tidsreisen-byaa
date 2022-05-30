@@ -32,9 +32,11 @@ export function MyFindingsCard() {
               </div>
               <div className="col-5">
                 <div className="card-body">
+
                   <h5 className="card-title">
                     {capsule.name || capsule.name_}
                   </h5>
+
                   <p className="card-text">{capsule.category}</p>
                 </div>
               </div>
