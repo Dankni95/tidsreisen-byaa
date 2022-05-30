@@ -98,7 +98,7 @@ export function Quiz() {
           <h5 className="points">+ {points} poeng!</h5>
           <div className={"links"}>
             <CapsuleButtonGreen
-              buttonText={"Finn flere"}
+              buttonText={"Tilbake til kart"}
               onClick={() => navigate("/map")}
             />
             <CapsuleButtonGreen
