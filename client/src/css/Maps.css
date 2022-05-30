@@ -20,7 +20,7 @@ body {
 }
 
 .marker {
-  background-image: url("mapbox-images/mapbox-icon.png");
+  background-image: url("../images/mapbox-images/mapbox-icon.png");
   background-size: cover;
   width: 50px;
   height: 50px;
@@ -36,8 +36,7 @@ body {
   text-align: center;
 }
 
-
-#scan-btn{
+#scan-btn {
   position: absolute;
   margin-left: auto;
   margin-right: auto;
@@ -48,11 +47,9 @@ body {
   text-align: center;
 }
 
-
-
 .capsule-btn {
   align-items: center;
-  background-color: #0A66C2;
+  background-color: #0a66c2;
   border: 0;
   border-radius: 100px;
   box-sizing: border-box;
@@ -70,7 +67,9 @@ body {
   padding: 0px 20px;
   text-align: center;
   touch-action: manipulation;
-  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s, color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
+  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
+    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
@@ -78,26 +77,25 @@ body {
 
 .capsule-btn:hover,
 .capsule-btn:focus {
-  background-color: #16437E;
+  background-color: #16437e;
   color: #ffffff;
 }
 
 .capsule-btn:active {
   background: #09223b;
-  color: rgb(255, 255, 255, .7);
+  color: rgb(255, 255, 255, 0.7);
 }
 
 .capsule-btn:disabled {
   cursor: not-allowed;
-  background: rgba(0, 0, 0, .08);
-  color: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.08);
+  color: rgba(0, 0, 0, 0.3);
 }
-
 
 /* Add a border and shadow to the rounded rectangle */
 .mapboxgl-popup-content {
   border: 1px solid #929292;
-  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, .1)
+  box-shadow: 0px 2px 4px 2px rgba(0, 0, 0, 0.1);
 }
 
 /* Move the content above the :before element so rotated rectangle doesn't cover content */
@@ -108,7 +106,7 @@ body {
 
 /* This is the new tip */
 .mapboxgl-popup-content:before {
-  content: '';
+  content: "";
   position: absolute;
   /* I've found 9px looks better than 10px */
   top: -webkit-calc(100% - 9px);
@@ -135,16 +133,16 @@ body {
   display: none;
 }
 
-
 .mapboxgl-control-container {
   display: none;
 }
 
-.form-check, .form-switch{
+.form-check,
+.form-switch {
   font-size: 1.5rem;
 }
 
-#custom-switch{
+#custom-switch {
   margin: 0;
   position: absolute;
   top: 88%;
@@ -155,7 +153,7 @@ body {
   -ms-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
-.form-check-label{
+.form-check-label {
   padding-left: 10px;
   color: black;
 }

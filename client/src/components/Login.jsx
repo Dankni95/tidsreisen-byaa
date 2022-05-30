@@ -1,5 +1,5 @@
-import "./login.css";
-import logo from "./relingenLogo.png";
+import "../css/login.css";
+import logo from "../assets/images/relingenLogo.png";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "./CapsuleButton.jsx";

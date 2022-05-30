@@ -2,7 +2,7 @@ import React from "react";
 import { Modal } from "react-bootstrap";
 import { CapsuleButtonYellow } from "./CapsuleButton.jsx";
 import { useNavigate } from "react-router-dom";
-import "./notFound.css";
+import "../css/notFound.css";
 
 export function NotFound() {
   const navigate = useNavigate();
