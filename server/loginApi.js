@@ -33,15 +33,13 @@ export function LoginApi(mongoDatabase) {
       res.cookie("user", user, { signed: true });
       res.sendStatus(200);
     } else {
-      mongoDatabase
-        .collection("user")
-        .insertOne({
-          name: user.toLowerCase(),
-          intro: true,
-          walk: false,
-          points: 0,
-          finishedCapsules: [],
-        });
+      mongoDatabase.collection("user").insertOne({
+        name: user.toLowerCase(),
+        intro: true,
+        walk: false,
+        points: 0,
+        finishedCapsules: [],
+      });
 
       res.clearCookie();
       res.cookie("user", user, { signed: true });
@@ -63,8 +61,8 @@ export function LoginApi(mongoDatabase) {
           points: points,
         },
         $push: {
-            finishedCapsules: finishedCapsules
-        }
+          finishedCapsules: finishedCapsules,
+        },
       }
     );
     res.sendStatus(200);

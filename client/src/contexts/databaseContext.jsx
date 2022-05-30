@@ -8,4 +8,7 @@ export const DatabaseContext = createContext({
   async listQuiz(query) {
     return await fetchJSON_client("/api/quiz?" + new URLSearchParams(query));
   },
+  async listAudio() {
+    return await fetchJSON_client("/api/sound");
+  },
 });

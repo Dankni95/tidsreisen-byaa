@@ -1,5 +1,5 @@
 import React from "react";
-import kvernhus from "../components/mapbox-images/12322-Kvernhus-molle-historie.jpg";
+import kvernhus from "../assets/images/mapbox-images/12322-Kvernhus-molle-historie.jpg";
 
 const GeoJson = () => {
   const geojson = {

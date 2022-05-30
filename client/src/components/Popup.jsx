@@ -2,8 +2,8 @@ import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { CapsuleButtonGreen } from "./CapsuleButton.jsx";
 import { BsArrowRight } from "react-icons/bs";
-import "./popup.css";
-import olaf from "./iben-from-front.png";
+import "../css/popup.css";
+import olaf from "../assets/images/iben-from-front.png";
 import { postJSON } from "../helpers/http.jsx";
 import { User } from "../application.jsx";
 

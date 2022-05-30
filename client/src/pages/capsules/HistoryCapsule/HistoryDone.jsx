@@ -59,7 +59,7 @@ export function HistoryDone({ name }) {
             <p id={"finish-paragraph"}>
               Godt jobbet!
               <br /> Du har gjennomført en kapsel og fått poeng for det, og
-              kanskje til og med lært noe nytt om Byåa!{" "}
+              kanskje til og med lært noe nytt om Byåa!
             </p>
           )}
         </div>
@@ -78,7 +78,7 @@ export function HistoryDone({ name }) {
           <div className={"mb-3"}>
             <CapsuleButtonGreen
               onClick={navigateToMap}
-              buttonText={"Finn flere"}
+              buttonText={"Tilbake til kart"}
             />
           </div>
           <div>

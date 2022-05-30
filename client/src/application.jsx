@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./components/Login.jsx";
-import { Map } from "./components/Map.jsx";
-import StartPage from "./pages/StartPage.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import { MapPage } from "./pages/MapPage.jsx";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import Camera from "./components/Camera";
@@ -19,6 +18,8 @@ import React, {
 import { useLoading } from "./helpers/useLoading.jsx";
 import WithoutNavbar from "./components/WithoutNavbar";
 import WithNavbar from "./components/WithNavbar";
+import { NotFound } from "./components/NotFound.jsx";
+import WithoutBackButton from "./components/WithoutBackButton";
 
 export const User = createContext("");
 export const MapContext = React.createContext(null);
@@ -44,22 +45,22 @@ export function Application() {
           <main>
             <Routes>
               <Route element={<WithoutNavbar />}>
-                <Route
-                  path="/"
-                  element={<StartPage style={{ height: "100vh" }} />}
-                />
+                <Route path="/" element={<LoginPage />} />
+              </Route>
+              <Route element={<WithoutBackButton />}>
+                <Route path="/map" element={<MapPage />} />
               </Route>
               <Route element={<WithNavbar />}>
-                <Route path="/login" element={<Login />} />
-                <Route path="/map" element={<Map />} />
                 <Route path="/quiz/:id" element={<Quiz />} />
                 <Route path="/history/:id" element={<History />} />
                 <Route path="/camera" element={<Camera />} />
-                <Route path="/myfindings" element={<MyFindings />} />
-                {/*<Route path="/intro" element={<IntroMap />} />*/}
+                <Route
+                  path="/myfindings"
+                  element={<MyFindings loading={loading} error={error} />}
+                />
                 <Route path="/audio/:id" element={<Sound />} />
                 <Route path="/profile" element={<Profile />} />
-                <Route path={"*"} element={<h1>Not found</h1>} />
+                <Route path={"*"} element={<NotFound />} />
               </Route>
             </Routes>
           </main>

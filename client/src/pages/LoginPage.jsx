@@ -1,16 +1,16 @@
-import "./login.css";
-import logo from "./relingenLogo.png";
+import "../css/login.css";
+import logo from "../assets/images/relingenLogo.png";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { CapsuleButtonYellow } from "./CapsuleButton.jsx";
+import { CapsuleButtonYellow } from "../components/CapsuleButton.jsx";
 import { checkUser, postJSON } from "../helpers/http.jsx";
 import Alert from "react-bootstrap/Alert";
-import { User } from "../application";
+import { User } from "../application.jsx";
 
 //TODO: Lagre bruker i cookie
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
 
-export default function Login() {
+export default function LoginPage() {
   const { user, setUser } = useContext(User);
 
   const [newUser, setNewUser] = useState("");
@@ -24,11 +24,17 @@ export default function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const { name, intro, walk } = user;
+    const { name, intro, walk, points, finishedCapsules } = user;
 
     if (event.nativeEvent.submitter.value !== "") {
       await postJSON("api/login", { user: oldUser.name, force: true });
-      setUser({ name: oldUser.name, intro: oldUser.intro, walk: oldUser.walk });
+      setUser({
+        name: oldUser.name,
+        intro: oldUser.intro,
+        walk: oldUser.walk,
+        points: oldUser.points,
+        finishedCapsules: oldUser.finishedCapsules,
+      });
       navigate("/map");
     } else {
       const res = await checkUser(`name=${newUser}`);
@@ -39,7 +45,11 @@ export default function Login() {
       } else {
         console.log("creating user: " + newUser);
         await postJSON("/api/login", { user: newUser });
-        setUser({ name: newUser, intro: true, walk: false });
+        setUser({
+          name: newUser,
+          intro: true,
+          walk: false,
+        });
         navigate("/map");
       }
     }
@@ -67,7 +77,9 @@ export default function Login() {
         {exists ? (
           <>
             <Alert variant="danger">
-              <Alert.Heading>{oldUser.name} allerede eksisterer</Alert.Heading>
+              <Alert.Heading>
+                Brukernavnet "{oldUser.name}" eksisterer allerede.
+              </Alert.Heading>
               <p>Er dette deg?</p>
             </Alert>
             <CapsuleButtonYellow
@@ -82,7 +94,9 @@ export default function Login() {
           </div>
         )}
       </form>
-      <img id="logoPic" src={logo} alt="Rælingen logo" />
+      <div id={"logo-container"}>
+        <img id="logoPic" width={75} src={logo} alt="Rælingen logo" />
+      </div>
     </section>
   );
 }
