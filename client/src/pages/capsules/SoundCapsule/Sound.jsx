@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import Play from "./Play";
-import sawmillwork from "../../../assets/images/soundcapsule/image1.svg";
 import note from "../../../assets/images/soundcapsule/note2.svg";
 import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import FinishedSoundCapsule from "./FinishedSoundCapsule";
@@ -34,7 +33,7 @@ const Sound = () => {
   }
 
   const capsuleObject = {
-    name: id,
+    name: id.charAt(0).toUpperCase() + id.slice(1),
     category: "Lydkapsel",
   };
 
@@ -63,22 +62,10 @@ const Sound = () => {
       });
   };
 
-  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
-    return capsuleName.name;
-  });
-
-  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
-    (capsuleName) => {
-      console.log(capsuleName);
-      return capsuleName === id;
-    }
-  );
-
-  console.log(filteredCapsuleNamesFromUserDatabase);
   return (
     <>
       {songInfo.duration === songInfo.currentTime ? (
-        <FinishedSoundCapsule update={updateToDatabase} />
+        <FinishedSoundCapsule id={id} update={updateToDatabase} />
       ) : (
         <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
           <div
@@ -146,16 +133,12 @@ const Sound = () => {
                       {item.title}
                     </h1>
                     <img className="p-2" src={item.image} alt={item.image} />
-                    {filteredCapsuleNamesFromUserDatabase ? (
-                      <div>Du har allerede spilt av denne lyd kapselen</div>
-                    ) : (
-                      <Play
-                        songInfo={songInfo}
-                        setSongInfo={setSongInfo}
-                        setDrag={setDrag}
-                      />
-                    )}
 
+                    <Play
+                      songInfo={songInfo}
+                      setSongInfo={setSongInfo}
+                      setDrag={setDrag}
+                    />
                     <h4 className="my-5 fw-bold">{item.year}</h4>
                     <p className="fst-italic fw-bold">
                       Lytt ferdig lydlkapselen for å få poeng
