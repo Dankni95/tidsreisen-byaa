@@ -10,6 +10,7 @@ import "./storycard.css";
 import { UserContext } from "../../../contexts/userContext.jsx";
 import { HistoryDone } from "./HistoryDone.jsx";
 import { User } from "../../../application.jsx";
+import { ErrorModal } from "../../../components/ErrorModal.jsx";
 
 export function StoryCard({ historyCapsule, error, loading }) {
   const { id } = useParams();
@@ -136,11 +137,10 @@ export function StoryCard({ historyCapsule, error, loading }) {
       </div>
     );
   }
-
   return (
     <>
       {loading && <Loading />}
-      {error && <div>{error.toString()}</div>}
+      {error && <ErrorModal error={error} />}
     </>
   );
 }

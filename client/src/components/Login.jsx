@@ -24,11 +24,17 @@ export default function Login() {
   async function handleSubmit(event) {
     event.preventDefault();
 
-    const { name, intro, walk } = user;
+    const { name, intro, walk, points, finishedCapsules } = user;
 
     if (event.nativeEvent.submitter.value !== "") {
       await postJSON("api/login", { user: oldUser.name, force: true });
-      setUser({ name: oldUser.name, intro: oldUser.intro, walk: oldUser.walk });
+      setUser({
+        name: oldUser.name,
+        intro: oldUser.intro,
+        walk: oldUser.walk,
+        points: oldUser.points,
+        finishedCapsules: oldUser.finishedCapsules,
+      });
       navigate("/map");
     } else {
       const res = await checkUser(`name=${newUser}`);
@@ -39,7 +45,11 @@ export default function Login() {
       } else {
         console.log("creating user: " + newUser);
         await postJSON("/api/login", { user: newUser });
-        setUser({ name: newUser, intro: true, walk: false });
+        setUser({
+          name: newUser,
+          intro: true,
+          walk: false,
+        });
         navigate("/map");
       }
     }

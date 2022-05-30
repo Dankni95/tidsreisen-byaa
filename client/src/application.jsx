@@ -1,7 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Login from "./components/Login.jsx";
 import { Map } from "./components/Map.jsx";
-import StartPage from "./pages/StartPage.jsx";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import Camera from "./components/Camera";
@@ -42,7 +41,10 @@ export function Application() {
               <Route path="/quiz/:id" element={<Quiz />} />
               <Route path="/history/:id" element={<History />} />
               <Route path="/camera" element={<Camera />} />
-              <Route path="/myfindings" element={<MyFindings />} />
+              <Route
+                path="/myfindings"
+                element={<MyFindings loading={loading} error={error} />}
+              />
               <Route path="/audio/:id" element={<Sound />} />
               <Route path="/profile" element={<Profile />} />
               <Route path={"*"} element={<NotFound />} />
