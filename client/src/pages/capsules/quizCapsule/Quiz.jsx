@@ -23,7 +23,7 @@ export function Quiz() {
   const { user, setUser } = useContext(User);
   const { name, intro, walk, points: prevPoints, finishedCapsules } = user;
 
-  let capsuleObject = {}
+  let capsuleObject = {};
 
   const { loading, error, data } = useLoading(
     async () => await listQuiz({ id }),
@@ -37,7 +37,7 @@ export function Quiz() {
       intro: intro,
       walk: walk,
       points: prevPoints + points,
-      finishedCapsules: finishedCapsules
+      finishedCapsules: finishedCapsules,
     });
   }, [showPoints, updateUser]);
 
@@ -60,8 +60,8 @@ export function Quiz() {
 
   capsuleObject = {
     name_: data[currentQuestion].name_,
-    category: data[currentQuestion].category
-  }
+    category: data[currentQuestion].category,
+  };
 
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
     return capsuleName.name_;
@@ -111,13 +111,13 @@ export function Quiz() {
           <h5 className="points">+ {points} poeng!</h5>
           <div className={"links"}>
             <CapsuleButtonGreen
-              buttonText={"Finn flere"}
+              buttonText={"Tilbake til kart"}
               onClick={() => navigate("/map")}
-            ></CapsuleButtonGreen>
+            />
             <CapsuleButtonGreen
-                buttonText={"Mine funn"}
-                onClick={() => navigate("/myfindings")}
-            ></CapsuleButtonGreen>
+              buttonText={"Mine funn"}
+              onClick={() => navigate("/myfindings")}
+            />
           </div>
         </div>
       ) : alreadyDone ? (

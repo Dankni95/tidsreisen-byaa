@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { NavbarData } from "./navbarData.jsx";
-import "./navbar.css";
+import "../css/navbar.css";
 
 export function Navbar() {
   const [clickedIconColor, setClickedIconColor] = useState({
@@ -25,7 +25,6 @@ export function Navbar() {
                   <div key={index}>
                     <li>
                       <Link
-                        replace={true}
                         onClick={() => clickedIconNavbarHandler(item.id)}
                         id={item.id}
                         style={
