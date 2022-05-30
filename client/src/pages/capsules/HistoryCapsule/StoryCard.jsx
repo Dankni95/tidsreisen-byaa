@@ -50,21 +50,21 @@ export function StoryCard({ historyCapsule, error, loading }) {
       });
   };
 
-  const olafHiderLeft = () =>
+  /*const olafHiderLeft = () =>
     (document.querySelector("#olaf-left").style.display = "none");
 
   const olafDisplayerLeft = () =>
-    (document.querySelector("#olaf-left").style.display = "block");
+    (document.querySelector("#olaf-left").style.display = "block");*/
 
   if (historyCapsule.name.toLowerCase() === id.toLowerCase()) {
     return (
       <div>
         <div id={"olaf-left-div"}>
-          <img
+          {/*<img
             id={"olaf-left"}
             src={olafLeft}
             alt="bilde av olaf på venstre side"
-          />
+          />*/}
         </div>
         <div className={"p-4"} style={{ position: "relative", zIndex: "0" }}>
           <div style={{ position: "relative" }}>
@@ -93,8 +93,8 @@ export function StoryCard({ historyCapsule, error, loading }) {
             spaceBetween={100}
             slidesPerView={1}
             scrollbar={{ draggable: true }}
-            onSlideNextTransitionStart={() => olafHiderLeft()}
-            onReachBeginning={() => olafDisplayerLeft()}
+            /*onSlideNextTransitionStart={() => olafHiderLeft()}
+            onReachBeginning={() => olafDisplayerLeft()}*/
             onReachEnd={async () => await updateToDatabase()}
             onSwiper={(swiper) => console.log(swiper)}
           >

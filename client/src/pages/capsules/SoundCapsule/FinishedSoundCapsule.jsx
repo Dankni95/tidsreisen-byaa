@@ -98,7 +98,7 @@ const FinishedSoundCapsule = ({ name, update }) => {
       <div className="text-center">
         <Link to="/map">
           <button className="mb-2" id="button-capsules-green">
-            Finn flere
+            Tilbake til kart
           </button>
         </Link>
         <Link to="/myfindings">
