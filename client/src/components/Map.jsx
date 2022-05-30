@@ -19,9 +19,8 @@ export function Map() {
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
-  const [map, setMap] = useState("");
 
-  // const { setMap, map } = useContext(MapContext);
+  const { setMap, map } = useContext(MapContext);
   const [loaded, setLoaded] = useState(false);
   const [disabled, setDisabled] = useState(true);
   const [geo, setGeo] = useState(null);
@@ -32,31 +31,30 @@ export function Map() {
   const { name, intro, walk } = user;
   let previousState = { ...user };
 
-  async function handleWalkClick() {
-    console.log(user);
-    loaded
-      ? !walk
-        ? (geo.trigger(),
-          await postJSON("/api/update-state", { user: name, walk: true }),
-          (previousState.walk = true),
-          setUser({ ...previousState }),
-          forceRepaintPopups(true))
-        : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
-          map.flyTo({
-            // These options control the ending camera position: centered at
-            // the target, at zoom level 9, and north up.
-            center: [lng, lat],
-            zoom: zoom,
-            bearing: -136.86837902659892,
+  console.log(map);
 
-            // this animation is considered essential with respect to prefers-reduced-motion
-            essential: true,
-          }),
-          (previousState.walk = false),
-          setUser({ ...previousState }),
-          await postJSON("/api/update-state", { user: name, walk: false }),
-          forceRepaintPopups(false))
-      : "";
+  async function handleWalkClick() {
+    !walk
+      ? (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
+        await postJSON("/api/update-state", { user: name, walk: true }),
+        (previousState.walk = true),
+        setUser({ ...previousState }),
+        forceRepaintPopups(true))
+      : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
+        map.flyTo({
+          // These options control the ending camera position: centered at
+          // the target, at zoom level 9, and north up.
+          center: [lng, lat],
+          zoom: zoom,
+          bearing: -136.86837902659892,
+
+          // this animation is considered essential with respect to prefers-reduced-motion
+          essential: true,
+        }),
+        (previousState.walk = false),
+        setUser({ ...previousState }),
+        await postJSON("/api/update-state", { user: name, walk: false }),
+        forceRepaintPopups(false));
   }
 
   useEffect(() => {
@@ -97,9 +95,6 @@ export function Map() {
 
       map.on("load", () => {
         setLoaded(true);
-        setTimeout(() => {
-          setDisabled(false);
-        }, 4000);
         map.addSource("route", {
           type: "geojson",
           data: {
@@ -135,19 +130,11 @@ export function Map() {
         });
       });
 
-      geolocate.on("geolocate", () => {
-        document.getElementById("nav-text-qr").style.display = "";
-      });
-
-      geolocate.on("trackuserlocationend", () => {
-        document.getElementById("nav-text-qr").style.display = "none";
-      });
-
       setMap(map);
     };
 
     if (!map) initializeMap({ setMap, mapContainerRef });
-  }, [map, setMap]);
+  }, []);
 
   function anim(target) {
     map.flyTo({
@@ -225,41 +212,37 @@ export function Map() {
   }
 
   useEffect(() => {
-    loaded
-      ? walk
-        ? (geo.trigger(), forceRepaintPopups(true))
-        : (setDisabled(false), forceRepaintPopups(false))
-      : "";
-  }, [loaded]);
+    map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
+    map ? document.getElementById("map").replaceWith(map.getContainer()) : "";
+
+    console.log(walk);
+
+    if (walk) {
+      document.getElementById("nav-text-qr").style.display = "";
+      document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click();
+    } else document.getElementById("nav-text-qr").style.display = "none";
+  }, [walk]);
 
   return (
     <>
-      {
-        <div>
-          <div
-            className="map-container"
-            ref={(el) => (mapContainerRef.current = el)}
-          />
-
-          <Form id="custom-switch">
-            <Form.Check
-              defaultChecked={walk}
-              disabled={disabled}
-              type="switch"
-              label={walk ? "På turstien" : "På skolen"}
-              onClick={() => {
-                setDisabled(true);
-                handleWalkClick().then((r) =>
-                  setTimeout(() => {
-                    setDisabled(false);
-                  }, 4000)
-                );
-              }}
-            />
-          </Form>
-          {intro ? <Popup key={name} /> : ""}
-        </div>
-      }
+      <div id={"map-container"}>
+        <div
+          id={"map"}
+          className="map-container"
+          ref={(el) => (mapContainerRef.current = el)}
+        />
+      </div>
+      <Form id="custom-switch">
+        <Form.Check
+          defaultChecked={walk}
+          type="switch"
+          label={walk ? "På turstien" : "På skolen"}
+          onClick={() => {
+            handleWalkClick();
+          }}
+        />
+      </Form>
+      {intro ? <Popup key={name} /> : ""}
     </>
   );
 }
