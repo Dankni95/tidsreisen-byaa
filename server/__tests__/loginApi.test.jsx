@@ -3,7 +3,8 @@ import request from "supertest";
 import { MongoClient, ObjectId } from "mongodb";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
-import { LoginApi } from "../loginApi.js"
+import { LoginApi } from "../loginApi.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(
     extended: false,
   })
 );
+app.use(cookieParser(process.env.COOKIE_SECRET));
 
 const mongoDbClient = new MongoClient(process.env.MONGODB_URL);
 const database = mongoDbClient.db("test_db");
@@ -22,7 +24,7 @@ const database = mongoDbClient.db("test_db");
 beforeAll(async () => {
   await mongoDbClient.connect().then(async () => {
     console.log("Connected to MongoDB");
-    await database.collection("user_test").deleteMany({});
+    await database.collection("user").deleteMany({});
     app.use("/api/login", LoginApi(database));
   });
 });
@@ -33,20 +35,22 @@ afterAll(() => {
 describe("LoginApi", () => {
   it("should add a user", async () => {
 
-    const name = "leetboi94";
+    const user = "leetboi94";
     const intro = true;
     const walk = false;
     const points = 0;
     const finishedCapsules = [];
-    const user = { name, intro, walk, points, finishedCapsules };
+    const testUser = { user, intro, walk, points, finishedCapsules };
+
+    const name = "leetboi94";
 
     await request(app);
-    await request(app).post("/api/login/").send(user).expect(200);
+    await request(app).post("/api/login/").send(testUser).expect(200);
 
     expect(
       (
-        await request(app).get("/api/login").query({ name }).expect(200)
+        await request(app).get("/api/login/").query({name}).expect(200)
       ).body.map(({ name }) => name)
-    ).toContain(name);
+    ).toContain(user);
   });
 })
