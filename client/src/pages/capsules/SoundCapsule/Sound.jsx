@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Play from "./Play";
 import sawmillwork from "../../../assets/images/soundcapsule/image1.svg";
 import note from "../../../assets/images/soundcapsule/note2.svg";
@@ -14,13 +14,14 @@ const Sound = () => {
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
+  const { name, intro, walk, points, level } = user;
   const [count, setCount] = useState(0);
   const [drag, setDrag] = useState();
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: null,
   });
-  const { name } = user;
+
   const { listAudio } = useContext(DatabaseContext);
   const { data, error, loading } = useLoading(async () => await listAudio());
   let finishedCapsules = [];
@@ -33,8 +34,8 @@ const Sound = () => {
   }
 
   const capsuleObject = {
-    name: data.title,
-    category: data.category,
+    name: id,
+    category: "Lydkapsel",
   };
 
   const updateToDatabase = async () => {
@@ -62,10 +63,22 @@ const Sound = () => {
       });
   };
 
+  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
+    return capsuleName.name;
+  });
+
+  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
+    (capsuleName) => {
+      console.log(capsuleName);
+      return capsuleName === id;
+    }
+  );
+
+  console.log(filteredCapsuleNamesFromUserDatabase);
   return (
     <>
       {songInfo.duration === songInfo.currentTime ? (
-        <FinishedSoundCapsule update={updateToDatabase} name={data.title} />
+        <FinishedSoundCapsule update={updateToDatabase} />
       ) : (
         <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
           <div
@@ -133,11 +146,16 @@ const Sound = () => {
                       {item.title}
                     </h1>
                     <img className="p-2" src={item.image} alt={item.image} />
-                    <Play
-                      songInfo={songInfo}
-                      setSongInfo={setSongInfo}
-                      setDrag={setDrag}
-                    />
+                    {filteredCapsuleNamesFromUserDatabase ? (
+                      <div>Du har allerede spilt av denne lyd kapselen</div>
+                    ) : (
+                      <Play
+                        songInfo={songInfo}
+                        setSongInfo={setSongInfo}
+                        setDrag={setDrag}
+                      />
+                    )}
+
                     <h4 className="my-5 fw-bold">{item.year}</h4>
                     <p className="fst-italic fw-bold">
                       Lytt ferdig lydlkapselen for å få poeng

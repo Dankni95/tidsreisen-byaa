@@ -2,36 +2,11 @@ import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import note from "../../../assets/images/soundcapsule/note2.svg";
 import singleNote from "../../../assets/images/soundcapsule/note3.svg";
-import { useCountDown } from "./useCountDown";
-import { User } from "../../../application.jsx";
-const FinishedSoundCapsule = ({ name, update }) => {
-  const { user } = useContext(User);
-  const remaining = 1000;
-  /* const endTime = new Date().getTime() + remaining; // 24 hour
-  const [timeLeft, setTimeleft] = useCountDown(endTime); */
 
-  /*   const second = 1000;
-  const minute = second * 60;
-  const hour = minute * 60;
-  const day = hour * 24;
-
-  const d = Math.floor(timeLeft / day);
-  const h = Math.floor((timeLeft % day) / hour);
-  const m = Math.floor((timeLeft % hour) / minute);
-  const s = Math.floor((timeLeft % minute) / second); */
-
-  useEffect(() => {
-    update();
+const FinishedSoundCapsule = ({ update }) => {
+  useEffect(async () => {
+    await update();
   }, []);
-  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
-    return capsuleName.name;
-  });
-
-  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
-    (capsuleName) => {
-      return capsuleName === name;
-    }
-  );
 
   return (
     <div className="d-flex justify-content-around align-items-center flex-column vh-100 bg-capsule">
