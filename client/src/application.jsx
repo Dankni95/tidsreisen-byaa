@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Login from "./components/Login.jsx";
-import { Map } from "./components/Map.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import { MapPage } from "./pages/MapPage.jsx";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
 import Camera from "./components/Camera";
@@ -34,10 +34,10 @@ export function Application() {
         <main>
           <Routes>
             <Route element={<WithoutNavbar />}>
-              <Route path="/" element={<Login />} />
+              <Route path="/" element={<LoginPage />} />
             </Route>
             <Route element={<WithNavbar />}>
-              <Route path="/map" element={<Map />} />
+              <Route path="/map" element={<MapPage />} />
               <Route path="/quiz/:id" element={<Quiz />} />
               <Route path="/history/:id" element={<History />} />
               <Route path="/camera" element={<Camera />} />

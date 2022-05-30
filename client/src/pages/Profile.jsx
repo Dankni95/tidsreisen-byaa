@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NotLoggedIn } from "../components/NotLoggedIn.jsx";
-import "./profile.css";
+import "../css/profile.css";
 import { IoPersonOutline } from "react-icons/io5";
 import { User } from "../application.jsx";
 import { Link, useNavigate } from "react-router-dom";

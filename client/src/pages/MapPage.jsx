@@ -2,18 +2,18 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "../css/Maps.css";
 import "mapbox-gl/dist/mapbox-gl.css";
-import GeoJson from "../helpers/MapHelpers";
+import GeoJson from "../helpers/MapHelpers.js";
 import AnimatedPopup from "mapbox-gl-animated-popup";
-import Popup from "./Popup.jsx";
+import Popup from "../components/Popup.jsx";
 import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import { User } from "../application";
+import { User } from "../application.jsx";
 import { postJSON } from "../helpers/http.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
 
-export function Map() {
+export function MapPage() {
   const mapContainerRef = useRef(null);
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
