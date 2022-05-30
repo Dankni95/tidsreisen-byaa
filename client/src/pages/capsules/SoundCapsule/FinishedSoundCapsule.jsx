@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import note from "../../../images/soundcapsule/note2.svg";
-import singleNote from "../../../images/soundcapsule/note3.svg";
+import note from "../../../assets/images/soundcapsule/note2.svg";
+import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import { useCountDown } from "./useCountDown";
 import { User } from "../../../application.jsx";
 const FinishedSoundCapsule = ({ name, update }) => {

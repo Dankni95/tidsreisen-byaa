@@ -1,9 +1,5 @@
 import React from "react";
-import Login from "../components/Login";
+import LoginPage from "./LoginPage.jsx";
 export default function StartPage() {
-
-  return (
-    <Login />
-  );
+  return <LoginPage />;
 }
-

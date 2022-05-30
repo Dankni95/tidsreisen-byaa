@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
 import Play from "./Play";
-import sawmillwork from "../../../images/soundcapsule/image1.svg";
-import note from "../../../images/soundcapsule/note2.svg";
-import singleNote from "../../../images/soundcapsule/note3.svg";
+import sawmillwork from "../../../assets/images/soundcapsule/image1.svg";
+import note from "../../../assets/images/soundcapsule/note2.svg";
+import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import FinishedSoundCapsule from "./FinishedSoundCapsule";
 import { useLoading } from "../../../helpers/useLoading";
 import { DatabaseContext } from "../../../contexts/databaseContext";

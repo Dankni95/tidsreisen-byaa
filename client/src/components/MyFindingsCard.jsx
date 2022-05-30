@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import "./myFindingsCard.css";
-import kvernhus from "./kvernhus3.png";
+import "../css/myFindingsCard.css";
+import kvernhus from "../assets/images/kvernhus3.png";
 import { FiCheck } from "react-icons/fi";
 import { User } from "../application.jsx";
 

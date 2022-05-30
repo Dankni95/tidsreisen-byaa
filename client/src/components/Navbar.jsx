@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { NavbarData } from "./navbarData.jsx";
-import "./navbar.css";
+import "../css/navbar.css";
 
 export function Navbar() {
   const [clickedIconColor, setClickedIconColor] = useState({

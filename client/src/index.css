@@ -24,41 +24,41 @@
 
 @font-face {
   font-family: "Bubblegum Sans";
-  src: url("/client/fonts/bubblegum_sans/BubblegumSans-Regular.woff2")
+  src: url("/client/src/assets/fonts/bubblegum_sans/BubblegumSans-Regular.woff2")
       format("woff2"),
-    url("/client/fonts/bubblegum_sans/BubblegumSans-Regular.woff")
+    url("/client/src/assets/fonts/bubblegum_sans/BubblegumSans-Regular.woff")
       format("woff");
 }
 
 @font-face {
   font-family: "Source Sans Pro Regular";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-Regular.woff2")
+  src: url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-Regular.woff2")
       format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-Regular.woff")
+    url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-Regular.woff")
       format("woff");
 }
 
 @font-face {
   font-family: "Source Sans Pro Semibold";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff2")
+  src: url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-SemiBold.woff2")
       format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-SemiBold.woff")
+    url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-SemiBold.woff")
       format("woff");
 }
 
 @font-face {
   font-family: "Source Sans Pro Semibold Italic";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff2")
+  src: url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff2")
       format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff")
+    url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-SemiBoldItalic.woff")
       format("woff");
 }
 
 @font-face {
   font-family: "Source Sans Pro Bold";
-  src: url("/client/fonts/source_sans_pro/SourceSansPro-Bold.woff2")
+  src: url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-Bold.woff2")
       format("woff2"),
-    url("/client/fonts/source_sans_pro/SourceSansPro-Bold.woff") format("woff");
+    url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-Bold.woff") format("woff");
 }
 
 #button-capsules-yellow {
