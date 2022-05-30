@@ -13,6 +13,7 @@ export function Quiz() {
   const { id } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [showPoints, setShowPoints] = useState(false);
+  const [alreadyDone, setAlreadyDone] = useState(false);
   const [score, setScore] = useState(0);
   const [points, setPoints] = useState(0);
   const navigate = useNavigate();
@@ -62,6 +63,16 @@ export function Quiz() {
     category: data[currentQuestion].category
   }
 
+  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
+    return capsuleName.name_;
+  });
+
+  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
+      (capsuleName) => {
+        return capsuleName === data[currentQuestion].name_
+      }
+  );
+
   function incPoints() {
     setPoints((state) => {
       return state + 10;
@@ -82,6 +93,8 @@ export function Quiz() {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
+    } else if (filteredCapsuleNamesFromUserDatabase === data[currentQuestion].name_) {
+      setAlreadyDone(true)
     } else {
       setShowPoints(true);
     }
@@ -107,6 +120,23 @@ export function Quiz() {
             ></CapsuleButtonGreen>
           </div>
         </div>
+      ) : alreadyDone ? (
+          <div>
+            <h1 className="completed">Allerede gjennomført</h1>
+            <h3 className="result">
+              Du har allerede gjennomført denne quizzen, ser det ut til!
+            </h3>
+            <div className={"links"}>
+              <CapsuleButtonGreen
+                  buttonText={"Finn flere"}
+                  onClick={() => navigate("/map")}
+              ></CapsuleButtonGreen>
+              <CapsuleButtonGreen
+                  buttonText={"Mine funn"}
+                  onClick={() => navigate("/myfindings")}
+              ></CapsuleButtonGreen>
+            </div>
+          </div>
       ) : (
         <Container className="quiz-items">
           <div>
