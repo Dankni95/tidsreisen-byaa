@@ -59,7 +59,7 @@ export function Quiz() {
   }
 
   capsuleObject = {
-    name_: data[currentQuestion].name_,
+    name: data[currentQuestion].name_,
     category: data[currentQuestion].category,
   };
 
@@ -68,9 +68,9 @@ export function Quiz() {
   });
 
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
-      (capsuleName) => {
-        return capsuleName === data[currentQuestion].name_
-      }
+    (capsuleName) => {
+      return capsuleName === data[currentQuestion].name_;
+    }
   );
 
   function incPoints() {
@@ -93,8 +93,10 @@ export function Quiz() {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
-    } else if (filteredCapsuleNamesFromUserDatabase === data[currentQuestion].name_) {
-      setAlreadyDone(true)
+    } else if (
+      filteredCapsuleNamesFromUserDatabase === data[currentQuestion].name_
+    ) {
+      setAlreadyDone(true);
     } else {
       setShowPoints(true);
     }
@@ -121,22 +123,22 @@ export function Quiz() {
           </div>
         </div>
       ) : alreadyDone ? (
-          <div>
-            <h1 className="completed">Allerede gjennomført</h1>
-            <h3 className="result">
-              Du har allerede gjennomført denne quizzen, ser det ut til!
-            </h3>
-            <div className={"links"}>
-              <CapsuleButtonGreen
-                  buttonText={"Finn flere"}
-                  onClick={() => navigate("/map")}
-              ></CapsuleButtonGreen>
-              <CapsuleButtonGreen
-                  buttonText={"Mine funn"}
-                  onClick={() => navigate("/myfindings")}
-              ></CapsuleButtonGreen>
-            </div>
+        <div>
+          <h1 className="completed">Allerede gjennomført</h1>
+          <h3 className="result">
+            Du har allerede gjennomført denne quizzen, ser det ut til!
+          </h3>
+          <div className={"links"}>
+            <CapsuleButtonGreen
+              buttonText={"Finn flere"}
+              onClick={() => navigate("/map")}
+            ></CapsuleButtonGreen>
+            <CapsuleButtonGreen
+              buttonText={"Mine funn"}
+              onClick={() => navigate("/myfindings")}
+            ></CapsuleButtonGreen>
           </div>
+        </div>
       ) : (
         <Container className="quiz-items">
           <div>

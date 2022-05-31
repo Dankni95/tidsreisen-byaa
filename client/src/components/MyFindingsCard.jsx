@@ -9,28 +9,51 @@ import { AiFillSound } from "react-icons/ai";
 import { HiOutlineCheckCircle } from "react-icons/hi";
 import { myFindingsCardData } from "./myFindingsCardData.jsx";
 
-export function MyFindingsCard() {
+function MyFindingsSingle({ onClick, capsule }) {
   const { user, setUser } = useContext(User);
-  // easier to handle potential issues with strings when in a variable
   const HISTORYCAPSULE = "Historiekapsel";
   const QUIZCAPSULE = "Quizkapsel";
   const AUDIOCAPSULE = "Lydkapsel";
+  let matchesArr = [];
 
-  /**
-   * TODO: må finne ut av hvordan vi skal hente bilde og matche det med user.finishedCapsules.name
-   * */
+  const mappedFromDummy = myFindingsCardData.finishedCapsules.map(
+    (item) => item.name
+  );
+
+  const mappedFromDb = user.finishedCapsules?.map((dbName) => dbName.name);
+
+  mappedFromDummy.forEach((capsuleFromDummy) => {
+    mappedFromDb?.forEach((capsuleFromDb) => {
+      if (capsuleFromDummy === capsuleFromDb) {
+        matchesArr.push(capsuleFromDummy);
+      }
+    });
+  });
+
+  const styleVisited = matchesArr.includes(capsule.name)
+    ? "card mb-3"
+    : "card mb-3 card-nonvisited";
+
+  function IconTrigger() {
+    if (styleVisited) {
+      return (
+        <div id={"done-icon"} className={"col-1"}>
+          <HiOutlineCheckCircle color={"var(--textColorGray)"} size={40} />
+        </div>
+      );
+    }
+  }
 
   return (
     <>
       {myFindingsCardData.finishedCapsules?.map((capsule, index) => {
         return (
-          /*<div id={"inner-container"} key={index}>*/
           <div
+            key={capsule.id}
             id={"card"}
-            className="card mb-3"
+            className={styleVisited}
             style={{ maxWidth: "540px" }}
-            onClick={() => console.log("Opens capsule but not 'done'-page")}
-            key={index}
+            onClick={onClick}
           >
             <div id={"content-container"} className="row g-0">
               <div id={"image-container"} className="col-5">
@@ -43,9 +66,7 @@ export function MyFindingsCard() {
               </div>
               <div className="col-6">
                 <div className="card-body">
-                  <h5 className="card-title">
-                    {capsule.name || capsule.name_}
-                  </h5>
+                  <h5 className="card-title">{capsule.name}</h5>
 
                   <p className="card-text">
                     {capsule.category === HISTORYCAPSULE && (
@@ -61,15 +82,27 @@ export function MyFindingsCard() {
                   </p>
                 </div>
               </div>
-              <div id={"done-icon"} className={"col-1"}>
-                <HiOutlineCheckCircle
-                  color={"var(--textColorGray)"}
-                  size={40}
-                />
-              </div>
+              <IconTrigger />
             </div>
           </div>
-          /*</div>*/
+        );
+      })}
+    </>
+  );
+}
+
+export function MyFindingsCard() {
+  return (
+    <>
+      {myFindingsCardData.finishedCapsules?.map((capsule, index) => {
+        return (
+          <MyFindingsSingle
+            key={index}
+            onClick={() =>
+              console.log(`Opens capsule but not 'done'-page ${index}`)
+            }
+            capsule={capsule}
+          />
         );
       })}
     </>

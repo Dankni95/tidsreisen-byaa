@@ -3,35 +3,35 @@
 export const myFindingsCardData = {
   finishedCapsules: [
     {
-      name: "Vannsag",
+      name: "Vesledammen",
+      category: "Lydkapsel",
+    },
+    {
+      name: "Kvernhus",
       category: "Historiekapsel",
+    },
+    {
+      name: "Kvernstein",
+      category: "Quizkapsel",
     },
     {
       name: "Vannsag",
       category: "Historiekapsel",
     },
     {
-      name: "Vannsag",
-      category: "Historiekapsel",
+      name: "Sagbruk",
+      category: "Quizkapsel",
     },
     {
-      name: "Vannsag",
-      category: "Historiekapsel",
+      name: "Sagbruk2",
+      category: "Quizkapsel",
     },
     {
-      name: "Vannsag",
-      category: "Historiekapsel",
+      name: "Veganlegg",
+      category: "Lydkapsel",
     },
     {
-      name: "Vannsag",
-      category: "Historiekapsel",
-    },
-    {
-      name: "Vannsag",
-      category: "Historiekapsel",
-    },
-    {
-      name: "Vannsag",
+      name: "Sagbruk3",
       category: "Historiekapsel",
     },
   ],

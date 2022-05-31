@@ -65,7 +65,6 @@
 }
 
 #year,
-#story-paragraph,
 #finish-paragraph {
   font-family: "Source Sans Pro Bold", sans-serif;
   font-size: 1.125rem;
@@ -74,6 +73,11 @@
 #story-section {
   min-height: 12rem;
   color: var(--textColorGray);
+}
+
+#story-paragraph {
+  font-family: "Source Sans Pro Bold", sans-serif;
+  font-size: 1.05rem;
 }
 
 #history-points {
