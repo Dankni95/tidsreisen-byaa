@@ -34,13 +34,13 @@ export function MapPage() {
   let previousState = { ...user };
 
   async function handleWalkClick() {
-    !walk
-      ? (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
-        await postJSON("/api/update-state", { user: name, walk: true }),
-        (previousState.walk = true),
-        setUser({ ...previousState }),
-        forceRepaintPopups(true))
-      : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
+    async function handleToPositionChange(walk) {
+      if (!walk) {
+        document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click();
+        previousState.walk = false;
+        setUser({ ...previousState });
+        await postJSON("/api/update-state", { user: name, walk: false });
+        forceRepaintPopups(false);
         map.flyTo({
           // These options control the ending camera position: centered at
           // the target, at zoom level 9, and north up.
@@ -50,11 +50,21 @@ export function MapPage() {
 
           // this animation is considered essential with respect to prefers-reduced-motion
           essential: true,
-        }),
-        (previousState.walk = false),
-        setUser({ ...previousState }),
-        await postJSON("/api/update-state", { user: name, walk: false }),
-        forceRepaintPopups(false));
+        });
+      }
+
+      if (walk) {
+        await postJSON("/api/update-state", { user: name, walk: true });
+        previousState.walk = true;
+        setUser({ ...previousState });
+        forceRepaintPopups(true);
+        document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click();
+      }
+    }
+
+    !walk
+      ? await handleToPositionChange(true)
+      : await handleToPositionChange(false);
   }
 
   useEffect(() => {
@@ -214,12 +224,10 @@ export function MapPage() {
   useEffect(() => {
     map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
     map ? document.getElementById("map").replaceWith(map.getContainer()) : "";
-
-    console.log(walk);
+    map ? map.resize() : "";
 
     if (walk) {
       document.getElementById("nav-text-qr").style.display = "";
-      document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click();
     } else document.getElementById("nav-text-qr").style.display = "none";
   }, [walk]);
 
@@ -238,7 +246,7 @@ export function MapPage() {
           type="switch"
           label={walk ? "På turstien" : "På skolen"}
           onClick={() => {
-            handleWalkClick();
+            handleWalkClick().then(() => {});
           }}
         />
       </Form>
