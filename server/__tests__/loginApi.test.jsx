@@ -53,4 +53,12 @@ describe("LoginApi", () => {
       ).body.map(({ name }) => name)
     ).toContain(user);
   });
+
+  it('should update user by adding finished capsule', async () => {
+    
+  });
+
+  it('should not update user, capsule already done', async () => {
+
+  });
 })
