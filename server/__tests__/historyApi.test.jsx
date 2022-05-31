@@ -23,7 +23,16 @@ beforeAll(async () => {
     await mongoDbClient.connect().then(async () => {
         console.log("Connected to MongoDB");
         await database.collection("history").insertOne({
-            //Insert en history capsule her
+            name: "Test",
+            category: "Historiekapsel",
+            story: [
+                {
+                    year: "år 2022",
+                    story: "Dette er en test",
+                    image: "",
+                    done: false
+                }
+            ]
         });
         app.use("/api/history", HistoryApi(database));
     });
@@ -39,5 +48,15 @@ afterAll(async () => {
 describe("HistoryApi", () => {
     it('should get history capsule from database', async () => {
 
+        const name = "Test"
+
+        const check = await request(app).get("/api/history/").expect(200)
+        console.log(check);
+
+        expect(
+            (
+                await request(app).get("/api/history/").expect(200)
+            ).body.map(({ name }) => name)
+        ).toContain(name);
     });
 })
