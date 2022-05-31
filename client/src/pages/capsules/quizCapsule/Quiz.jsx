@@ -16,6 +16,7 @@ export function Quiz() {
   const [alreadyDone, setAlreadyDone] = useState(false);
   const [score, setScore] = useState(0);
   const [points, setPoints] = useState(0);
+  const [index, setIndex] = useState(1);
   const navigate = useNavigate();
 
   const { listQuiz } = useContext(DatabaseContext);
@@ -86,6 +87,7 @@ export function Quiz() {
   }
 
   function handleAnswerClick(isCorrect) {
+    setIndex(index + 1);
     if (isCorrect) {
       incPoints();
       incScore();
@@ -142,6 +144,7 @@ export function Quiz() {
           <div>
             <h1 className="capsule-title">Quizkapsel</h1>
             <h3 className="category">{data[currentQuestion].name_}</h3>
+            <p className="questionIndex">{index}/{data.length}</p>
             <p className="question">{data[currentQuestion].question_}</p>
           </div>
 
