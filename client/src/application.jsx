@@ -19,7 +19,8 @@ import { useLoading } from "./helpers/useLoading.jsx";
 import WithoutNavbar from "./components/WithoutNavbar";
 import WithNavbar from "./components/WithNavbar";
 import { NotFound } from "./components/NotFound.jsx";
-import WithoutBackButton from "./components/WithoutBackButton";
+import WithBackButton from "./components/WithBackButton.jsx";
+import { BackButton } from "./components/BackButton";
 
 export const User = createContext("");
 export const MapContext = React.createContext(null);
@@ -47,20 +48,20 @@ export function Application() {
               <Route element={<WithoutNavbar />}>
                 <Route path="/" element={<LoginPage />} />
               </Route>
-              <Route element={<WithoutBackButton />}>
-                <Route path="/map" element={<MapPage />} />
-              </Route>
               <Route element={<WithNavbar />}>
-                <Route path="/quiz/:id" element={<Quiz />} />
-                <Route path="/history/:id" element={<History />} />
-                <Route path="/camera" element={<Camera />} />
-                <Route
-                  path="/myfindings"
-                  element={<MyFindings loading={loading} error={error} />}
-                />
-                <Route path="/audio/:id" element={<Sound />} />
-                <Route path="/profile" element={<Profile />} />
-                <Route path={"*"} element={<NotFound />} />
+                <Route path="/map" element={<MapPage />} />
+                <Route element={<WithBackButton />}>
+                  <Route path="/quiz/:id" element={<Quiz />} />
+                  <Route path="/history/:id" element={<History />} />
+                  <Route path="/camera" element={<Camera />} />
+                  <Route
+                    path="/myfindings"
+                    element={<MyFindings loading={loading} error={error} />}
+                  />
+                  <Route path="/audio/:id" element={<Sound />} />
+                  <Route path="/profile" element={<Profile />} />
+                  <Route path={"*"} element={<NotFound />} />
+                </Route>
               </Route>
             </Routes>
           </main>
