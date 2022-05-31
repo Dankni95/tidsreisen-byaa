@@ -50,9 +50,6 @@ describe("HistoryApi", () => {
 
         const name = "Test"
 
-        const check = await request(app).get("/api/history/").expect(200)
-        console.log(check);
-
         expect(
             (
                 await request(app).get("/api/history/").expect(200)

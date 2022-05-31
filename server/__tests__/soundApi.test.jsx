@@ -23,7 +23,11 @@ beforeAll(async () => {
     await mongoDbClient.connect().then(async () => {
         console.log("Connected to MongoDB");
         await database.collection("sound").insertOne({
-            //Insert en sound capsule her
+            title: "Test",
+            sound: "",
+            category: "Lydkapsel",
+            year: "år 2022",
+            image: ""
         });
         app.use("/api/sound", SoundApi(database));
     });
@@ -39,5 +43,12 @@ afterAll(async () => {
 describe("SoundApi", () => {
     it('should get sound capsule from database', async () => {
 
+        const title = "Test"
+
+        expect(
+            (
+                await request(app).get("/api/sound/").expect(200)
+            ).body.map(({ title }) => title)
+        ).toContain(title);
     });
 })
