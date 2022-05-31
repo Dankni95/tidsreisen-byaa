@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import olafInfront from "./olaf-infront.png";
+import olafInfront from "../../../assets/images/olaf-infront.png";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../application.jsx";

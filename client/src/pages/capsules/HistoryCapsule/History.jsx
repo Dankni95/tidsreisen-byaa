@@ -2,11 +2,12 @@ import React, { useContext, useState } from "react";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { Loading } from "../../../components/Loading.jsx";
-import imageSawEffect from "./sag-effekt.png";
 import { StoryCard } from "./StoryCard.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { User } from "../../../application.jsx";
 import { ErrorModal } from "../../../components/ErrorModal.jsx";
+import sawEffect from "../../../assets/images/saw-effect.png";
+import "./storycard.css";
 
 export function History() {
   const { user } = useContext(User);
@@ -41,11 +42,12 @@ export function History() {
         height: "100vh",
       }}
     >
-      <img
-        style={{ right: "0%", position: "absolute" }}
-        src={imageSawEffect}
+      {/*<img
+        id={"image-saw-effect"}
+        width={300}
+        src={sawEffect}
         alt="bilde av vann sag effekt bakgrunn"
-      />
+      />*/}
       {data && (
         <div>
           {data?.map((historyCapsule, index) => {

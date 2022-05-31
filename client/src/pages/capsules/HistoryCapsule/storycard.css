@@ -85,6 +85,11 @@
   font-size: 1.7rem;
 }
 
+#image-saw-effect {
+  position: absolute;
+  right: 0;
+}
+
 @media (min-width: 1024px) {
   .left-point {
     z-index: -1;

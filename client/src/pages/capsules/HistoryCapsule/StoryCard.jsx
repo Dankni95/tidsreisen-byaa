@@ -5,7 +5,6 @@ import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 import { Scrollbar } from "swiper";
 import { useParams } from "react-router-dom";
-import olafLeft from "./olaf-left.png";
 import "./storycard.css";
 import { UserContext } from "../../../contexts/userContext.jsx";
 import { HistoryDone } from "./HistoryDone.jsx";
