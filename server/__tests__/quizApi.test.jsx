@@ -23,9 +23,21 @@ beforeAll(async () => {
     await mongoDbClient.connect().then(async () => {
         console.log("Connected to MongoDB");
         await database.collection("quiz").insertOne({
-            //Insert en quiz capsule her
+            category: "Quizkapsel",
+            question_: "Hva er en test?",
+            name_: "Test-quiz",
+            answers: [
+                {
+                    answer: "Dette er en test",
+                    isCorrect: true
+                },
+                {
+                    answer: "Dette er ikke en test",
+                    isCorrect: false
+                },
+            ],
         });
-        app.use("/api/login", QuizApi(database));
+        app.use("/api/quiz", QuizApi(database));
     });
 });
 afterAll(async () => {
@@ -39,5 +51,12 @@ afterAll(async () => {
 describe("QuizApi", () => {
     it('should get quiz capsule from database', async () => {
 
+        const id = "Test-quiz";
+
+        expect(
+            (
+                await request(app).get("/api/quiz/").query({id}).expect(200)
+            ).body.map(({ name_ }) => name_)
+        ).toContain(id);
     });
 })
