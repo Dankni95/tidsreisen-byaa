@@ -15,11 +15,12 @@ export function StoryCard({ historyCapsule, error, loading }) {
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
-  const { name, intro, walk, points, level } = user;
+  const { name, intro, walk, points } = user;
   const [count, setCount] = useState(0);
   let finishedCapsules = [];
 
   const capsuleObject = {
+    id: historyCapsule.id,
     name: historyCapsule.name,
     category: historyCapsule.category,
   };
@@ -44,7 +45,6 @@ export function StoryCard({ historyCapsule, error, loading }) {
         intro,
         walk,
         points,
-        level,
         finishedCapsules: finishedCapsules,
       });
   };

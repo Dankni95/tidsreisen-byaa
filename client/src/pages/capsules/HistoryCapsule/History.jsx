@@ -42,12 +42,12 @@ export function History() {
         height: "100vh",
       }}
     >
-      {/*<img
+      <img
         id={"image-saw-effect"}
-        width={300}
+        height={700}
         src={sawEffect}
         alt="bilde av vann sag effekt bakgrunn"
-      />*/}
+      />
       {data && (
         <div>
           {data?.map((historyCapsule, index) => {

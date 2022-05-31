@@ -58,7 +58,11 @@ export function Quiz() {
     );
   }
 
+  console.log(data[currentQuestion].id);
+
   capsuleObject = {
+    // TODO Joachim, dette funka ikke, kan du se på det?
+    /*id: data[currentQuestion].id,*/
     name: data[currentQuestion].name_,
     category: data[currentQuestion].category,
   };

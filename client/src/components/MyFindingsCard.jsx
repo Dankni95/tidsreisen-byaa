@@ -17,77 +17,63 @@ function MyFindingsSingle({ onClick, capsule }) {
   let matchesArr = [];
 
   const mappedFromDummy = myFindingsCardData.finishedCapsules.map(
-    (item) => item.name
+    (item) => item.id
   );
 
-  const mappedFromDb = user.finishedCapsules?.map((dbName) => dbName.name);
+  const mappedFromDb = user.finishedCapsules?.map((dbName) => dbName.id);
 
-  mappedFromDummy.forEach((capsuleFromDummy) => {
-    mappedFromDb?.forEach((capsuleFromDb) => {
+  mappedFromDb?.forEach((capsuleFromDb) => {
+    mappedFromDummy.forEach((capsuleFromDummy) => {
       if (capsuleFromDummy === capsuleFromDb) {
         matchesArr.push(capsuleFromDummy);
       }
     });
   });
 
-  const styleVisited = matchesArr.includes(capsule.name)
+  const styleVisited = matchesArr.includes(capsule.id)
     ? "card mb-3"
     : "card mb-3 card-nonvisited";
 
-  function IconTrigger() {
-    if (styleVisited) {
-      return (
+  return (
+    <div
+      key={capsule.id}
+      id={"card"}
+      className={styleVisited}
+      style={{ maxWidth: "540px" }}
+      onClick={onClick}
+    >
+      <div id={"content-container"} className="row g-0">
+        <div id={"image-container"} className="col-5">
+          <img
+            id={"image"}
+            src={kvernhus}
+            className="img-fluid"
+            alt="dummyalttext"
+          />
+        </div>
+        <div className="col-6">
+          <div className="card-body">
+            <h5 className="card-title">{capsule.name}</h5>
+
+            <p className="card-text">
+              {capsule.category === HISTORYCAPSULE && (
+                <FaBook color={"var(--textColorGray)"} />
+              )}
+              {capsule.category === QUIZCAPSULE && (
+                <MdQuiz color={"var(--textColorGray)"} />
+              )}
+              {capsule.category === AUDIOCAPSULE && (
+                <AiFillSound color={"var(--textColorGray)"} />
+              )}
+              {capsule.category}
+            </p>
+          </div>
+        </div>
         <div id={"done-icon"} className={"col-1"}>
           <HiOutlineCheckCircle color={"var(--textColorGray)"} size={40} />
         </div>
-      );
-    }
-  }
-
-  return (
-    <>
-      {myFindingsCardData.finishedCapsules?.map((capsule, index) => {
-        return (
-          <div
-            key={capsule.id}
-            id={"card"}
-            className={styleVisited}
-            style={{ maxWidth: "540px" }}
-            onClick={onClick}
-          >
-            <div id={"content-container"} className="row g-0">
-              <div id={"image-container"} className="col-5">
-                <img
-                  id={"image"}
-                  src={kvernhus}
-                  className="img-fluid"
-                  alt="dummyalttext"
-                />
-              </div>
-              <div className="col-6">
-                <div className="card-body">
-                  <h5 className="card-title">{capsule.name}</h5>
-
-                  <p className="card-text">
-                    {capsule.category === HISTORYCAPSULE && (
-                      <FaBook color={"var(--textColorGray)"} />
-                    )}
-                    {capsule.category === QUIZCAPSULE && (
-                      <MdQuiz color={"var(--textColorGray)"} />
-                    )}
-                    {capsule.category === AUDIOCAPSULE && (
-                      <AiFillSound color={"var(--textColorGray)"} />
-                    )}
-                    {capsule.category}
-                  </p>
-                </div>
-              </div>
-              <IconTrigger />
-            </div>
-          </div>
-        );
-      })}
-    </>
+      </div>
+    </div>
   );
 }
 
@@ -97,7 +83,6 @@ export function MyFindingsCard() {
       {myFindingsCardData.finishedCapsules?.map((capsule, index) => {
         return (
           <MyFindingsSingle
-            key={index}
             onClick={() =>
               console.log(`Opens capsule but not 'done'-page ${index}`)
             }
