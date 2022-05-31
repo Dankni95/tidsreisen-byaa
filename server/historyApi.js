@@ -7,10 +7,11 @@ export function HistoryApi(mongoDb) {
     const history = await mongoDb
       .collection("history")
       .find({})
-      .map(({ _id, name, category, story }) => ({
+      .map(({ _id, name, category, story, id }) => ({
         _id,
         name,
         category,
+        id,
         story,
       }))
       .toArray();

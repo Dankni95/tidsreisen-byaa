@@ -5,7 +5,6 @@ import "swiper/swiper-bundle.css";
 import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
 import { Scrollbar } from "swiper";
 import { useParams } from "react-router-dom";
-import olafLeft from "./olaf-left.png";
 import "./storycard.css";
 import { UserContext } from "../../../contexts/userContext.jsx";
 import { HistoryDone } from "./HistoryDone.jsx";
@@ -16,11 +15,12 @@ export function StoryCard({ historyCapsule, error, loading }) {
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
-  const { name, intro, walk, points, level } = user;
+  const { name, intro, walk, points } = user;
   const [count, setCount] = useState(0);
   let finishedCapsules = [];
 
   const capsuleObject = {
+    id: historyCapsule.id,
     name: historyCapsule.name,
     category: historyCapsule.category,
   };
@@ -45,7 +45,6 @@ export function StoryCard({ historyCapsule, error, loading }) {
         intro,
         walk,
         points,
-        level,
         finishedCapsules: finishedCapsules,
       });
   };

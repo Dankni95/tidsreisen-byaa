@@ -65,7 +65,6 @@
 }
 
 #year,
-#story-paragraph,
 #finish-paragraph {
   font-family: "Source Sans Pro Bold", sans-serif;
   font-size: 1.125rem;
@@ -76,9 +75,21 @@
   color: var(--textColorGray);
 }
 
+#story-paragraph {
+  font-family: "Source Sans Pro Bold", sans-serif;
+  font-size: 1.05rem;
+}
+
 #history-points {
   font-family: "Source Sans Pro Bold", sans-serif;
   font-size: 1.7rem;
+}
+
+#image-saw-effect {
+  position: fixed;
+  top: -12rem;
+  left: -12rem;
+  opacity: 0.6;
 }
 
 @media (min-width: 1024px) {

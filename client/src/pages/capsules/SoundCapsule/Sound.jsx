@@ -32,7 +32,11 @@ const Sound = () => {
     return <NotLoggedIn />;
   }
 
+  const getId = data?.map((id) => id.id);
+
   const capsuleObject = {
+    // TODO Stian, ordne så id til den lydkapselen blir også passed til DB, fikk det ikke til
+    /*id: getId[id],*/
     name: id.charAt(0).toUpperCase() + id.slice(1),
     category: "Lydkapsel",
   };
