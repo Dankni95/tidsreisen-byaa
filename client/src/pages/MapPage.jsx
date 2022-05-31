@@ -203,19 +203,33 @@ export function MapPage() {
       let display;
       repaint ? (display = "none") : (display = "inline-block");
 
-      const marker = new mapboxgl.Marker(el)
-        .setLngLat(feature.geometry.coordinates)
-        .setPopup(
-          popup // add popups
-            .setHTML(
-              `<div>
+      const placeholder = document.createElement("div");
+      const div = document.createElement("div");
+      div.innerHTML = `<div>
               <h3>${feature.properties.title}</h3>
               <div><img src="${feature.properties.image}" style="height: 200px; width: 200px;" alt="popup image"/></div>
               <br>
-              <button id="to-capsule" class="capsule-btn" style="display:${display}"
-               onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
-              </div>`
-            )
+              </div>`;
+      placeholder.appendChild(div);
+
+      const button = document.createElement("button");
+      button.innerText = "Til kapsel";
+      button.id = "to-capsule";
+      button.className = "capsule-btn";
+      button.style = `display:${display}`;
+
+      button.addEventListener(
+        "click",
+        () => navigate(feature.properties.url),
+        false
+      );
+
+      placeholder.appendChild(button);
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
+          popup.setDOMContent(placeholder) // add popups
         )
         .addTo(map);
     }
