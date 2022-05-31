@@ -7,7 +7,6 @@ import { BackButton } from "./BackButton.jsx";
 export default () => {
   return (
     <>
-      <BackButton />
       <Navbar />
       <Outlet />
     </>

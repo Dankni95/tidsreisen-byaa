@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Modal from "react-bootstrap/Modal";
 import { CapsuleButtonGreen } from "./CapsuleButton.jsx";
 import { BsArrowRight } from "react-icons/bs";
 import "../css/popup.css";
 import olaf from "../assets/images/iben-from-front.png";
 import { postJSON } from "../helpers/http.jsx";
+import { User } from "../application.jsx";
 
-export default function Popup({ username, intro }) {
+export default function Popup() {
+  const { user, setUser } = useContext(User);
+  const { name, intro } = user;
   const [show, setShow] = useState(true);
-
-  console.log(intro, username);
 
   const [message, setMessage] = useState(() => {
     return (
@@ -24,9 +25,9 @@ export default function Popup({ username, intro }) {
       id: 1,
       content: (
         <p className={"intro-content"}>
-          Heisann {username}, jeg heter Olaf! Velkommen til Tidsreisen i Byåa.
-          Jeg skal ta deg gjennom noen steg og fortelle deg litt om hvordan
-          denne reisen fungerer. Bli med da vel!
+          Heisann {name}, jeg heter Olaf! Velkommen til Tidsreisen i Byåa. Jeg
+          skal ta deg gjennom noen steg og fortelle deg litt om hvordan denne
+          reisen fungerer. Bli med da vel!
         </p>
       ),
     },
@@ -56,7 +57,7 @@ export default function Popup({ username, intro }) {
           Du får poeng for de forskjellige tidskapslene du gjør ferdig. Håper du
           finner dem alle!
           <br />
-          Husk å ha det gøy og lykke til {username}!
+          Husk å ha det gøy og lykke til {name}!
         </p>
       ),
     },
@@ -74,12 +75,17 @@ export default function Popup({ username, intro }) {
     });
   }
 
+  let previousState = { ...user };
+
   const handleClose = async () => {
     await postJSON("/api/update-state", {
-      user: username,
+      user: name,
       intro: false,
     });
     setShow(false);
+
+    previousState.intro = false;
+    setUser({ ...previousState });
   };
 
   const handleNext = () => setNext(next + 1);
@@ -89,7 +95,7 @@ export default function Popup({ username, intro }) {
 
   return (
     <div>
-      {username && (
+      {name && (
         <Modal
           className={"d-flex justify-content-center align-items-center"}
           show={show}

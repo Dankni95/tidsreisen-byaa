@@ -112,7 +112,7 @@ const GeoJson = () => {
           title: "Sagbruk, quizkapsel",
           description:
             "Sør for gårdstunet på By og på nordre siden av Byåa ligger et fundament etter en sag. Sagen ligger rett nedenfor en bratt skråning på en liten flate ved elva. Det er ingen høye murer igjen da steinene er igjenbrukt andre steder.",
-          url: "/quiz/sagbruk",
+          url: "/quiz/sagtuft",
         },
       },
       {
@@ -148,6 +148,7 @@ const GeoJson = () => {
           title: "Sagbruk, historiekapsel",
           description:
             "Vannsagresten består av 4 oppmurte bærepillarer, plassert parvis på hver sin side av åa. Bygget i hovedsak av stor bruddstein som er noe utrast. Delvis dekket av mose. Mellom pillarene er det rester av tømmerkonstruksjon. Hver av de fire pillarene måler: L ca 5m, h 2-5m, tykkelse ca 1,25m. 2008: Mål: omlag 20 x 10 meter. Orientert øst/vest. Det mest øyensynlige er fire gjenstående, mosegrodde pillarer av stein. Den nordøstre pillaren er særlig godt bevart, og har fortsatt sin opprinnelige form. Strukturene har en rektangulær grunnflate som smalner av mot toppen. De er reist av tørrmurt tilhugget stein, formet i kvadratiske og rektangulære blokker",
+
           url: "/history/sagbruk",
           // TODO Daniel: legge til 9 som er Hulvei Quizkapsel
         },

@@ -1,3 +1,5 @@
+import "mapbox-gl/dist/mapbox-gl.css";
+
 import React, { useContext, useEffect, useRef, useState } from "react";
 import mapboxgl from "mapbox-gl";
 import "../css/Maps.css";
@@ -9,6 +11,7 @@ import { Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { User } from "../application.jsx";
 import { postJSON } from "../helpers/http.jsx";
+import { MapContext } from "../application.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -18,127 +21,129 @@ export function MapPage() {
   const [lng, setLng] = useState(11.109209421342229);
   const [lat, setLat] = useState(59.853678351187256);
   const [zoom, setZoom] = useState(15.869822538911004);
-  const [map, setMap] = useState(null);
+
+  const { setMap, map } = useContext(MapContext);
   const [loaded, setLoaded] = useState(false);
   const [disabled, setDisabled] = useState(true);
-
   const [geo, setGeo] = useState(null);
 
   let navigate = useNavigate();
 
   const { user, setUser } = useContext(User);
   const { name, intro, walk } = user;
+  let previousState = { ...user };
 
   async function handleWalkClick() {
-    console.log(user);
-    loaded
-      ? !walk
-        ? (geo.trigger(),
-          await postJSON("/api/update-state", { user: name, walk: true }),
-          setUser({ name: name, intro: intro, walk: true }),
-          forceRepaintPopups(true))
-        : (document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click(),
-          map.flyTo({
-            // These options control the ending camera position: centered at
-            // the target, at zoom level 9, and north up.
-            center: [lng, lat],
-            zoom: zoom,
-            bearing: -136.86837902659892,
+    async function handleToPositionChange(walk) {
+      if (!walk) {
+        document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click();
+        previousState.walk = false;
+        setUser({ ...previousState });
+        await postJSON("/api/update-state", { user: name, walk: false });
+        forceRepaintPopups(false);
+        map.flyTo({
+          // These options control the ending camera position: centered at
+          // the target, at zoom level 9, and north up.
+          center: [lng, lat],
+          zoom: zoom,
+          bearing: -136.86837902659892,
 
-            // this animation is considered essential with respect to prefers-reduced-motion
-            essential: true,
-          }),
-          setUser({ name: name, intro: intro, walk: false }),
-          await postJSON("/api/update-state", { user: name, walk: false }),
-          forceRepaintPopups(false))
-      : "";
+          // this animation is considered essential with respect to prefers-reduced-motion
+          essential: true,
+        });
+      }
+
+      if (walk) {
+        await postJSON("/api/update-state", { user: name, walk: true });
+        previousState.walk = true;
+        setUser({ ...previousState });
+        forceRepaintPopups(true);
+        document.getElementsByClassName("mapboxgl-ctrl-icon")[0].click();
+      }
+    }
+
+    !walk
+      ? await handleToPositionChange(true)
+      : await handleToPositionChange(false);
   }
 
   useEffect(() => {
     if (!walk) document.getElementById("nav-text-qr").style.display = "none";
 
-    const map = new mapboxgl.Map({
-      container: mapContainerRef.current,
-      style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
-      center: [lng, lat],
-      pitch: 59.49999999999986, // pitch in degrees
-      bearing: -136.86837902659892, // bearing in degrees
-      zoom: zoom,
-    });
+    const initializeMap = ({ setMap, mapContainerRef }) => {
+      const map = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
+        center: [lng, lat],
+        pitch: 59.49999999999986, // pitch in degrees
+        bearing: -136.86837902659892, // bearing in degrees
+        zoom: zoom,
+      });
 
-    // Initialize the geolocate control.
-    const geolocate = new mapboxgl.GeolocateControl({
-      positionOptions: {
-        enableHighAccuracy: true,
-      },
-      trackUserLocation: true,
-    });
+      // Initialize the geolocate control.
+      const geolocate = new mapboxgl.GeolocateControl({
+        positionOptions: {
+          enableHighAccuracy: true,
+        },
+        trackUserLocation: true,
+      });
 
-    map.addControl(geolocate);
+      map.addControl(geolocate);
 
-    setGeo(geolocate);
-    // Add navigation control (the +/- zoom buttons)
-    // map.addControl(new mapboxgl.NavigationControl(), "top-right");
+      setGeo(geolocate);
+      // Add navigation control (the +/- zoom buttons)
+      // map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
-    map.on("move", () => {
-      /*
-      console.log("Bearing: " + map.getBearing());
-      console.log("Zoom: " + map.getZoom());
-      console.log("Pitch: " + map.getPitch());
-      console.log("Pitch: " + map.getCenter());
-      */
-    });
+      map.on("move", () => {
+        /*
+        console.log("Bearing: " + map.getBearing());
+        console.log("Zoom: " + map.getZoom());
+        console.log("Pitch: " + map.getPitch());
+        console.log("Pitch: " + map.getCenter());
+        */
+      });
 
-    map.on("load", () => {
-      setLoaded(true);
-      setTimeout(() => {
-        setDisabled(false);
-      }, 4000);
-      map.addSource("route", {
-        type: "geojson",
-        data: {
-          type: "Feature",
-          properties: {},
-          geometry: {
-            type: "LineString",
-            coordinates: [
-              [11.099034, 59.851039],
-              [11.101616, 59.851307],
-              [11.100541, 59.8528],
-              [11.10087238, 59.85371299],
-              [11.102064, 59.853905],
-              [11.107697, 59.854386],
-              [11.110563, 59.854391],
-              [11.114554, 59.85441],
-            ],
+      map.on("load", () => {
+        setLoaded(true);
+        map.addSource("route", {
+          type: "geojson",
+          data: {
+            type: "Feature",
+            properties: {},
+            geometry: {
+              type: "LineString",
+              coordinates: [
+                [11.099034, 59.851039],
+                [11.101616, 59.851307],
+                [11.100541, 59.8528],
+                [11.10087238, 59.85371299],
+                [11.102064, 59.853905],
+                [11.107697, 59.854386],
+                [11.110563, 59.854391],
+                [11.114554, 59.85441],
+              ],
+            },
           },
-        },
+        });
+        map.addLayer({
+          id: "route",
+          type: "line",
+          source: "route",
+          layout: {
+            "line-join": "round",
+            "line-cap": "round",
+          },
+          paint: {
+            "line-color": "blue",
+            "line-width": 8,
+          },
+        });
       });
-      map.addLayer({
-        id: "route",
-        type: "line",
-        source: "route",
-        layout: {
-          "line-join": "round",
-          "line-cap": "round",
-        },
-        paint: {
-          "line-color": "blue",
-          "line-width": 8,
-        },
-      });
-    });
 
-    geolocate.on("geolocate", () => {
-      document.getElementById("nav-text-qr").style.display = "";
-    });
+      setMap(map);
+    };
 
-    geolocate.on("trackuserlocationend", () => {
-      document.getElementById("nav-text-qr").style.display = "none";
-    });
-
-    setMap(map);
-    return () => map.remove();
+    if (!map) initializeMap({ setMap, mapContainerRef });
   }, []);
 
   function anim(target) {
@@ -198,56 +203,68 @@ export function MapPage() {
       let display;
       repaint ? (display = "none") : (display = "inline-block");
 
-      const marker = new mapboxgl.Marker(el)
-        .setLngLat(feature.geometry.coordinates)
-        .setPopup(
-          popup // add popups
-            .setHTML(
-              `<div>
+      const placeholder = document.createElement("div");
+      const div = document.createElement("div");
+      div.innerHTML = `<div>
               <h3>${feature.properties.title}</h3>
               <div><img src="${feature.properties.image}" style="height: 200px; width: 200px;" alt="popup image"/></div>
               <br>
-              <button id="to-capsule" class="capsule-btn" style="display:${display}"
-               onclick="location.href='${feature.properties.url}'" type="button">Til kapsel</button>
-              </div>`
-            )
+              </div>`;
+      placeholder.appendChild(div);
+
+      const button = document.createElement("button");
+      button.innerText = "Til kapsel";
+      button.id = "to-capsule";
+      button.className = "capsule-btn";
+      button.style = `display:${display}`;
+
+      button.addEventListener(
+        "click",
+        () => navigate(feature.properties.url),
+        false
+      );
+
+      placeholder.appendChild(button);
+
+      const marker = new mapboxgl.Marker(el)
+        .setLngLat(feature.geometry.coordinates)
+        .setPopup(
+          popup.setDOMContent(placeholder) // add popups
         )
         .addTo(map);
     }
   }
 
   useEffect(() => {
-    loaded
-      ? walk
-        ? (geo.trigger(), forceRepaintPopups(true))
-        : (setDisabled(false), forceRepaintPopups(false))
-      : "";
-  }, [loaded]);
+    map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
+    map ? document.getElementById("map").replaceWith(map.getContainer()) : "";
+    map ? map.resize() : "";
+
+    if (walk) {
+      document.getElementById("nav-text-qr").style.display = "";
+    } else document.getElementById("nav-text-qr").style.display = "none";
+  }, [walk]);
 
   return (
     <>
-      {
-        <div>
-          <div className="map-container" ref={mapContainerRef} />
-          <Form id="custom-switch">
-            <Form.Check
-              defaultChecked={walk}
-              disabled={disabled}
-              type="switch"
-              label={walk ? "På turstien" : "På skolen"}
-              onClick={() => {
-                setDisabled(true);
-                handleWalkClick().then((r) =>
-                  setTimeout(() => {
-                    setDisabled(false);
-                  }, 4000)
-                );
-              }}
-            />
-          </Form>
-          {intro ? <Popup key={name} username={name} intro={intro} /> : ""}
-        </div>
-      }
+      <div id={"map-container"}>
+        <div
+          id={"map"}
+          className="map-container"
+          ref={(el) => (mapContainerRef.current = el)}
+        />
+      </div>
+      <Form id="custom-switch">
+        <Form.Check
+          defaultChecked={walk}
+          type="switch"
+          label={walk ? "På turstien" : "På skolen"}
+          onClick={() => {
+            handleWalkClick().then(() => {});
+          }}
+        />
+      </Form>
+      {intro ? <Popup key={name} /> : ""}
     </>
   );
 }
