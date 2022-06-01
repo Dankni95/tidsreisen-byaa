@@ -149,7 +149,8 @@ export function MapPage() {
     };
 
     if (!map) initializeMap({ setMap, mapContainerRef });
-  }, []);
+    map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
+  }, [map, setMap]);
 
   function anim(target) {
     map.flyTo({
@@ -243,8 +244,7 @@ export function MapPage() {
   }
 
   useEffect(() => {
-    map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
-    map ? mapContainerRef.current.replaceWith(map.getContainer()) : "";
+    map ? document.getElementById("map").replaceWith(map.getContainer()) : "";
     map ? map.resize() : "";
 
     if (walk) {
