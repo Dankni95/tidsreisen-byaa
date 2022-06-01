@@ -62,14 +62,13 @@ export function Quiz() {
   console.log(data[currentQuestion].id);
 
   capsuleObject = {
-    // TODO Joachim, dette funka ikke, kan du se på det?
-    /*id: data[currentQuestion].id,*/
+    id: data[currentQuestion].id,
     name: data[currentQuestion].name_,
     category: data[currentQuestion].category,
   };
 
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
-    return capsuleName.name_;
+    return capsuleName.name;
   });
 
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
@@ -99,10 +98,13 @@ export function Quiz() {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
+      console.log(capsuleNameFromDatabase)
     } else if (
       filteredCapsuleNamesFromUserDatabase === data[currentQuestion].name_
     ) {
+      console.log(alreadyDone)
       setAlreadyDone(true);
+      console.log(alreadyDone)
     } else {
       setShowPoints(true);
     }
