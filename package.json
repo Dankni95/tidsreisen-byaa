@@ -12,7 +12,7 @@
     "dev:client": "cd client && parcel watch src/index.html",
     "dev:server": "cd server && nodemon server.js",
     "build:pwa": "cd client/src && pwa-asset-generator images/apple-touch-icon-180x180.png -i index.html -m manifest.webmanifest -o images/",
-    "test": "jest"
+    "test": "jest --collectCoverage"
   },
   "dependencies": {
     "@parcel/config-default": "^2.5.0",
@@ -68,8 +68,12 @@
   "jest": {
     "collectCoverageFrom": [
       "**/*.js",
+      "**/*.jsx",
+      "!node_modules/**",
       "!server.js",
-      "!coverage/**"
+      "!coverage/**",
+      "!dist/**",
+      "!client/build/**"
     ]
   }
 }
