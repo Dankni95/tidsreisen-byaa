@@ -8,6 +8,7 @@ import { User } from "../../../application.jsx";
 import { ErrorModal } from "../../../components/ErrorModal.jsx";
 import sawEffect from "../../../assets/images/saw-effect.png";
 import "./storycard.css";
+import "../../../css/olaf.css";
 
 export function History() {
   const { user } = useContext(User);

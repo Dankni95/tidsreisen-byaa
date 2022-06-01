@@ -12,6 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { User } from "../application.jsx";
 import { postJSON } from "../helpers/http.jsx";
 import { MapContext } from "../application.jsx";
+import { myFindingsCardData } from "../components/myFindingsCardData.jsx";
 
 mapboxgl.accessToken =
   "pk.eyJ1IjoiZGFua25pOTUiLCJhIjoiY2t3cmE0OXlsMGQ3bzMxbHNjMm82bDkzeCJ9.1XATyS82VYWyaSB5NQ3j9g";
@@ -32,6 +33,8 @@ export function MapPage() {
   const { user, setUser } = useContext(User);
   const { name, intro, walk } = user;
   let previousState = { ...user };
+
+  console.log(user);
 
   async function handleWalkClick() {
     async function handleToPositionChange(walk) {
@@ -130,7 +133,7 @@ export function MapPage() {
             },
           },
         });
-        map.addLayer({
+        const layer = map.addLayer({
           id: "route",
           type: "line",
           source: "route",
@@ -139,17 +142,17 @@ export function MapPage() {
             "line-cap": "round",
           },
           paint: {
-            "line-color": "blue",
+            "line-color": "#AF4879",
             "line-width": 8,
           },
         });
       });
-
       setMap(map);
     };
 
     if (!map) initializeMap({ setMap, mapContainerRef });
-  }, []);
+    map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
+  }, [map, setMap, user]);
 
   function anim(target) {
     map.flyTo({
@@ -175,7 +178,23 @@ export function MapPage() {
     });
   }
 
+  let matchesArr = [];
+
   function forceRepaintPopups(repaint) {
+    const mappedFromDummy = myFindingsCardData.finishedCapsules.map(
+      (item) => item.id
+    );
+
+    const mappedFromDb = user.finishedCapsules?.map((dbName) => dbName.id);
+
+    mappedFromDb?.forEach((capsuleFromDb) => {
+      mappedFromDummy.forEach((capsuleFromDummy) => {
+        if (capsuleFromDummy === capsuleFromDb) {
+          matchesArr.push(capsuleFromDummy);
+        }
+      });
+    });
+
     // delete all markers
     const markerDiv = document.getElementById("popups");
     markerDiv ? (markerDiv.remove(), console.log("removed")) : "";
@@ -190,6 +209,11 @@ export function MapPage() {
       el.className = "marker";
       el.id = "popups";
       el.addEventListener("click", () => anim(feature.properties), false);
+
+      // check if capsule already done
+      matchesArr.includes(feature.properties.id.toString())
+        ? (el.style.backgroundImage = `url(${feature.properties.found_icon})`)
+        : (el.style.backgroundImage = `url(${feature.properties.icon})`);
 
       let popup = new AnimatedPopup({
         offset: 25,
@@ -243,8 +267,7 @@ export function MapPage() {
   }
 
   useEffect(() => {
-    map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
-    map ? mapContainerRef.current.replaceWith(map.getContainer()) : "";
+    map ? document.getElementById("map").replaceWith(map.getContainer()) : "";
     map ? map.resize() : "";
 
     if (walk) {

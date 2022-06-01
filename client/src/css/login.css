@@ -1,13 +1,16 @@
 #login {
-  padding-top: 50%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
   background-image: url("../assets/images/Bakground-login.jpeg");
   background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   height: 100vh;
 }
 
 #logo-container {
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: normal;

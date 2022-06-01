@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import note from "../../../assets/images/soundcapsule/note2.svg";
 import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import { User } from "../../../application";
+import olafInfront from "../../../assets/images/olaf-infront.png";
+import "../../../css/olaf.css";
 const FinishedSoundCapsule = ({ update, id }) => {
   const { user, setUser } = useContext(User);
   useEffect(async () => {
@@ -20,8 +22,10 @@ const FinishedSoundCapsule = ({ update, id }) => {
     }
   );
 
+  console.log(filteredCapsuleNamesFromUserDatabase);
+
   return (
-    <div className="d-flex justify-content-around align-items-center flex-column vh-100 bg-capsule">
+    <div className="d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
       <div
         style={{
           position: "absolute",
@@ -74,27 +78,51 @@ const FinishedSoundCapsule = ({ update, id }) => {
       >
         <img width={50} src={singleNote} alt="Some note" />
       </div>
-      {filteredCapsuleNamesFromUserDatabase ? (
-        <>
-          <div className="text-center">
-            <h3 className="text-capsule fw-bold">
-              Du har allerede fullført denne lydkapselen
-            </h3>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="text-center">
-            <h3 className="text-capsule fw-bold">Fullført lydkapselen</h3>
-          </div>
+      <div className={"d-flex justify-content-center mb-5"}>
+        <h1
+          style={{
+            fontSize: "1.5rem",
+            fontFamily: "Source Sans Pro Bold",
+            color: "var(--backgroundColorGreeny)",
+          }}
+        >
+          Fullført lydkapselen!{" "}
+        </h1>
+      </div>
+      <div
+        id={"olaf-infront-div"}
+        className={
+          "d-flex align-content-center flex-row justify-content-center gap-3  position-relative z-index-1"
+        }
+      >
+        <div>
+          <img
+            height={200}
+            /*className={"img-fluid"}*/ src={olafInfront}
+            alt="bilde av olaf på fullført side"
+          />
+        </div>
 
-          <div>
-            <h4>+20 poeng</h4>
-          </div>
-        </>
-      )}
-
-      <div className="text-center">
+        <div className="pe-4">
+          <div className="left-point"></div>
+          {filteredCapsuleNamesFromUserDatabase ? (
+            <p id={"finish-paragraph"}>
+              Woops! Det ser ut som du allerede har vært på denne kapselen. Gå
+              til neste kapsel.
+            </p>
+          ) : (
+            <p id={"finish-paragraph"}>
+              Godt jobbet!
+              <br /> Du har gjennomført en kapsel og fått poeng for det, og
+              kanskje til og med lært noe nytt om Byåa!
+            </p>
+          )}
+        </div>
+      </div>
+      <div>
+        <p style={{ fontSize: "1.7rem", fontWeight: "bold" }}>+20 poeng</p>
+      </div>
+      <div className="text-center mt-5">
         <Link to="/map">
           <button className="mb-2" id="button-capsules-green">
             Tilbake til kart
