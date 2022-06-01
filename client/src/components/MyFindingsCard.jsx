@@ -8,9 +8,11 @@ import { FaBook } from "react-icons/fa";
 import { AiFillSound } from "react-icons/ai";
 import { HiOutlineCheckCircle } from "react-icons/hi";
 import { myFindingsCardData } from "./myFindingsCardData.jsx";
+import { useNavigate } from "react-router-dom";
 
 function MyFindingsSingle({ onClick, capsule }) {
   const { user, setUser } = useContext(User);
+  const navigate = useNavigate();
   const HISTORYCAPSULE = "Historiekapsel";
   const QUIZCAPSULE = "Quizkapsel";
   const AUDIOCAPSULE = "Lydkapsel";
@@ -40,7 +42,7 @@ function MyFindingsSingle({ onClick, capsule }) {
       id={"card"}
       className={styleVisited}
       style={{ maxWidth: "540px" }}
-      onClick={onClick}
+      onClick={() => navigate(capsule.url)}
     >
       <div id={"content-container"} className="row g-0">
         <div id={"image-container"} className="col-5">
@@ -80,15 +82,8 @@ function MyFindingsSingle({ onClick, capsule }) {
 export function MyFindingsCard() {
   return (
     <>
-      {myFindingsCardData.finishedCapsules?.map((capsule, index) => {
-        return (
-          <MyFindingsSingle
-            onClick={() =>
-              console.log(`Opens capsule but not 'done'-page ${index}`)
-            }
-            capsule={capsule}
-          />
-        );
+      {myFindingsCardData.finishedCapsules?.map((capsule) => {
+        return <MyFindingsSingle capsule={capsule} />;
       })}
     </>
   );

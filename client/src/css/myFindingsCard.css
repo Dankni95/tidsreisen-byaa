@@ -25,10 +25,15 @@
   background-color: rgba(86, 94, 100, 0.84);
 }
 
+.card-nonvisited {
+  pointer-events: none;
+}
+
 #card {
   background-color: var(--backgroundColorLetthet);
   border: none;
   border-radius: 10px;
+  margin-top: 0.2rem;
   /*background: linear-gradient(
     to right,
     rgba(50, 70, 80, 0.7),
