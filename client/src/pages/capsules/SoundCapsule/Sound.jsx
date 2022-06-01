@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { User } from "../../../application.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
+import { AiFillSound } from "react-icons/ai";
 const Sound = () => {
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
@@ -132,7 +133,10 @@ const Sound = () => {
                     className="position-relative d-flex justify-content-center align-items-center flex-column "
                     key={index}
                   >
-                    <h3 className="pb-3">{item.category}</h3>
+                    <h3 className="pb-3">
+                      <AiFillSound color={"var(--textColorGray)"} />{" "}
+                      {item.category}
+                    </h3>
                     <h1 className="pb-3 fw-bolder text-capsule">
                       {item.title}
                     </h1>

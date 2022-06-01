@@ -10,6 +10,7 @@ import { UserContext } from "../../../contexts/userContext.jsx";
 import { HistoryDone } from "./HistoryDone.jsx";
 import { User } from "../../../application.jsx";
 import { ErrorModal } from "../../../components/ErrorModal.jsx";
+import { FaBook } from "react-icons/fa";
 
 export function StoryCard({ historyCapsule, error, loading }) {
   const { id } = useParams();
@@ -74,7 +75,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
                 fontFamily: "Source Sans Pro Semibold",
               }}
             >
-              Historiekapsel
+              <FaBook color={"var(--textColorGray)"} /> Historiekapsel
             </h3>
             <h1
               className={"text-center"}
@@ -101,7 +102,10 @@ export function StoryCard({ historyCapsule, error, loading }) {
               return (
                 <SwiperSlide key={index} className={"slide"}>
                   {capsuleStory.done === true ? (
-                    <HistoryDone name={historyCapsule.name} />
+                    <HistoryDone
+                      updateToDatabase={updateToDatabase}
+                      name={historyCapsule.name}
+                    />
                   ) : (
                     <div className={"swiper-slide"} key={index}>
                       <div className={"slide-content"}>

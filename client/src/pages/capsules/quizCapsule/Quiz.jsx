@@ -1,3 +1,4 @@
+import React from "react";
 import "./quiz.css";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
@@ -8,6 +9,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { User } from "../../../application.jsx";
+import { MdQuiz } from "react-icons/md";
 
 export function Quiz() {
   const { id } = useParams();
@@ -114,7 +116,7 @@ export function Quiz() {
         <div>
           <h1 className="completed">Fullført quizkapsel</h1>
           <h3 className="result">
-            Du har {score}/{data.length} riktige
+            Du har {score}/{data?.length} riktige
           </h3>
           <h5 className="points">+ {points} poeng!</h5>
           <div className={"links"}>
@@ -148,9 +150,13 @@ export function Quiz() {
       ) : (
         <Container className="quiz-items">
           <div>
-            <h1 className="capsule-title">Quizkapsel</h1>
+            <h1 className="capsule-title">
+              <MdQuiz color={"var(--textColorGray)"} /> Quizkapsel
+            </h1>
             <h3 className="category">{data[currentQuestion].name_}</h3>
-            <p className="questionIndex">{index}/{data.length}</p>
+            <p className="questionIndex">
+              {index}/{data.length}
+            </p>
             <p className="question">{data[currentQuestion].question_}</p>
           </div>
 

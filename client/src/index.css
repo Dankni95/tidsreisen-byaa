@@ -58,7 +58,8 @@
   font-family: "Source Sans Pro Bold";
   src: url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-Bold.woff2")
       format("woff2"),
-    url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-Bold.woff") format("woff");
+    url("/client/src/assets/fonts/source_sans_pro/SourceSansPro-Bold.woff")
+      format("woff");
 }
 
 #button-capsules-yellow {
