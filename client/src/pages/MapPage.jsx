@@ -130,7 +130,7 @@ export function MapPage() {
             },
           },
         });
-        map.addLayer({
+        const layer = map.addLayer({
           id: "route",
           type: "line",
           source: "route",
@@ -139,12 +139,11 @@ export function MapPage() {
             "line-cap": "round",
           },
           paint: {
-            "line-color": "blue",
+            "line-color": "#AF4879",
             "line-width": 8,
           },
         });
       });
-
       setMap(map);
     };
 
@@ -191,6 +190,8 @@ export function MapPage() {
       el.className = "marker";
       el.id = "popups";
       el.addEventListener("click", () => anim(feature.properties), false);
+      el.style.backgroundImage = `url(${feature.properties.icon})`;
+      console.log(feature.properties.icon);
 
       let popup = new AnimatedPopup({
         offset: 25,
