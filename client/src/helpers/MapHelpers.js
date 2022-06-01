@@ -133,7 +133,7 @@ const GeoJson = () => {
           anim_pitch: 55.500000000000114,
           anim_zoom: 16.069917476618837,
           title: "Sagbruk, quizkapsel",
-          url: "/quiz/sagtuft",
+          url: "/quiz/sagbruk",
           image: sagbrukQuiz,
           icon: six,
           found_icon: quiz,
