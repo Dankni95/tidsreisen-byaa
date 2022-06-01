@@ -14,5 +14,5 @@ client/node_modules
 ./client/node_modules/
 .env
 ./client/.env
-
+coverage/
 
