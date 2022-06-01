@@ -34,6 +34,8 @@ body {
 
 .mapboxgl-popup-content {
   text-align: center;
+  background-color: var(--backgroundColorLetthet);
+;
 }
 
 #scan-btn {
@@ -48,15 +50,19 @@ body {
 }
 
 .capsule-btn {
+  font-family: "Source Sans Pro Semibold", sans-serif;
+  font-size: 0.9rem;
+  background-color: var(--buttonYellowLight);
+  color: var(--textColorGray);
+  border-radius: 10px;
+  height: 3em;
+  width: 15em;
+  filter: drop-shadow(0px 2px 2px rgba(0, 0, 0, 0.25));
   align-items: center;
-  background-color: #0a66c2;
-  border: 0;
-  border-radius: 100px;
+  border: 0 none;
   box-sizing: border-box;
-  color: #ffffff;
   cursor: pointer;
   display: inline-flex;
-  font-size: 16px;
   font-weight: 600;
   justify-content: center;
   line-height: 20px;
@@ -67,23 +73,8 @@ body {
   padding: 0px 20px;
   text-align: center;
   touch-action: manipulation;
-  transition: background-color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    box-shadow 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s,
-    color 0.167s cubic-bezier(0.4, 0, 0.2, 1) 0s;
-  user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
-}
-
-.capsule-btn:hover,
-.capsule-btn:focus {
-  background-color: #16437e;
-  color: #ffffff;
-}
-
-.capsule-btn:active {
-  background: #09223b;
-  color: rgb(255, 255, 255, 0.7);
 }
 
 .capsule-btn:disabled {
@@ -156,4 +147,9 @@ body {
 .form-check-label {
   padding-left: 10px;
   color: black;
+}
+
+.mapboxgl-popup-close-button{
+  margin: 0;
+
 }

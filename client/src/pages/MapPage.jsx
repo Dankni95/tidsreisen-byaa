@@ -18,9 +18,9 @@ mapboxgl.accessToken =
 
 export function MapPage() {
   const mapContainerRef = useRef(null);
-  const [lng, setLng] = useState(11.109209421342229);
-  const [lat, setLat] = useState(59.853678351187256);
-  const [zoom, setZoom] = useState(15.869822538911004);
+  const [lng, setLng] = useState(11.100389206568366);
+  const [lat, setLat] = useState(59.851476403479325);
+  const [zoom, setZoom] = useState(15.042403483653505);
 
   const { setMap, map } = useContext(MapContext);
   const [loaded, setLoaded] = useState(false);
@@ -46,7 +46,8 @@ export function MapPage() {
           // the target, at zoom level 9, and north up.
           center: [lng, lat],
           zoom: zoom,
-          bearing: -136.86837902659892,
+          bearing: 32.608789159055505,
+          pitch: 36.99999999999998,
 
           // this animation is considered essential with respect to prefers-reduced-motion
           essential: true,
@@ -75,8 +76,8 @@ export function MapPage() {
         container: mapContainerRef.current,
         style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
         center: [lng, lat],
-        pitch: 59.49999999999986, // pitch in degrees
-        bearing: -136.86837902659892, // bearing in degrees
+        pitch: 36.99999999999998, // pitch in degrees
+        bearing: 32.608789159055505, // bearing in degrees
         zoom: zoom,
       });
 
@@ -96,11 +97,14 @@ export function MapPage() {
 
       map.on("move", () => {
         /*
+        // For testing purposes:
+
         console.log("Bearing: " + map.getBearing());
         console.log("Zoom: " + map.getZoom());
         console.log("Pitch: " + map.getPitch());
-        console.log("Pitch: " + map.getCenter());
-        */
+        console.log("Coords: " + map.getCenter());
+
+         */
       });
 
       map.on("load", () => {
@@ -121,6 +125,7 @@ export function MapPage() {
                 [11.107697, 59.854386],
                 [11.110563, 59.854391],
                 [11.114554, 59.85441],
+                [11.11492068, 59.85452141],
               ],
             },
           },
@@ -153,12 +158,13 @@ export function MapPage() {
       center: target.anim_coords,
       zoom: target.anim_zoom,
       bearing: target.anim_bearing,
+      pitch: target.anim_pitch,
 
       // These options control the flight curve, making it move
       // slowly and zoom out almost completely before starting
       // to pan.
-      speed: 0.5, // make the flying slow
-      curve: 1, // change the speed at which it zooms out
+      speed: 2, // make the flying slow
+      curve: 2, // change the speed at which it zooms out
 
       // This can be any easing function: it takes a number between
       // 0 and 1 and returns another number between 0 and 1.
@@ -197,6 +203,7 @@ export function MapPage() {
           easing: "easeInBack",
           transform: "scale",
         },
+        closeButton: false,
       });
 
       // make a marker for each feature and add it to the map
@@ -237,7 +244,7 @@ export function MapPage() {
 
   useEffect(() => {
     map ? (walk ? forceRepaintPopups(true) : forceRepaintPopups(false)) : "";
-    map ? document.getElementById("map").replaceWith(map.getContainer()) : "";
+    map ? mapContainerRef.current.replaceWith(map.getContainer()) : "";
     map ? map.resize() : "";
 
     if (walk) {
