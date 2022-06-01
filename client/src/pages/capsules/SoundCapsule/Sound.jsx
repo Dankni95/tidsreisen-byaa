@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { User } from "../../../application.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
+
 const Sound = () => {
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
@@ -32,12 +33,16 @@ const Sound = () => {
     return <NotLoggedIn />;
   }
 
-  const getId = data?.map((id) => id.id);
+  const getId = data
+    ?.map((id) => id)
+    .filter((item) => item.title.toLowerCase() === id.toLowerCase())
+    .map((itemId) => itemId.id);
+  console.log(getId.toString());
 
   const capsuleObject = {
     // TODO Stian, ordne så id til den lydkapselen blir også passed til DB, fikk det ikke til
-    /*id: getId[id],*/
-    name: id.charAt(0).toUpperCase() + id.slice(1),
+    id: getId.toString(),
+    name: id /* .charAt(0).toUpperCase() + id.slice(1) */,
     category: "Lydkapsel",
   };
 
@@ -143,7 +148,7 @@ const Sound = () => {
                       setSongInfo={setSongInfo}
                       setDrag={setDrag}
                     />
-                    <h4 className="my-5 fw-bold">{item.year}</h4>
+                    <h4 className="my-5 fw-bold">År {item.year}</h4>
                     <p className="fst-italic fw-bold">
                       Lytt ferdig lydlkapselen for å få poeng
                     </p>

@@ -4,6 +4,7 @@ import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "../components/CapsuleButton.jsx";
 import { checkUser, postJSON } from "../helpers/http.jsx";
+import bg from "../assets/images/Bakground-login.jpeg";
 import Alert from "react-bootstrap/Alert";
 import { User } from "../application.jsx";
 
@@ -95,7 +96,7 @@ export default function LoginPage() {
         )}
       </form>
       <div id={"logo-container"}>
-        <img id="logoPic" width={75} src={logo} alt="Rælingen logo" />
+        <img id="logoPic" src={logo} alt="Rælingen logo" />
       </div>
     </section>
   );
