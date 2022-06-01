@@ -5,7 +5,6 @@ import { Application } from "./application.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // *** PWA Functionality START ***
-/*
 
 navigator.serviceWorker
   .register(new URL("service-worker.js", import.meta.url), { type: "module" })
@@ -36,15 +35,11 @@ navigator.serviceWorker
 
 async function promptUserToRefresh() {
   const registration = await navigator.serviceWorker.getRegistration();
-  registration.waiting.postMessage("SKIP_WAITING");
 
-  skip asking to update when developing
   if (window.confirm("New version available! Refresh?")) {
     registration.waiting.postMessage("SKIP_WAITING");
   }
-
 }
-*/
 
 // *** PWA Functionality END *
 
