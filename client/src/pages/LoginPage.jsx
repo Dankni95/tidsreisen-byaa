@@ -50,6 +50,8 @@ export default function LoginPage() {
           name: newUser,
           intro: true,
           walk: false,
+          points: 0,
+          finishedCapsules: [],
         });
         navigate("/map");
       }
