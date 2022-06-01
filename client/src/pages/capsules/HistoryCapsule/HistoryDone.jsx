@@ -4,12 +4,15 @@ import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../application.jsx";
 
-export function HistoryDone({ name }) {
+export function HistoryDone({ name, updateToDatabase }) {
   const navigate = useNavigate();
   const { user } = useContext(User);
 
   const navigateToMap = () => navigate("/map");
-  const navigateToMyFindings = () => navigate("/myfindings");
+  const navigateToMyFindings = () => {
+    updateToDatabase();
+    navigate("/myfindings");
+  };
 
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
     return capsuleName.name;
@@ -31,7 +34,7 @@ export function HistoryDone({ name }) {
             color: "var(--backgroundColorGreeny)",
           }}
         >
-          Fullført historiekapselen!{" "}
+          Fullført historiekapselen!
         </h1>
       </div>
       <div
