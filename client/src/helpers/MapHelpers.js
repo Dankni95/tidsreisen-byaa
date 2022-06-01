@@ -1,5 +1,4 @@
 import React from "react";
-import kvernhus from "../assets/images/mapbox-images/12322-Kvernhus-molle-historie.jpg";
 
 const GeoJson = () => {
   const geojson = {
@@ -36,7 +35,7 @@ const GeoJson = () => {
           anim_zoom: 16.929861666765753,
           title: "Kvernhus, historiekapsel",
           url: "/history/kvernhus",
-          image: kvernhus,
+          image: "",
         },
       },
       {
