@@ -1,15 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useLoading } from "../../../helpers/useLoading";
 import { FaPlay } from "react-icons/fa";
 import { FaStop } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";
 import { AiOutlinePause } from "react-icons/ai";
+import vegfar from "./Sound/vegfar.m4a";
+import vesledammen from "./Sound/vesledammen.m4a";
+import vannsag from "./Sound/vannsag.m4a";
+import { useParams } from "react-router-dom";
 
 const Play = ({ songInfo, setSongInfo, setDrag }) => {
+  const { id } = useParams();
+
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  let audioUrl = require("./Sound/david.wav");
+  let url = `./Sound/${id}.m4a`;
+  let audioUrl = require(url);
   /*  const { data, error, loading, reload } = useLoading(() =>
     fetchJSON("/api/sound")
   ); */
