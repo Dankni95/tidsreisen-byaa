@@ -9,12 +9,13 @@ export function QuizApi(mongoDb) {
         const quiz = await mongoDb
             .collection("quiz")
             .find({ name_: correctId})
-            .map(({ _id, category, question_, answers, name_ }) => ({
+            .map(({ _id, category, question_, answers, name_, id }) => ({
                 _id,
                 category,
                 question_,
                 answers,
-                name_
+                name_,
+                id
             }))
             .toArray();
         res.json(quiz);

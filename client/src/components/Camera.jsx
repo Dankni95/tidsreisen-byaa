@@ -40,6 +40,8 @@ export default function Camera() {
     data
       ? (navigate(data, { replace: true }), qrScanner.destroy())
       : console.log(data);
+
+    return () => qrScanner.destroy();
   }, [data]);
 
   useEffect(() => {

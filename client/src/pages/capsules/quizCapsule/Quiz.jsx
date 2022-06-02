@@ -1,3 +1,4 @@
+import React from "react";
 import "./quiz.css";
 import { useLoading } from "../../../helpers/useLoading.jsx";
 import { DatabaseContext } from "../../../contexts/databaseContext.jsx";
@@ -8,6 +9,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { User } from "../../../application.jsx";
+import { MdQuiz } from "react-icons/md";
+import { Loading } from "../../../components/Loading.jsx";
 
 export function Quiz() {
   const { id } = useParams();
@@ -32,18 +35,21 @@ export function Quiz() {
   );
 
   useEffect(async () => {
-    await updateUser({ points, user, finishedCapsules: capsuleObject });
-    setUser({
-      name: name,
-      intro: intro,
-      walk: walk,
-      points: prevPoints + points,
-      finishedCapsules: finishedCapsules,
-    });
+    if (showPoints) {
+      await updateUser({ points, user, finishedCapsules: capsuleObject });
+
+      if (!user.finishedCapsules.includes(capsuleObject)) {
+        user.finishedCapsules.push(capsuleObject);
+
+        setUser({
+          ...user,
+        });
+      }
+    }
   }, [showPoints, updateUser]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!name) {
@@ -62,14 +68,13 @@ export function Quiz() {
   console.log(data[currentQuestion].id);
 
   capsuleObject = {
-    // TODO Joachim, dette funka ikke, kan du se på det?
-    /*id: data[currentQuestion].id,*/
+    id: data[currentQuestion].id,
     name: data[currentQuestion].name_,
     category: data[currentQuestion].category,
   };
 
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
-    return capsuleName.name_;
+    return capsuleName.name;
   });
 
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
@@ -99,10 +104,13 @@ export function Quiz() {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
+      console.log(capsuleNameFromDatabase);
     } else if (
       filteredCapsuleNamesFromUserDatabase === data[currentQuestion].name_
     ) {
+      console.log(alreadyDone);
       setAlreadyDone(true);
+      console.log(alreadyDone);
     } else {
       setShowPoints(true);
     }
@@ -114,7 +122,7 @@ export function Quiz() {
         <div>
           <h1 className="completed">Fullført quizkapsel</h1>
           <h3 className="result">
-            Du har {score}/{data.length} riktige
+            Du har {score}/{data?.length} riktige
           </h3>
           <h5 className="points">+ {points} poeng!</h5>
           <div className={"links"}>
@@ -148,9 +156,13 @@ export function Quiz() {
       ) : (
         <Container className="quiz-items">
           <div>
-            <h1 className="capsule-title">Quizkapsel</h1>
+            <h1 className="capsule-title">
+              <MdQuiz color={"var(--textColorGray)"} /> Quizkapsel
+            </h1>
             <h3 className="category">{data[currentQuestion].name_}</h3>
-            <p className="questionIndex">{index}/{data.length}</p>
+            <p className="questionIndex">
+              {index}/{data.length}
+            </p>
             <p className="question">{data[currentQuestion].question_}</p>
           </div>
 

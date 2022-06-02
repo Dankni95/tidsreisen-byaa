@@ -1,5 +1,25 @@
 import React from "react";
-import kvernhus from "../assets/images/mapbox-images/12322-Kvernhus-molle-historie.jpg";
+import sound from "../assets/images/mapbox-images/sound.png";
+import book from "../assets/images/mapbox-images/book.png";
+import one from "../assets/images/mapbox-images/1.png";
+import two from "../assets/images/mapbox-images/2.png";
+import three from "../assets/images/mapbox-images/3.png";
+import four from "../assets/images/mapbox-images/4.png";
+import five from "../assets/images/mapbox-images/5.png";
+import six from "../assets/images/mapbox-images/6.png";
+import seven from "../assets/images/mapbox-images/7.png";
+import eight from "../assets/images/mapbox-images/8.png";
+import nine from "../assets/images/mapbox-images/9.png";
+import quiz from "../assets/images/mapbox-images/quiz.png";
+import vesledammen from "../assets/images/mapbox-images/Velsedammen-korr.jpg";
+import sagbrukQuiz from "../assets/images/mapbox-images/12322-korr.jpg";
+import sagbrukHistorie from "../assets/images/mapbox-images/22183-korr-korr.jpg";
+import hulveiQuiz from "../assets/images/mapbox-images/22183-kopi-korr.jpg";
+import hulveiLyd from "../assets/images/mapbox-images/80278-korr.jpg";
+import kvernhusHistorie from "../assets/images/mapbox-images/267472-korr.jpg";
+import vegfarLyd from "../assets/images/mapbox-images/267498-kopi-korr.jpg";
+import kvernhusQuiz from "../assets/images/mapbox-images/267603-korr.jpg";
+import sagtuftHistorie from "../assets/images/mapbox-images/267607-korr.jpg";
 
 const GeoJson = () => {
   const geojson = {
@@ -19,7 +39,9 @@ const GeoJson = () => {
           anim_zoom: 17.103487802610875,
           title: "Vesledammen, lydkapsel",
           url: "/audio/vesledammen",
-          image: "",
+          image: vesledammen,
+          icon: one,
+          found_icon: sound,
         },
       },
       {
@@ -36,7 +58,9 @@ const GeoJson = () => {
           anim_zoom: 16.929861666765753,
           title: "Kvernhus, historiekapsel",
           url: "/history/kvernhus",
-          image: kvernhus,
+          image: kvernhusHistorie,
+          icon: two,
+          found_icon: book,
         },
       },
       {
@@ -53,6 +77,9 @@ const GeoJson = () => {
           anim_zoom: 15.669844196015042,
           title: "Kvernhus, quizkapsel",
           url: "/quiz/kvernhus",
+          image: kvernhusQuiz,
+          icon: three,
+          found_icon: quiz,
         },
       },
       {
@@ -69,6 +96,9 @@ const GeoJson = () => {
           anim_zoom: 17.274696427680226,
           title: "Vegfar, lydkapsel",
           url: "/audio/vegfar",
+          image: vegfarLyd,
+          icon: four,
+          found_icon: sound,
         },
       },
       {
@@ -85,6 +115,9 @@ const GeoJson = () => {
           anim_zoom: 15.562401285283801,
           title: "Sagtuft, historiekapsel",
           url: "/history/sagtuft",
+          image: sagtuftHistorie,
+          icon: five,
+          found_icon: book,
         },
       },
       {
@@ -100,7 +133,10 @@ const GeoJson = () => {
           anim_pitch: 55.500000000000114,
           anim_zoom: 16.069917476618837,
           title: "Sagbruk, quizkapsel",
-          url: "/quiz/sagtuft",
+          url: "/quiz/sagbruk",
+          image: sagbrukQuiz,
+          icon: six,
+          found_icon: quiz,
         },
       },
       {
@@ -117,6 +153,9 @@ const GeoJson = () => {
           anim_zoom: 16.575027578261583,
           title: "Hulvei, lydkapsel",
           url: "/audio/vannsag",
+          image: hulveiLyd,
+          icon: seven,
+          found_icon: sound,
         },
       },
       {
@@ -132,9 +171,10 @@ const GeoJson = () => {
           anim_pitch: 66.37370343899913,
           anim_zoom: 16.48887756215476,
           title: "Sagbruk, historiekapsel",
-
+          image: sagbrukHistorie,
+          icon: eight,
+          found_icon: book,
           url: "/history/sagbruk",
-          // TODO Daniel: legge til 9 som er Hulvei Quizkapsel
         },
       },
       {
@@ -151,6 +191,9 @@ const GeoJson = () => {
           anim_zoom: 14.961133136131712,
           title: "Hulvei, quizkapsel",
           url: "/quiz/hulvei",
+          image: hulveiQuiz,
+          icon: nine,
+          found_icon: quiz,
         },
       },
     ],

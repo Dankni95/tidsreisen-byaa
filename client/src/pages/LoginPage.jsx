@@ -1,5 +1,5 @@
 import "../css/login.css";
-import logo from "../assets/images/rlogo.svg";
+import logo from "../assets/images/relingenLogo.png";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "../components/CapsuleButton.jsx";
@@ -50,6 +50,8 @@ export default function LoginPage() {
           name: newUser,
           intro: true,
           walk: false,
+          points: 0,
+          finishedCapsules: [],
         });
         navigate("/map");
       }
@@ -61,44 +63,42 @@ export default function LoginPage() {
       <div id="logo">
         <h1 className="logo">Tidsreisen</h1>
       </div>
-      <div className="content">
-        <form onSubmit={handleSubmit}>
-          <div className="input-div">
-            <input
-              placeholder="Brukernavn"
-              type="text"
-              name="username"
-              required
-              value={newUser}
-              onChange={(e) => {
-                setNewUser(e.target.value);
-                setExists(false);
-              }}
-            />
-          </div>
-          {exists ? (
-            <>
-              <Alert variant="danger">
-                <Alert.Heading>
-                  Brukernavnet "{oldUser.name}" eksisterer allerede.
-                </Alert.Heading>
-                <p>Er dette deg?</p>
-              </Alert>
-              <CapsuleButtonYellow
-                submit={"submit"}
-                buttonText={"Ja, gå videre"}
-                exists={oldUser.name}
-              />
-            </>
-          ) : (
-            <div>
-              <CapsuleButtonYellow submit={"submit"} buttonText={"Gå videre"} />
-            </div>
-          )}
-        </form>
-        <div id={"logo-container"}>
-          <img id="logoPic" width={100} src={logo} alt="Rælingen logo" />
+      <form onSubmit={handleSubmit}>
+        <div className="input-div">
+          <input
+            placeholder="Brukernavn"
+            type="text"
+            name="username"
+            required
+            value={newUser}
+            onChange={(e) => {
+              setNewUser(e.target.value);
+              setExists(false);
+            }}
+          />
         </div>
+        {exists ? (
+          <>
+            <Alert variant="danger">
+              <Alert.Heading>
+                Brukernavnet "{oldUser.name}" eksisterer allerede.
+              </Alert.Heading>
+              <p>Er dette deg?</p>
+            </Alert>
+            <CapsuleButtonYellow
+              submit={"submit"}
+              buttonText={"Ja, gå videre"}
+              exists={oldUser.name}
+            />
+          </>
+        ) : (
+          <div>
+            <CapsuleButtonYellow submit={"submit"} buttonText={"Gå videre"} />
+          </div>
+        )}
+      </form>
+      <div id={"logo-container"}>
+        <img id="logoPic" src={logo} alt="Rælingen logo" />
       </div>
     </section>
   );
