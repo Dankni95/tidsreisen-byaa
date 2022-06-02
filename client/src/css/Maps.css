@@ -139,16 +139,21 @@ body {
 }
 
 #custom-switch {
-  margin: 0;
   position: absolute;
-  top: 88%;
-  left: 50%;
-  z-index: 10;
-  text-align: center;
   display: inline-block;
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
+  top: 8px;
+  right: 0;
+  zoom: 1;
+  left: 80%;
 }
+
+.form-check-label {
+  position: absolute;
+  right: 80px;
+  width: 100px;
+}
+
+
 .form-check-label {
   padding-left: 10px;
   color: black;
@@ -156,5 +161,32 @@ body {
 
 .mapboxgl-popup-close-button{
   margin: 0;
+}
 
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  #custom-switch {
+    position: absolute;
+    top: 8px;
+    right: 0;
+    zoom: 1;
+    left: 90%;
+  }
+
+  .form-check-label {
+    padding-left: 10px;
+    color: black;
+    font-size: 1.8rem;
+  }
+
+  .form-check-input{
+    width: 200px;
+    height: 200px;
+  }
+
+
+  .form-check-label {
+    position: absolute;
+    right: 80px;
+    width: 120px;
+  }
 }

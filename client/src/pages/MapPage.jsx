@@ -289,10 +289,10 @@ export function MapPage() {
         <Form.Check
           defaultChecked={walk}
           type="switch"
-          label={walk ? "På turstien" : "På skolen"}
           onClick={() => {
             handleWalkClick().then(() => {});
           }}
+          label={"På stien"}
         />
       </Form>
       {intro ? <Popup key={name} /> : ""}
