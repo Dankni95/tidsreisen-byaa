@@ -67,7 +67,7 @@ const Sound = () => {
         finishedCapsules: finishedCapsules,
       }); */
   };
-  console.log(user);
+
   if (loading) {
     return <Loading />;
   }
@@ -80,7 +80,6 @@ const Sound = () => {
     ?.map((id) => id)
     .filter((item) => item.title.toLowerCase() === id.toLowerCase())
     .map((itemId) => itemId.id);
-  console.log(getId.toString());
 
   const capsuleObject = {
     id: getId.toString(),
@@ -159,8 +158,7 @@ const Sound = () => {
           >
             <img width={50} src={singleNote} alt="Some note" />
           </div>
-          {data.map((item, index) => {
-            console.log(item);
+          {data?.map((item, index) => {
             return (
               <>
                 {item.title.toLowerCase() === id.toLowerCase() && (
