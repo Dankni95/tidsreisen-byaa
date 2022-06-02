@@ -10,6 +10,7 @@ import { User } from "../../../application.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
 import { AiFillSound } from "react-icons/ai";
+import { Loading } from "../../../components/Loading";
 
 const Sound = () => {
   const { id } = useParams();
@@ -66,9 +67,9 @@ const Sound = () => {
         finishedCapsules: finishedCapsules,
       }); */
   };
-
+  console.log(user);
   if (loading) {
-    return <h1>Loading...</h1>;
+    return <Loading />;
   }
 
   if (name === undefined) {
@@ -82,15 +83,28 @@ const Sound = () => {
   console.log(getId.toString());
 
   const capsuleObject = {
-    // TODO Stian, ordne så id til den lydkapselen blir også passed til DB, fikk det ikke til
     id: getId.toString(),
-    name: id /* .charAt(0).toUpperCase() + id.slice(1) */,
+    name: id,
     category: "Lydkapsel",
   };
+
+  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
+    return capsuleName.name;
+  });
+
+  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
+    (capsuleName) => {
+      console.log(capsuleName);
+      return capsuleName === id;
+    }
+  );
   return (
     <>
       {songInfo.duration === songInfo.currentTime ? (
-        <FinishedSoundCapsule update={updateToDatabase} />
+        <FinishedSoundCapsule
+          filteredCapsule={filteredCapsuleNamesFromUserDatabase}
+          update={updateToDatabase}
+        />
       ) : (
         <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
           <div
@@ -168,9 +182,13 @@ const Sound = () => {
                       setDrag={setDrag}
                     />
                     <h4 className="my-5 fw-bold">År {item.year}</h4>
-                    <p className="fst-italic fw-bold">
-                      Lytt ferdig lydlkapselen for å få poeng
-                    </p>
+                    {filteredCapsuleNamesFromUserDatabase ? (
+                      <p className="fst-italic fw-bold"></p>
+                    ) : (
+                      <p className="fst-italic fw-bold">
+                        Lytt ferdig lydlkapselen for å få poeng
+                      </p>
+                    )}
                   </div>
                 )}
               </>
