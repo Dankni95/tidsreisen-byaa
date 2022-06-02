@@ -54,9 +54,9 @@ export const myFindingsCardData = {
     },
     {
       id: "7",
-      name: "Hulvei",
+      name: "Vannsag",
       category: "Lydkapsel",
-      url: "/audio/hulvei",
+      url: "/audio/vannsag",
       image: hulveiLyd,
     },
     {
