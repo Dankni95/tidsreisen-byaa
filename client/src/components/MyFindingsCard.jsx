@@ -36,6 +36,10 @@ function MyFindingsSingle({ onClick, capsule }) {
     ? "card mb-3"
     : "card mb-3 card-nonvisited";
 
+  const styleVisitedIconHider = matchesArr.includes(capsule.id)
+    ? "done-icon"
+    : "done-icon-nonvisited";
+
   return (
     <div
       key={capsule.id}
@@ -48,7 +52,7 @@ function MyFindingsSingle({ onClick, capsule }) {
         <div id={"image-container"} className="col-5">
           <img
             id={"image"}
-            src={kvernhus}
+            src={capsule.image}
             className="img-fluid"
             alt="dummyalttext"
           />
@@ -66,12 +70,12 @@ function MyFindingsSingle({ onClick, capsule }) {
               )}
               {capsule.category === AUDIOCAPSULE && (
                 <AiFillSound color={"var(--textColorGray)"} />
-              )}
+              )}{" "}
               {capsule.category}
             </p>
           </div>
         </div>
-        <div id={"done-icon"} className={"col-1"}>
+        <div id={styleVisitedIconHider} className={"col-1"}>
           <HiOutlineCheckCircle color={"var(--textColorGray)"} size={40} />
         </div>
       </div>

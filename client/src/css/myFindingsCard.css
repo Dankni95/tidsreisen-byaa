@@ -61,6 +61,7 @@
 .card-text {
   font-family: "Source Sans Pro Semibold Italic", sans-serif;
   color: var(--textColorGray);
+  font-size: 1.125rem;
 }
 
 .card-body {
@@ -74,4 +75,8 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+#done-icon-nonvisited {
+  visibility: hidden;
 }
