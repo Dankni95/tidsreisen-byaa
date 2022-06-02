@@ -188,7 +188,7 @@ const Sound = () => {
                       </p>
                     ) : (
                       <p className="fst-italic fw-bold">
-                        Lytt ferdig lydlkapselen for å få poeng
+                        Lytt ferdig lyd kapselen for å få poeng
                       </p>
                     )}
                   </div>
