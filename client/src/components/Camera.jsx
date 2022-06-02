@@ -1,7 +1,8 @@
 import QrScanner from "qr-scanner";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { CloseButton } from "react-bootstrap";
+import { IoIosArrowBack } from "react-icons/io";
+import "../css/cameraBackButton.css";
 
 export default function Camera() {
   const [isScanned, setIsScanned] = useState(false);
@@ -65,21 +66,14 @@ export default function Camera() {
 
   return (
     <>
-      <div
-        style={{
-          zIndex: "100",
-          position: "absolute",
-          overflow: "hidden",
-          right: "0",
-        }}
-        className="bg-dark p-3"
-      >
-        <CloseButton
-          variant="white"
-          onClick={() => navigate("/map")}
-          style={{ overflow: "hidden" }}
-        />
-      </div>
+
+          <div id={"camera-back-button-container"}>
+              <IoIosArrowBack
+              variant="white"
+              onClick={() => navigate("/map")}
+              size={35}
+              />
+          </div>
       <video
         style={{
           backgroundColor: "black",

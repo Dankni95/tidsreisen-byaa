@@ -50,10 +50,10 @@ export function Application() {
               </Route>
               <Route element={<WithNavbar />}>
                 <Route path="/map" element={<MapPage />} />
+                <Route path="/camera" element={<Camera/>}/>
                 <Route element={<WithBackButton />}>
                   <Route path="/quiz/:id" element={<Quiz />} />
                   <Route path="/history/:id" element={<History />} />
-                  <Route path="/camera" element={<Camera />} />
                   <Route
                     path="/myfindings"
                     element={<MyFindings loading={loading} error={error} />}
