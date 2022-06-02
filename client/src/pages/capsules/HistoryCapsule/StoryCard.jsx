@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Loading } from "../../../components/Loading.jsx";
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.css";
@@ -18,7 +18,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
   const { user, setUser } = useContext(User);
   const { name, intro, walk, points } = user;
   const [count, setCount] = useState(0);
-  let finishedCapsules = [];
+  let previousState = { ...user };
 
   const capsuleObject = {
     id: historyCapsule.id,
@@ -33,22 +33,21 @@ export function StoryCard({ historyCapsule, error, loading }) {
       finishedCapsules: capsuleObject,
       points: 20,
     });
-
-    user.finishedCapsules.forEach((capsule) => {
-      finishedCapsules.push(capsule);
-    });
-
-    finishedCapsules.push(capsuleObject);
-
-    if (count > 0)
-      setUser({
-        name,
-        intro,
-        walk,
-        points,
-        finishedCapsules: finishedCapsules,
-      });
   };
+
+  useEffect(() => {
+    if (count > 0) {
+      return () => {
+        if (!user.finishedCapsules.includes(capsuleObject)) {
+          user.finishedCapsules.push(capsuleObject);
+
+          setUser({
+            ...previousState,
+          });
+        }
+      };
+    }
+  }, [count]);
 
   /*const olafHiderLeft = () =>
     (document.querySelector("#olaf-left").style.display = "none");
