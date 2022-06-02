@@ -212,7 +212,8 @@ export function MapPage() {
 
       // check if capsule already done
       matchesArr.includes(feature.properties.id.toString())
-        ? (el.style.backgroundImage = `url(${feature.properties.found_icon})`)
+        ? ((el.style.backgroundImage = `url(${feature.properties.found_icon})`),
+          (el.style.backgroundSize = "30px 30px"))
         : (el.style.backgroundImage = `url(${feature.properties.icon})`);
 
       let popup = new AnimatedPopup({
