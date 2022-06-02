@@ -185,7 +185,9 @@ const Sound = () => {
                     />
                     <h4 className="my-5 fw-bold">År {item.year}</h4>
                     {filteredCapsuleNamesFromUserDatabase ? (
-                      <p className="fst-italic fw-bold"></p>
+                      <p className="fst-italic fw-bold">
+                        Denne lydkapselen er lyttet ferdig
+                      </p>
                     ) : (
                       <p className="fst-italic fw-bold">
                         Lytt ferdig lydlkapselen for å få poeng
