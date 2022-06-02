@@ -1,12 +1,12 @@
 import "../css/login.css";
 import logo from "../assets/images/relingenLogo.png";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "../components/CapsuleButton.jsx";
 import { checkUser, postJSON } from "../helpers/http.jsx";
 import bg from "../assets/images/Bakground-login.jpeg";
 import Alert from "react-bootstrap/Alert";
-import { User } from "../application.jsx";
+import { MapContext, User } from "../application.jsx";
 
 //TODO: Lagre bruker i cookie
 //      Sjekke at bruker eksisterer før man får tilgang på andre sider
@@ -19,8 +19,13 @@ export default function LoginPage() {
   const [exists, setExists] = useState("");
   const [oldUser, setOldUser] = useState("");
   const location = useLocation();
+  const { setMap, map } = useContext(MapContext);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    map ? setMap(null) : "";
+  }, [map, setMap]);
 
   async function handleSubmit(event) {
     event.preventDefault();
