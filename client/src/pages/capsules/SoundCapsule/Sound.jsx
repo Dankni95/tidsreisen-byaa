@@ -32,6 +32,7 @@ const Sound = () => {
       return () => {
         if (!user.finishedCapsules.includes(capsuleObject)) {
           user.finishedCapsules.push(capsuleObject);
+          user.points = user.points + 20;
 
           setUser({
             ...user,
