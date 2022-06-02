@@ -1,9 +1,5 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useLoading } from "../../../helpers/useLoading";
-import { FaPlay } from "react-icons/fa";
-import { FaStop } from "react-icons/fa";
-import { FaPause } from "react-icons/fa";
-import { AiOutlinePause } from "react-icons/ai";
+import React, { useRef, useState } from "react";
+import { FaPause, FaPlay } from "react-icons/fa";
 /*import vegfar from "./Sound/vegfar.m4a";
 import vesledammen from "./Sound/vesledammen.m4a";
 import vannsag from "./Sound/vannsag.m4a";*/
@@ -18,8 +14,18 @@ const Play = ({ songInfo, setSongInfo, setDrag }) => {
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  let url = `./Sound/${id}.mp3`;
-  let audioUrl = require(url);
+  let audioUrl = "";
+
+  if (id === "vegfar") {
+    audioUrl = vegfar;
+  }
+  if (id === "vannsag") {
+    audioUrl = vannsag;
+  }
+  if (id === "vesledammen") {
+    audioUrl = vesledammen;
+  }
+
   /*  const { data, error, loading, reload } = useLoading(() =>
     fetchJSON("/api/sound")
   ); */
