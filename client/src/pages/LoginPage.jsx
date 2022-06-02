@@ -1,5 +1,5 @@
 import "../css/login.css";
-import logo from "../assets/images/relingenLogo.png";
+import logo from "../assets/images/rlogo.svg";
 import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "../components/CapsuleButton.jsx";
@@ -98,7 +98,7 @@ export default function LoginPage() {
         )}
       </form>
       <div id={"logo-container"}>
-        <img id="logoPic" src={logo} alt="Rælingen logo" />
+        <img id="logoPic" width={100} src={logo} alt="Rælingen logo" />
       </div>
     </section>
   );
