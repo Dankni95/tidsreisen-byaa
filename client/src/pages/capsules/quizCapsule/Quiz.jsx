@@ -40,7 +40,7 @@ export function Quiz() {
 
       if (!user.finishedCapsules.includes(capsuleObject)) {
         user.finishedCapsules.push(capsuleObject);
-
+        user.points = user.points + points;
         setUser({
           ...user,
         });
@@ -124,7 +124,7 @@ export function Quiz() {
           <h3 className="result">
             Du har {score}/{data?.length} riktige
           </h3>
-          <h5 className="points">+ {points} poeng!</h5>
+          <h5 className="points">Du får + {points} poeng!</h5>
           <div className={"links"}>
             <CapsuleButtonGreen
               buttonText={"Tilbake til kart"}
