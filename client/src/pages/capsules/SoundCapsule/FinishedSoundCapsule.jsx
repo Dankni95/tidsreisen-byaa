@@ -4,9 +4,12 @@ import note from "../../../assets/images/soundcapsule/note2.svg";
 import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import { User } from "../../../application";
 import olafInfront from "../../../assets/images/olaf-infront.png";
+import { useParams } from "react-router-dom";
 import "../../../css/olaf.css";
-const FinishedSoundCapsule = ({ update, id }) => {
+const FinishedSoundCapsule = ({ update }) => {
+  const { id } = useParams();
   const { user, setUser } = useContext(User);
+
   useEffect(async () => {
     await update();
   }, []);

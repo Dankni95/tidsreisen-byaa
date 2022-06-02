@@ -13,19 +13,59 @@ import { AiFillSound } from "react-icons/ai";
 
 const Sound = () => {
   const { id } = useParams();
-  const { updateUser } = useContext(UserContext);
-  const { user, setUser } = useContext(User);
-  const { name, intro, walk, points, level } = user;
-  const [count, setCount] = useState(0);
   const [drag, setDrag] = useState();
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: null,
   });
 
+  const [count, setCount] = useState(0);
+  const { updateUser } = useContext(UserContext);
+  const { user, setUser } = useContext(User);
+  const { name, intro, walk, points, level } = user;
+
   const { listAudio } = useContext(DatabaseContext);
   const { data, error, loading } = useLoading(async () => await listAudio());
-  let finishedCapsules = [];
+
+  useEffect(() => {
+    if (count > 0) {
+      return () => {
+        if (!user.finishedCapsules.includes(capsuleObject)) {
+          user.finishedCapsules.push(capsuleObject);
+
+          setUser({
+            ...user,
+          });
+        }
+      };
+    }
+  }, [count]);
+
+  const updateToDatabase = async () => {
+    setCount(count + 1);
+    await updateUser({
+      user,
+      finishedCapsules: capsuleObject,
+      points: 20,
+    });
+
+    /* user.finishedCapsules.forEach((capsule) => {
+      finishedCapsules.push(capsule);
+    });
+
+    finishedCapsules.push(capsuleObject);
+    console.log(finishedCapsules);
+    if (count > 0)
+      setUser({
+        name,
+        intro,
+        walk,
+        points,
+        level,
+        finishedCapsules: finishedCapsules,
+      }); */
+  };
+
   if (loading) {
     return <h1>Loading...</h1>;
   }
@@ -46,36 +86,10 @@ const Sound = () => {
     name: id /* .charAt(0).toUpperCase() + id.slice(1) */,
     category: "Lydkapsel",
   };
-
-  const updateToDatabase = async () => {
-    setCount(count + 1);
-    await updateUser({
-      user,
-      finishedCapsules: capsuleObject,
-      points: 20,
-    });
-
-    user.finishedCapsules.forEach((capsule) => {
-      finishedCapsules.push(capsule);
-    });
-
-    finishedCapsules.push(capsuleObject);
-    console.log(finishedCapsules);
-    if (count > 0)
-      setUser({
-        name,
-        intro,
-        walk,
-        points,
-        level,
-        finishedCapsules: finishedCapsules,
-      });
-  };
-
   return (
     <>
       {songInfo.duration === songInfo.currentTime ? (
-        <FinishedSoundCapsule id={id} update={updateToDatabase} />
+        <FinishedSoundCapsule update={updateToDatabase} />
       ) : (
         <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
           <div
