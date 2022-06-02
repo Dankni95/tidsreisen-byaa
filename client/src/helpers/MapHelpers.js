@@ -1,6 +1,7 @@
 import React from "react";
-import sound from "../assets/images/mapbox-images/sound.png";
-import book from "../assets/images/mapbox-images/book.png";
+import sound from "../assets/images/mapbox-images/Lyd.png";
+import book from "../assets/images/mapbox-images/Historie.png";
+import quiz from "../assets/images/mapbox-images/Quiz.png";
 import one from "../assets/images/mapbox-images/1.png";
 import two from "../assets/images/mapbox-images/2.png";
 import three from "../assets/images/mapbox-images/3.png";
@@ -10,7 +11,6 @@ import six from "../assets/images/mapbox-images/6.png";
 import seven from "../assets/images/mapbox-images/7.png";
 import eight from "../assets/images/mapbox-images/8.png";
 import nine from "../assets/images/mapbox-images/9.png";
-import quiz from "../assets/images/mapbox-images/quiz.png";
 import vesledammen from "../assets/images/mapbox-images/Velsedammen-korr.jpg";
 import sagbrukQuiz from "../assets/images/mapbox-images/12322-korr.jpg";
 import sagbrukHistorie from "../assets/images/mapbox-images/22183-korr-korr.jpg";
