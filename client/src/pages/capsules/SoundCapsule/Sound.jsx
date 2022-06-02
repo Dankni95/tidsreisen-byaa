@@ -160,6 +160,7 @@ const Sound = () => {
             <img width={50} src={singleNote} alt="Some note" />
           </div>
           {data.map((item, index) => {
+            console.log(item);
             return (
               <>
                 {item.title.toLowerCase() === id.toLowerCase() && (
@@ -177,6 +178,7 @@ const Sound = () => {
                     <img className="p-2" src={item.image} alt={item.image} />
 
                     <Play
+                      song={item.song}
                       songInfo={songInfo}
                       setSongInfo={setSongInfo}
                       setDrag={setDrag}
