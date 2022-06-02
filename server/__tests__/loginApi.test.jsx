@@ -34,7 +34,6 @@ afterAll(() => {
 
 describe("LoginApi", () => {
   it("should add a user", async () => {
-
     const user = "leetboi94";
     const intro = true;
     const walk = false;
@@ -55,10 +54,66 @@ describe("LoginApi", () => {
   });
 
   it('should update user by adding finished capsule', async () => {
-    
+    let user = "leetboi94";
+    const intro = true;
+    const walk = false;
+    let points = 0;
+    let finishedCapsules = [];
+    let testUser = { user, intro, walk, points, finishedCapsules };
+
+    await request(app);
+    await request(app).post("/api/login/").send(testUser).expect(200);
+
+    testUser.points = 100;
+    testUser.finishedCapsules = [{
+          id: 2,
+          name: "Kvernhus",
+          category: "Historiekapsel"
+    }];
+
+    await request(app);
+    await request(app).put("/api/login/updateuser/").send(testUser).expect(200);
+
+    const name = "leetboi94";
+
+    expect(
+        (
+            await request(app).get("/api/login/").query({name}).expect(200)
+        ).body.map(({ finishedCapsules }) => finishedCapsules)
+    ).toContainEqual(finishedCapsules);
   });
 
   it('should not update user, capsule already done', async () => {
+    let user = "leetboi94";
+    const intro = true;
+    const walk = false;
+    let points = 0;
+    let finishedCapsules = [{
+      id: 2,
+      name: "Kvernhus",
+      category: "Historiekapsel"
+    }];
+    let testUser = { user, intro, walk, points, finishedCapsules };
 
+    await request(app);
+    await request(app).post("/api/login/").send(testUser).expect(200);
+
+    testUser.points = 100;
+    testUser.finishedCapsules = [{
+      id: 2,
+      name: "Kvernhus",
+      category: "Historiekapsel"
+    }];
+
+    await request(app);
+    await request(app).put("/api/login/updateuser/").send(testUser).expect(200);
+
+    const name = "leetboi94";
+
+    expect(
+        (
+            await request(app).get("/api/login/").query({name}).expect(200)
+        ).body.map(({ finishedCapsules }) => finishedCapsules).length
+    ).toBe(1);
   });
 })
