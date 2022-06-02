@@ -20,6 +20,8 @@ export function StoryCard({ historyCapsule, error, loading }) {
   const [count, setCount] = useState(0);
   let previousState = { ...user };
 
+  console.log(historyCapsule.id);
+
   const capsuleObject = {
     id: historyCapsule.id,
     name: historyCapsule.name,
@@ -89,11 +91,9 @@ export function StoryCard({ historyCapsule, error, loading }) {
           <Swiper
             modules={[Scrollbar]}
             centeredSlides={true}
-            spaceBetween={100}
+            spaceBetween={50}
             slidesPerView={1}
             scrollbar={{ draggable: true }}
-            /*onSlideNextTransitionStart={() => olafHiderLeft()}
-            onReachBeginning={() => olafDisplayerLeft()}*/
             onReachEnd={async () => await updateToDatabase()}
             onSwiper={(swiper) => console.log(swiper)}
           >
@@ -103,7 +103,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
                   {capsuleStory.done === true ? (
                     <HistoryDone
                       updateToDatabase={updateToDatabase}
-                      name={historyCapsule.name}
+                      id={historyCapsule.id}
                     />
                   ) : (
                     <div className={"swiper-slide"} key={index}>
