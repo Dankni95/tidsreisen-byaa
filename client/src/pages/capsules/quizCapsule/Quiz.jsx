@@ -10,6 +10,7 @@ import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { User } from "../../../application.jsx";
 import { MdQuiz } from "react-icons/md";
+import { Loading } from "../../../components/Loading.jsx";
 
 export function Quiz() {
   const { id } = useParams();
@@ -34,18 +35,21 @@ export function Quiz() {
   );
 
   useEffect(async () => {
-    await updateUser({ points, user, finishedCapsules: capsuleObject });
-    setUser({
-      name: name,
-      intro: intro,
-      walk: walk,
-      points: prevPoints + points,
-      finishedCapsules: finishedCapsules,
-    });
+    if (showPoints) {
+      await updateUser({ points, user, finishedCapsules: capsuleObject });
+
+      if (!user.finishedCapsules.includes(capsuleObject)) {
+        user.finishedCapsules.push(capsuleObject);
+
+        setUser({
+          ...user,
+        });
+      }
+    }
   }, [showPoints, updateUser]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading />;
   }
 
   if (!name) {
@@ -100,13 +104,13 @@ export function Quiz() {
     const nextQuestion = currentQuestion + 1;
     if (nextQuestion < data.length) {
       setCurrentQuestion(nextQuestion);
-      console.log(capsuleNameFromDatabase)
+      console.log(capsuleNameFromDatabase);
     } else if (
       filteredCapsuleNamesFromUserDatabase === data[currentQuestion].name_
     ) {
-      console.log(alreadyDone)
+      console.log(alreadyDone);
       setAlreadyDone(true);
-      console.log(alreadyDone)
+      console.log(alreadyDone);
     } else {
       setShowPoints(true);
     }
