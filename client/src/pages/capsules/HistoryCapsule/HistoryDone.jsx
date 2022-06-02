@@ -74,7 +74,7 @@ export function HistoryDone({ name, updateToDatabase }) {
       >
         <div className={"mb-5"}>
           {name === filteredCapsuleNamesFromUserDatabase ? null : (
-            <p id={"history-points"}>Du får + 20 poeng</p>
+            <p id={"history-points"}>Du har fått + 20 poeng</p>
           )}
         </div>
         <div className={"d-flex flex-column"}>

@@ -124,7 +124,7 @@ export function Quiz() {
           <h3 className="result">
             Du har {score}/{data?.length} riktige
           </h3>
-          <h5 className="points">Du får + {points} poeng!</h5>
+          <h5 className="points">Du har fått + {points} poeng!</h5>
           <div className={"links"}>
             <CapsuleButtonGreen
               buttonText={"Tilbake til kart"}
