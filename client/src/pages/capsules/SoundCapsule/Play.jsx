@@ -4,9 +4,12 @@ import { FaPlay } from "react-icons/fa";
 import { FaStop } from "react-icons/fa";
 import { FaPause } from "react-icons/fa";
 import { AiOutlinePause } from "react-icons/ai";
-import vegfar from "./Sound/vegfar.m4a";
+/*import vegfar from "./Sound/vegfar.m4a";
 import vesledammen from "./Sound/vesledammen.m4a";
-import vannsag from "./Sound/vannsag.m4a";
+import vannsag from "./Sound/vannsag.m4a";*/
+import vegfar from "./Sound/vegfar.mp3";
+import vesledammen from "./Sound/vesledammen.mp3";
+import vannsag from "./Sound/vannsag.mp3";
 import { useParams } from "react-router-dom";
 
 const Play = ({ songInfo, setSongInfo, setDrag }) => {
@@ -15,7 +18,7 @@ const Play = ({ songInfo, setSongInfo, setDrag }) => {
   const audio = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
-  let url = `./Sound/${id}.m4a`;
+  let url = `./Sound/${id}.mp3`;
   let audioUrl = require(url);
   /*  const { data, error, loading, reload } = useLoading(() =>
     fetchJSON("/api/sound")
