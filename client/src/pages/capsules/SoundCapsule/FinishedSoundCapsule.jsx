@@ -6,26 +6,12 @@ import { User } from "../../../application";
 import olafInfront from "../../../assets/images/olaf-infront.png";
 import { useParams } from "react-router-dom";
 import "../../../css/olaf.css";
-const FinishedSoundCapsule = ({ update }) => {
-  const { id } = useParams();
+const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
   const { user, setUser } = useContext(User);
 
   useEffect(async () => {
     await update();
   }, []);
-
-  const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
-    return capsuleName.name;
-  });
-
-  const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
-    (capsuleName) => {
-      console.log(capsuleName);
-      return capsuleName === id;
-    }
-  );
-
-  console.log(filteredCapsuleNamesFromUserDatabase);
 
   return (
     <div className="d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
@@ -108,7 +94,7 @@ const FinishedSoundCapsule = ({ update }) => {
 
         <div className="pe-4">
           <div className="left-point"></div>
-          {filteredCapsuleNamesFromUserDatabase ? (
+          {filteredCapsule ? (
             <p id={"finish-paragraph"}>
               Woops! Det ser ut som du allerede har vært på denne kapselen. Gå
               til neste kapsel.
@@ -122,9 +108,18 @@ const FinishedSoundCapsule = ({ update }) => {
           )}
         </div>
       </div>
-      <div>
-        <p style={{ fontSize: "1.7rem", fontWeight: "bold" }}>+20 poeng</p>
-      </div>
+      {filteredCapsule ? (
+        <div>
+          <p style={{ fontSize: "1.7rem", fontWeight: "bold" }}></p>
+        </div>
+      ) : (
+        <div>
+          <p style={{ fontSize: "1.7rem", fontWeight: "bold" }}>
+            Du har fått + 20 poeng
+          </p>
+        </div>
+      )}
+
       <div className="text-center mt-5">
         <Link to="/map">
           <button className="mb-2" id="button-capsules-green">
