@@ -11,7 +11,6 @@ import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { UserContext } from "../../../contexts/userContext.jsx";
 import { AiFillSound } from "react-icons/ai";
 
-
 const Sound = () => {
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);

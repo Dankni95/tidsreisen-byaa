@@ -152,7 +152,7 @@ const GeoJson = () => {
           anim_pitch: 36.999999999999964,
           anim_zoom: 16.575027578261583,
           title: "Hulvei, lydkapsel",
-          url: "/audio/vannsag",
+          url: "/audio/hulvei",
           image: hulveiLyd,
           icon: seven,
           found_icon: sound,
