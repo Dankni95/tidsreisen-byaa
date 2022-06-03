@@ -5,7 +5,7 @@ import { Application } from "./application.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 // *** PWA Functionality START ***
-/*
+
 navigator.serviceWorker
   .register(new URL("service-worker.js", import.meta.url), { type: "module" })
   .then((reg) => {
@@ -40,7 +40,6 @@ async function promptUserToRefresh() {
     registration.waiting.postMessage("SKIP_WAITING");
   }
 }
-*/
 // *** PWA Functionality END *
 
 ReactDOM.render(
