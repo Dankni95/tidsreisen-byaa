@@ -150,9 +150,13 @@ export function Quiz() {
                 <div className="left-point"></div>
 
                 <p id={"finish-paragraph"}>
-                  Godt jobbet!
-                  <br /> Du har gjennomført en kapsel og fått poeng for det, og
-                  kanskje til og med lært noe nytt om Byåa!
+                  Godt jobbet!{" "}
+                  <span className="score" style={{}}>
+                    {score}/{data?.length} riktige
+                  </span>{" "}
+                  <br />
+                  Du har gjennomført en kapsel og fått poeng for det, og kanskje
+                  til og med lært noe nytt om Byåa!
                 </p>
               </div>
             </div>
