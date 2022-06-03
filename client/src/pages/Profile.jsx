@@ -16,7 +16,7 @@ function ProgressBar({ color, progress }) {
   const fillerStyles = {
     height: "100%",
     maxWidth: "15rem",
-    width: `${progress / 10}rem`,
+    width: `${progress / 14}rem`,
     backgroundColor: color,
     borderRadius: "inherit",
     textAlign: "right",
@@ -72,7 +72,7 @@ export function Profile() {
             </div>
             <ProgressBar color="#333333" progress={points} />
             {/*TODO: Endre poeng her når vi vet hvor mange man kan få totalt*/}
-            <p id="userPoints">{points}/150 poeng</p>
+            <p id="userPoints">{points}/210 poeng</p>
             <div id={"myfindings-button-container"}>
               <CapsuleButtonLetthet
                 onClick={() => navigate("/myfindings")}
