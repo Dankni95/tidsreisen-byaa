@@ -10,6 +10,10 @@
   border-radius: 10px;
 }
 
+.score {
+  color: var(--backgroundColorGreeny);
+  font-weight: bold;
+}
 .quiz {
   background-image: url("../../../assets/images/backgrounds/background-quiz.png");
   background-size: cover;
