@@ -38,7 +38,6 @@ body {
 .mapboxgl-popup-content {
   text-align: center;
   background-color: var(--backgroundColorLetthet);
-;
 }
 
 #scan-btn {
@@ -138,11 +137,14 @@ body {
 
 #custom-switch {
   position: absolute;
-  display: inline-block;
-  top: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(231, 231, 231, 0.836);
+  left: 0;
+  top: 0;
   right: 0;
   zoom: 1;
-  left: 80%;
 }
 
 .form-check-label {
@@ -151,13 +153,12 @@ body {
   width: 100px;
 }
 
-
 .form-check-label {
   padding-left: 10px;
   color: black;
 }
 
-.mapboxgl-popup-close-button{
+.mapboxgl-popup-close-button {
   margin: 0;
 }
 
@@ -176,11 +177,10 @@ body {
     font-size: 1.8rem;
   }
 
-  .form-check-input{
+  .form-check-input {
     width: 200px;
     height: 200px;
   }
-
 
   .form-check-label {
     position: absolute;
