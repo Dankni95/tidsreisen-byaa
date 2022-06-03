@@ -28,7 +28,7 @@
 }
 
 .swiper-slide {
-  height: 100vh;
+  height: 90vh;
   width: 100%;
 }
 
@@ -41,7 +41,7 @@
   bottom: 28%;
 }
 
-#year p {
+#year {
   font-family: "Source Sans Pro Semibold", sans-serif;
   background: transparent;
   font-size: 2rem;

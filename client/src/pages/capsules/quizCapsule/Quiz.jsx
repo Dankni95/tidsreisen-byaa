@@ -156,10 +156,10 @@ export function Quiz() {
       ) : (
         <Container className="quiz-items">
           <div>
-            <h1 className="capsule-title">
+            <h3 className="capsule-title">
               <MdQuiz color={"var(--textColorGray)"} /> Quizkapsel
-            </h1>
-            <h3 className="category">{data[currentQuestion].name_}</h3>
+            </h3>
+            <h1 className="category">{data[currentQuestion].name_}</h1>
             <p className="questionIndex">
               {index}/{data.length}
             </p>

@@ -1,5 +1,5 @@
 import "../css/login.css";
-import logo from "../assets/images/relingenLogo.png";
+import logo from "../assets/images/rlogo.svg";
 import { useContext, useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "../components/CapsuleButton.jsx";
@@ -8,8 +8,6 @@ import bg from "../assets/images/Bakground-login.jpeg";
 import Alert from "react-bootstrap/Alert";
 import { MapContext, User } from "../application.jsx";
 
-//TODO: Lagre bruker i cookie
-//      Sjekke at bruker eksisterer før man får tilgang på andre sider
 
 export default function LoginPage() {
   const { user, setUser } = useContext(User);
@@ -103,7 +101,7 @@ export default function LoginPage() {
         )}
       </form>
       <div id={"logo-container"}>
-        <img id="logoPic" src={logo} alt="Rælingen logo" />
+        <img id="logoPic" width={100} src={logo} alt="Rælingen logo" />
       </div>
     </section>
   );

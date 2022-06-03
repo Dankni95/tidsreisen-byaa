@@ -126,7 +126,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
                           </section>
                         </div>
                         <div id={"year"}>
-                          <p>{capsuleStory.year}</p>
+                          <h4 className=" fw-bold">{capsuleStory.year}</h4>
                         </div>
                       </div>
                     </div>

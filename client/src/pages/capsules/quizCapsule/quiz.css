@@ -1,7 +1,7 @@
 .question {
   color: white;
   background-color: var(--backgroundColorGreeny);
-  font-family: 'Bubblegum Sans',cursive;
+  font-family: "Bubblegum Sans", cursive;
   border: solid;
   text-align: center;
   padding: 0.5rem;
@@ -23,10 +23,10 @@
 
 .category {
   font-weight: bold;
-  font-size: 2.5rem;
+
   padding-top: 00.5rem;
   text-align: center;
-  padding-bottom: 8rem;
+  padding-bottom: 4rem;
   color: var(--backgroundColorGreeny);
 }
 
@@ -44,22 +44,19 @@
   margin-bottom: 2rem;
 }
 
-.completed, .result {
+.completed,
+.result {
   font-weight: bold;
 }
 
 /*IPAD MEDIA QUERIES
   Sliter med font-størrelse på knappene
 */
-@media only screen
-and (min-device-width: 768px)
-and (max-device-width: 1024px)
-and (-webkit-min-device-pixel-ratio: 2) {
-
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   .question {
     color: white;
     background-color: var(--backgroundColorGreeny);
-    font-family: 'Bubblegum Sans',cursive;
+    font-family: "Bubblegum Sans", cursive;
     border: solid;
     text-align: center;
     padding: 1rem;
@@ -109,5 +106,4 @@ and (-webkit-min-device-pixel-ratio: 2) {
     display: grid;
     place-items: center;
   }
-
 }
