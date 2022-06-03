@@ -140,11 +140,11 @@ export function Quiz() {
         <div>
           <h1 className="completed">Allerede gjennomført</h1>
           <h3 className="result">
-            Du har allerede gjennomført denne quizzen, ser det ut til!
+            Du har allerede gjennomført denne quizen, ser det ut til!
           </h3>
           <div className={"links"}>
             <CapsuleButtonGreen
-              buttonText={"Finn flere"}
+              buttonText={"Tilbake til kart"}
               onClick={() => navigate("/map")}
             ></CapsuleButtonGreen>
             <CapsuleButtonGreen
