@@ -25,9 +25,10 @@ export default function Popup() {
       id: 1,
       content: (
         <p className={"intro-content"}>
-          Heisann {name}, jeg heter Olaf! <br />
-          Jeg skal ta deg gjennom noen steg, og fortelle deg litt om hvordan
-          denne reisen fungerer. Bli med da vel!
+          <span style={{ fontWeight: "bold" }}>
+            Heisann {name}, jeg heter Olaf! <br />
+          </span>
+          Jeg jobber som sagdreng her på Byåa. Bli med meg på denne tidsreisen!
         </p>
       ),
     },
