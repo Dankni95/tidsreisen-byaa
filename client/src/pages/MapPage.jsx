@@ -220,7 +220,6 @@ export function MapPage() {
           easing: "easeInBack",
           transform: "scale",
         },
-        closeButton: false,
       });
 
       // make a marker for each feature and add it to the map
