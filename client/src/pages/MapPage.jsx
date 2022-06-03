@@ -277,13 +277,17 @@ export function MapPage() {
         />
       </div>
       <Form id="custom-switch">
+        <div className="me-1">
+          {!walk && <p style={{ margin: 0, fontWeight: "bold" }}>På stien</p>}
+          {walk && <p style={{ margin: 0, fontWeight: "bold" }}>På skolen</p>}
+        </div>
         <Form.Check
+          className="ms-1"
           defaultChecked={walk}
           type="switch"
           onClick={() => {
             handleWalkClick().then(() => {});
           }}
-          label={"På stien"}
         />
       </Form>
       {intro ? <Popup key={name} /> : ""}
