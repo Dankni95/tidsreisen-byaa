@@ -24,9 +24,6 @@ export function MapPage() {
   const [zoom, setZoom] = useState(15.042403483653505);
 
   const { setMap, map } = useContext(MapContext);
-  const [loaded, setLoaded] = useState(false);
-  const [disabled, setDisabled] = useState(true);
-  const [geo, setGeo] = useState(null);
 
   let navigate = useNavigate();
 
@@ -94,7 +91,6 @@ export function MapPage() {
 
       map.addControl(geolocate);
 
-      setGeo(geolocate);
       // Add navigation control (the +/- zoom buttons)
       // map.addControl(new mapboxgl.NavigationControl(), "top-right");
 
@@ -111,7 +107,6 @@ export function MapPage() {
       });
 
       map.on("load", () => {
-        setLoaded(true);
         map.addSource("route", {
           type: "geojson",
           data: {
@@ -195,10 +190,6 @@ export function MapPage() {
       });
     });
 
-    // delete all markers
-    const markerDiv = document.getElementById("popups");
-    markerDiv ? (markerDiv.remove(), console.log("removed")) : "";
-
     // repopulate
     const popupDiv = document.getElementById("mapboxgl-popup-content");
     popupDiv ? popupDiv.remove() : "";
@@ -212,7 +203,8 @@ export function MapPage() {
 
       // check if capsule already done
       matchesArr.includes(feature.properties.id.toString())
-        ? (el.style.backgroundImage = `url(${feature.properties.found_icon})`)
+        ? ((el.style.backgroundImage = `url(${feature.properties.found_icon})`),
+          (el.style.backgroundSize = "30px 30px"))
         : (el.style.backgroundImage = `url(${feature.properties.icon})`);
 
       let popup = new AnimatedPopup({
@@ -288,10 +280,10 @@ export function MapPage() {
         <Form.Check
           defaultChecked={walk}
           type="switch"
-          label={walk ? "På turstien" : "På skolen"}
           onClick={() => {
             handleWalkClick().then(() => {});
           }}
+          label={"På stien"}
         />
       </Form>
       {intro ? <Popup key={name} /> : ""}

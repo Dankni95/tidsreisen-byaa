@@ -74,12 +74,12 @@ export function Quiz() {
   };
 
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
-    return capsuleName.name;
+    return capsuleName.id;
   });
 
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
     (capsuleName) => {
-      return capsuleName === data[currentQuestion].name_;
+      return capsuleName === data[currentQuestion].id;
     }
   );
 
@@ -106,7 +106,7 @@ export function Quiz() {
       setCurrentQuestion(nextQuestion);
       console.log(capsuleNameFromDatabase);
     } else if (
-      filteredCapsuleNamesFromUserDatabase === data[currentQuestion].name_
+      filteredCapsuleNamesFromUserDatabase === data[currentQuestion].id
     ) {
       console.log(alreadyDone);
       setAlreadyDone(true);

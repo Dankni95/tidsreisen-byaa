@@ -4,7 +4,7 @@ import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import { useNavigate } from "react-router-dom";
 import { User } from "../../../application.jsx";
 
-export function HistoryDone({ name, updateToDatabase }) {
+export function HistoryDone({ id, updateToDatabase }) {
   const navigate = useNavigate();
   const { user } = useContext(User);
 
@@ -15,12 +15,12 @@ export function HistoryDone({ name, updateToDatabase }) {
   };
 
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
-    return capsuleName.name;
+    return capsuleName.id;
   });
 
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
     (capsuleName) => {
-      return capsuleName === name;
+      return capsuleName === id;
     }
   );
 
@@ -53,7 +53,7 @@ export function HistoryDone({ name, updateToDatabase }) {
 
         <div style={{ marginTop: "2rem" }} className={"flex-shrink-1"}>
           <div className="left-point"></div>
-          {name === filteredCapsuleNamesFromUserDatabase ? (
+          {id === filteredCapsuleNamesFromUserDatabase ? (
             <p id={"finish-paragraph"}>
               Woops! Det ser ut som du allerede har vært på denne kapselen. Gå
               til neste kapsel.
@@ -73,7 +73,7 @@ export function HistoryDone({ name, updateToDatabase }) {
         }
       >
         <div className={"mb-5"}>
-          {name === filteredCapsuleNamesFromUserDatabase ? null : (
+          {id === filteredCapsuleNamesFromUserDatabase ? null : (
             <p id={"history-points"}>Du har fått + 20 poeng</p>
           )}
         </div>
