@@ -11,7 +11,7 @@ import { NotLoggedIn } from "../../../components/NotLoggedIn.jsx";
 import { User } from "../../../application.jsx";
 import { MdQuiz } from "react-icons/md";
 import { Loading } from "../../../components/Loading.jsx";
-
+import olafInfront from "../../../assets/images/olaf-infront.png";
 export function Quiz() {
   const { id } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -120,12 +120,49 @@ export function Quiz() {
     <main className="quiz" style={{ display: "grid", placeItems: "center" }}>
       {showPoints ? (
         <div>
-          <h1 className="completed">Fullført quizkapsel</h1>
-          <h3 className="result">
-            Du har {score}/{data?.length} riktige
-          </h3>
-          <h5 className="points">Du har fått + {points} poeng!</h5>
-          <div className={"links"}>
+          <div className={"d-flex justify-content-center mb-5"}>
+            <h1
+              style={{
+                fontSize: "1.5rem",
+                fontFamily: "Source Sans Pro Bold",
+                color: "var(--backgroundColorGreeny)",
+              }}
+            >
+              Fullført quizkapselen!{" "}
+            </h1>
+          </div>
+          <div
+            id={"olaf-infront-div"}
+            className={
+              "d-flex flex-column align-content-center flex-row justify-content-center gap-3  position-relative z-index-1"
+            }
+          >
+            <div className="d-flex">
+              <div>
+                <img
+                  height={200}
+                  /*className={"img-fluid"}*/ src={olafInfront}
+                  alt="bilde av olaf på fullført side"
+                />
+              </div>
+
+              <div className="pe-4">
+                <div className="left-point"></div>
+
+                <p id={"finish-paragraph"}>
+                  Godt jobbet!
+                  <br /> Du har gjennomført en kapsel og fått poeng for det, og
+                  kanskje til og med lært noe nytt om Byåa!
+                </p>
+              </div>
+            </div>
+            <div>
+              <p style={{ fontSize: "1.7rem", fontWeight: "bold" }}>
+                Du har fått + 20 poeng
+              </p>
+            </div>
+          </div>
+          <div className={"links mt-5"}>
             <CapsuleButtonGreen
               buttonText={"Tilbake til kart"}
               onClick={() => navigate("/map")}
@@ -138,11 +175,36 @@ export function Quiz() {
         </div>
       ) : alreadyDone ? (
         <div>
-          <h1 className="completed">Allerede gjennomført</h1>
-          <h3 className="result">
-            Du har allerede gjennomført denne quizen, ser det ut til!
-          </h3>
-          <div className={"links"}>
+          <div className={"d-flex justify-content-center mb-5"}>
+            <h1
+              style={{
+                fontSize: "1.5rem",
+                fontFamily: "Source Sans Pro Bold",
+                color: "var(--backgroundColorGreeny)",
+              }}
+            >
+              Fullført quizkapselen!{" "}
+            </h1>
+          </div>
+          <div className="d-flex">
+            <div>
+              <img
+                height={200}
+                /*className={"img-fluid"}*/ src={olafInfront}
+                alt="bilde av olaf på fullført side"
+              />
+            </div>
+
+            <div className="pe-4">
+              <div className="left-point"></div>
+
+              <p id={"finish-paragraph"}>
+                Woops! Det ser ut som du allerede har vært på denne kapselen. Gå
+                til neste kapsel.
+              </p>
+            </div>
+          </div>
+          <div className={"links  mt-5"}>
             <CapsuleButtonGreen
               buttonText={"Tilbake til kart"}
               onClick={() => navigate("/map")}
