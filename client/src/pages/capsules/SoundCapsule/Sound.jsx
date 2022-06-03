@@ -168,7 +168,7 @@ const Sound = () => {
                     className="position-relative d-flex justify-content-center align-items-center flex-column "
                     key={index}
                   >
-                    <h3 className="pb-3">
+                    <h3 className="pb-3 d-flex align-items-center">
                       <AiFillSound color={"var(--textColorGray)"} />{" "}
                       {item.category}
                     </h3>

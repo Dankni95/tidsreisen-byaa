@@ -18,7 +18,11 @@ export const CapsuleButtonYellow = (props) => {
 export const CapsuleButtonGreen = (props) => {
   return (
     <>
-      <button onClick={props.onClick} id="button-capsules-green">
+      <button
+        className="my-2"
+        onClick={props.onClick}
+        id="button-capsules-green"
+      >
         {props.buttonText}
       </button>
     </>

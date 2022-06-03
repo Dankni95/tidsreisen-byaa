@@ -7,6 +7,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+h3 {
+}
+
 .bg-capsule {
   background-color: var(--backgroundColorLetthet);
 }

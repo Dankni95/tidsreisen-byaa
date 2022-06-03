@@ -78,7 +78,7 @@ export function HistoryDone({ name, updateToDatabase }) {
           )}
         </div>
         <div className={"d-flex flex-column"}>
-          <div className={"mb-3"}>
+          <div>
             <CapsuleButtonGreen
               onClick={navigateToMap}
               buttonText={"Tilbake til kart"}
