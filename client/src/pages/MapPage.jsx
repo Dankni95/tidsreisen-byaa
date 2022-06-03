@@ -69,7 +69,8 @@ export function MapPage() {
   }
 
   useEffect(() => {
-    if (!walk) document.getElementById("nav-text-qr").style.display = "none";
+    if (!walk)
+      document.getElementById("nav-text-qr").style.visibility = "hidden";
 
     const initializeMap = ({ setMap, mapContainerRef }) => {
       const map = new mapboxgl.Map({
@@ -219,7 +220,6 @@ export function MapPage() {
           easing: "easeInBack",
           transform: "scale",
         },
-        closeButton: false,
       });
 
       // make a marker for each feature and add it to the map
@@ -263,8 +263,8 @@ export function MapPage() {
     map ? map.resize() : "";
 
     if (walk) {
-      document.getElementById("nav-text-qr").style.display = "";
-    } else document.getElementById("nav-text-qr").style.display = "none";
+      document.getElementById("nav-text-qr").style.visibility = "visible";
+    } else document.getElementById("nav-text-qr").style.visibility = "hidden";
   }, [walk]);
 
   return (

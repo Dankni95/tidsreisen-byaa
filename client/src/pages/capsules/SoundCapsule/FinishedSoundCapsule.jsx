@@ -70,6 +70,7 @@ const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
       <div className={"d-flex justify-content-center mb-5"}>
         <h1
           style={{
+            zIndex: "0",
             fontSize: "1.5rem",
             fontFamily: "Source Sans Pro Bold",
             color: "var(--backgroundColorGreeny)",
