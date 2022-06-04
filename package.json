@@ -39,7 +39,8 @@
     "react-icons": "^4.3.1",
     "react-qr-reader": "^3.0.0-beta-1",
     "react-router-dom": "^6.3.0",
-    "swiper": "^8.1.4"
+    "react-test-renderer": "^17.0.2",
+    "swiper": "^6.8.4"
   },
   "devDependencies": {
     "@babel/plugin-transform-modules-commonjs": "^7.18.2",
@@ -48,7 +49,8 @@
     "@parcel/transformer-sass": "^2.5.0",
     "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
-    "jest": "^27.5.1",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
     "process": "^0.11.10",
@@ -64,16 +66,17 @@
           "targets": {
             "node": "current",
             "esmodules": false
-          }
+          },
+          "modules": "commonjs"
         }
       ],
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "@babel/plugin-transform-modules-commonjs"
+      ["@babel/preset-react", {
+        "runtime": "automatic"
+      }]
     ]
   },
   "jest": {
+    "testEnvironment": "jest-environment-node",
     "collectCoverageFrom": [
       "**/*.js",
       "**/*.jsx",
@@ -81,23 +84,12 @@
       "!server/server.js",
       "!coverage/**",
       "!dist/**",
-      "!client/build/**"
+      "!client/build/**",
+      "!client/src/index.jsx"
     ],
     "moduleNameMapper": {
       "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
       "\\.(css|sass)$": "identity-obj-proxy"
-    },
-    "transform": {
-      "^.+\\.(js|jsx)$": "babel-jest"
-    },
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules",
-      "client/src/**",
-      "server"
-    ]
+    }
   }
 }
