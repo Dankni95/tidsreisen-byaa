@@ -4,6 +4,8 @@ import { MyFindingsCard } from "../src/components/MyFindingsCard.jsx";
 import renderer from 'react-test-renderer';
 import { User } from "../src/application.jsx";
 
+//TODO: Teste med visse kapsler fullført
+
 describe("MyFindingsCard", () => {
     it("shows snapshot", async () => {
         const user = {name: "Hei", points: 23, finishedCapsules: []};
