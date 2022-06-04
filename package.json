@@ -25,6 +25,7 @@
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
+    "identity-obj-proxy": "^3.0.0",
     "mapbox-gl": "^2.8.2",
     "mapbox-gl-animated-popup": "^0.3.0",
     "mapbox-gl-markers": "^0.0.1",
@@ -41,9 +42,10 @@
     "swiper": "^8.1.4"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/preset-env": "^7.16.11",
-    "@parcel/transformer-sass": "^2.5.0",
     "@babel/preset-react": "^7.16.7",
+    "@parcel/transformer-sass": "^2.5.0",
     "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
     "jest": "^27.5.1",
@@ -60,11 +62,15 @@
         "@babel/preset-env",
         {
           "targets": {
-            "node": "current"
+            "node": "current",
+            "esmodules": false
           }
         }
       ],
       "@babel/preset-react"
+    ],
+    "plugins": [
+      "@babel/plugin-transform-modules-commonjs"
     ]
   },
   "jest": {
@@ -76,6 +82,22 @@
       "!coverage/**",
       "!dist/**",
       "!client/build/**"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|sass)$": "identity-obj-proxy"
+    },
+    "transform": {
+      "^.+\\.(js|jsx)$": "babel-jest"
+    },
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "client/src/**",
+      "server"
     ]
   }
 }
