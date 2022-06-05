@@ -1,13 +1,13 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { Loading } from "../src/components/Loading.jsx";
+import { Navbar } from "../src/components/Navbar.jsx";
 import renderer from 'react-test-renderer';
 
-describe("Loading", () => {
+describe("Navbar", () => {
     it("shows snapshot", async () => {
         const component = renderer.create(
             <MemoryRouter>
-                <Loading />
+                <Navbar />
             </MemoryRouter>
         );
         let tree = component.toJSON()

@@ -1,13 +1,13 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { Loading } from "../src/components/Loading.jsx";
+import { NotFound } from "../src/components/NotFound.jsx";
 import renderer from 'react-test-renderer';
 
-describe("Loading", () => {
+describe("NotFound", () => {
     it("shows snapshot", async () => {
         const component = renderer.create(
             <MemoryRouter>
-                <Loading />
+                <NotFound />
             </MemoryRouter>
         );
         let tree = component.toJSON()
