@@ -2,6 +2,7 @@
   "name": "Tidsreisen Byaaa",
   "version": "0.1.0",
   "type": "module",
+  "browserlist": "defaults",
   "private": true,
   "scripts": {
     "start": "cd server && node server.js",
