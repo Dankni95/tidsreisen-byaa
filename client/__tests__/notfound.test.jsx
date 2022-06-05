@@ -1,18 +1,31 @@
-import React from "react";
-import { MemoryRouter } from "react-router-dom";
-import { NotFound } from "../src/components/NotFound.jsx";
-import renderer from 'react-test-renderer';
+/**
+ * @jest-environment jsdom
+ */
 
-//TODO: Simulere click (se linje 25 i NotFound.jsx)
+import React from "react";
+import { NotFound } from "../src/components/NotFound.jsx";
+import { fireEvent, render } from '@testing-library/react';
+
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    useNavigate: () => mockedUsedNavigate,
+}));
 
 describe("NotFound", () => {
     it("shows snapshot", async () => {
-        const component = renderer.create(
-            <MemoryRouter>
-                <NotFound />
-            </MemoryRouter>
+        const component = render(
+            <NotFound />
         );
-        let tree = component.toJSON()
-        expect(tree).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
+    });
+
+    it('simulates click', async () => {
+        const { getByText } = render(
+            <NotFound/>
+        )
+        fireEvent.click(getByText(/Tilbake til startsiden/i, {selector: 'button'}));
+        expect(mockedUsedNavigate).toHaveBeenCalledTimes(1)
+        expect(mockedUsedNavigate).toHaveBeenCalledWith("/")
     });
 });
