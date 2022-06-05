@@ -1,9 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Loading } from "../../../components/Loading.jsx";
+// swiper bundle styles
+import "swiper/swiper-bundle.min.css";
+
+// swiper core styles
 import "swiper/swiper.min.css";
-import "swiper/swiper-bundle.css";
+
+// modules styles
+import "swiper/components/navigation/navigation.min.css";
+import "swiper/components/pagination/pagination.min.css";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper";
+import SwiperCore from "swiper";
 import { useParams } from "react-router-dom";
 import "./storycard.css";
 import { UserContext } from "../../../contexts/userContext.jsx";
@@ -13,6 +22,8 @@ import { ErrorModal } from "../../../components/ErrorModal.jsx";
 import { FaBook } from "react-icons/fa";
 
 export function StoryCard({ historyCapsule, error, loading }) {
+  SwiperCore.use([Scrollbar]);
+
   const { id } = useParams();
   const { updateUser } = useContext(UserContext);
   const { user, setUser } = useContext(User);
@@ -89,7 +100,6 @@ export function StoryCard({ historyCapsule, error, loading }) {
             </h1>
           </div>
           <Swiper
-            modules={[Scrollbar]}
             centeredSlides={true}
             spaceBetween={50}
             slidesPerView={1}
@@ -121,13 +131,14 @@ export function StoryCard({ historyCapsule, error, loading }) {
                               </section>
                             )}
                           </div>
+
                           <section id={"story-section"} className={"mt-4"}>
                             <p id={"story-paragraph"}>{capsuleStory.story}</p>
                           </section>
                         </div>
-                        <div id={"year"}>
-                          <h4 className=" fw-bold">{capsuleStory.year}</h4>
-                        </div>
+                      </div>
+                      <div id={"year"}>
+                        <h4 className=" fw-bold">{capsuleStory.year}</h4>
                       </div>
                     </div>
                   )}
