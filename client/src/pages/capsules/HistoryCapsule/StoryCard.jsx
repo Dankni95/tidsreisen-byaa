@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { Loading } from "../../../components/Loading.jsx";
 import "swiper/swiper.min.css";
 import "swiper/swiper-bundle.css";
-import { Swiper, SwiperSlide } from "swiper/react/swiper-react.js";
+import { Swiper, SwiperSlide } from "swiper/react";
 import { Scrollbar } from "swiper";
 import { useParams } from "react-router-dom";
 import "./storycard.css";

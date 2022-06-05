@@ -10,8 +10,6 @@ import { FiLogOut } from "react-icons/fi";
 import { AreYouSureLogoutModal } from "../components/AreYouSureLogoutModal.jsx";
 
 function ProgressBar({ color, progress }) {
-  // SKAMLØST STJÅLET FRA
-  // https://dev.to/ramonak/react-how-to-create-a-custom-progress-bar-component-in-5-minutes-2lcl
 
   const fillerStyles = {
     height: "100%",

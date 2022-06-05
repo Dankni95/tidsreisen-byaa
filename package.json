@@ -25,6 +25,7 @@
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
     "express": "^4.17.3",
+    "identity-obj-proxy": "^3.0.0",
     "mapbox-gl": "^2.8.2",
     "mapbox-gl-animated-popup": "^0.3.0",
     "mapbox-gl-markers": "^0.0.1",
@@ -38,15 +39,18 @@
     "react-icons": "^4.3.1",
     "react-qr-reader": "^3.0.0-beta-1",
     "react-router-dom": "^6.3.0",
-    "swiper": "^8.1.4"
+    "react-test-renderer": "^17.0.2",
+    "swiper": "^6.8.4"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.18.2",
     "@babel/preset-env": "^7.16.11",
-    "@parcel/transformer-sass": "^2.5.0",
     "@babel/preset-react": "^7.16.7",
+    "@parcel/transformer-sass": "^2.5.0",
     "babel-jest": "^27.5.1",
     "concurrently": "^7.0.0",
-    "jest": "^27.5.1",
+    "jest": "^28.1.0",
+    "jest-environment-jsdom": "^28.1.0",
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
     "process": "^0.11.10",
@@ -60,14 +64,22 @@
         "@babel/preset-env",
         {
           "targets": {
-            "node": "current"
-          }
+            "node": "current",
+            "esmodules": false
+          },
+          "modules": "commonjs"
         }
       ],
-      "@babel/preset-react"
+      [
+        "@babel/preset-react",
+        {
+          "runtime": "automatic"
+        }
+      ]
     ]
   },
   "jest": {
+    "testEnvironment": "jest-environment-node",
     "collectCoverageFrom": [
       "**/*.js",
       "**/*.jsx",
@@ -75,7 +87,12 @@
       "!server/server.js",
       "!coverage/**",
       "!dist/**",
-      "!client/build/**"
-    ]
+      "!client/build/**",
+      "!client/src/index.jsx"
+    ],
+    "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/__mocks__/fileMock.js",
+      "\\.(css|sass)$": "identity-obj-proxy"
+    }
   }
 }

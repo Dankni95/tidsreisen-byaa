@@ -9,7 +9,7 @@ import Alert from "react-bootstrap/Alert";
 import { MapContext, User } from "../application.jsx";
 
 
-export default function LoginPage() {
+export function LoginPage() {
   const { user, setUser } = useContext(User);
 
   const [newUser, setNewUser] = useState("");
