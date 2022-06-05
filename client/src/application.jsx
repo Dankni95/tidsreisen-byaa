@@ -1,5 +1,5 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import LoginPage from "./pages/LoginPage.jsx";
+import { LoginPage } from "./pages/LoginPage.jsx";
 import { MapPage } from "./pages/MapPage.jsx";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
@@ -50,7 +50,7 @@ export function Application() {
               </Route>
               <Route element={<WithNavbar />}>
                 <Route path="/map" element={<MapPage />} />
-                <Route path="/camera" element={<Camera/>}/>
+                <Route path="/camera" element={<Camera />} />
                 <Route element={<WithBackButton />}>
                   <Route path="/quiz/:id" element={<Quiz />} />
                   <Route path="/history/:id" element={<History />} />
