@@ -1,15 +1,13 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { Navbar } from "../src/components/Navbar.jsx";
+import WithNavbar from "../src/components/WithNavbar.jsx";
 import renderer from 'react-test-renderer';
 
-//TODO: Simulere click (se linje 28 i Navbar.jsx)
-
-describe("Navbar", () => {
+describe("WithNavbar", () => {
     it("shows snapshot", async () => {
         const component = renderer.create(
             <MemoryRouter>
-                <Navbar />
+                <WithNavbar/>
             </MemoryRouter>
         );
         let tree = component.toJSON()
