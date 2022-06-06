@@ -25,8 +25,8 @@ beforeAll(async () => {
   await database.collection("user").deleteMany({});
   app.use("/api/login", LoginApi(database));
 });
-afterAll(() => {
-  mongoDbClient.close();
+afterAll(async () => {
+  await mongoDbClient.close();
 });
 
 describe("LoginApi", () => {

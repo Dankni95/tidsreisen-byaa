@@ -15,10 +15,10 @@ app.use(
 );
 
 const mongoDbClient = new MongoClient(process.env.MONGODB_URL);
+const database = mongoDbClient.db("test_db");
 
 beforeAll(async () => {
   await mongoDbClient.connect();
-  const database = mongoDbClient.db("test_db");
   console.log("Connected to MongoDB");
   await database.collection("quiz").insertOne({
     category: "Quizkapsel",
