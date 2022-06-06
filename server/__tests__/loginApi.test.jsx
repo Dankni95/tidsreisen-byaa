@@ -1,35 +1,32 @@
 import express from "express";
 import request from "supertest";
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { LoginApi } from "../loginApi.js";
 import cookieParser from "cookie-parser";
 
-dotenv.config();
-
 const app = express();
-
+dotenv.config();
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
     extended: false,
   })
 );
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser("test secret"));
 
 const mongoDbClient = new MongoClient(process.env.MONGODB_URL);
-const database = mongoDbClient.db("test_db");
 
 beforeAll(async () => {
-  await mongoDbClient.connect().then(async () => {
-    console.log("Connected to MongoDB");
-    await database.collection("user").deleteMany({});
-    app.use("/api/login", LoginApi(database));
-  });
+  await mongoDbClient.connect();
+  const database = mongoDbClient.db("test_db");
+  console.log("Connected to MongoDB");
+  await database.collection("user").deleteMany({});
+  app.use("/api/login", LoginApi(database));
 });
-afterAll(() => {
-  mongoDbClient.close();
+afterAll(async () => {
+  await mongoDbClient.close();
 });
 
 describe("LoginApi", () => {

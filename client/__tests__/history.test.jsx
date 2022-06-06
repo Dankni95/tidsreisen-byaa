@@ -4,7 +4,6 @@
 
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { act } from "@testing-library/react";
 import renderer from "react-test-renderer";
 
 import { User } from "../src/application.jsx";
@@ -25,17 +24,16 @@ describe("History", () => {
     const context = jest.fn();
     let component;
 
-    act(() => {
-      component = renderer.create(
-        <MemoryRouter>
-          <DatabaseContext.Provider value={{ context }}>
-            <User.Provider value={{ user }}>
-              <History />
-            </User.Provider>
-          </DatabaseContext.Provider>
-        </MemoryRouter>
-      );
-    });
+    component = renderer.create(
+      <MemoryRouter>
+        <DatabaseContext.Provider value={{ context }}>
+          <User.Provider value={{ user }}>
+            <History />
+          </User.Provider>
+        </DatabaseContext.Provider>
+      </MemoryRouter>
+    );
+
     let tree = component.toJSON();
     expect(tree).toMatchSnapshot();
   });

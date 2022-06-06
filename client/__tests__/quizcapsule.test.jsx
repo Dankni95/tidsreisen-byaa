@@ -4,11 +4,11 @@
 
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
-import { fireEvent, render } from "@testing-library/react";
 import { User } from "../src/application.jsx";
 import { DatabaseContext } from "../src/contexts/databaseContext.jsx";
 import { UserContext } from "../src/contexts/userContext.jsx";
 import { Quiz } from "../src/pages/capsules/quizCapsule/Quiz.jsx";
+import renderer from "react-test-renderer";
 
 //TODO: Se linje 39-44, 56, og 68-239 i Quiz.jsx
 
@@ -23,7 +23,9 @@ describe("Quiz", () => {
     };
     const context = jest.fn();
     const context2 = jest.fn();
-    const component = render(
+    let component;
+
+    component = renderer.create(
       <MemoryRouter>
         <DatabaseContext.Provider value={{ context }}>
           <User.Provider value={{ user }}>
@@ -34,6 +36,8 @@ describe("Quiz", () => {
         </DatabaseContext.Provider>
       </MemoryRouter>
     );
-    expect(component).toMatchSnapshot();
+
+    let tree = component.toJSON();
+    expect(tree).toMatchSnapshot();
   });
 });

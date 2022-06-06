@@ -5,9 +5,8 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { HistoryApi } from "../historyApi.js";
 
-dotenv.config();
-
 const app = express();
+dotenv.config();
 
 app.use(bodyParser.json());
 app.use(
@@ -20,22 +19,21 @@ const mongoDbClient = new MongoClient(process.env.MONGODB_URL);
 const database = mongoDbClient.db("test_db");
 
 beforeAll(async () => {
-  await mongoDbClient.connect().then(async () => {
-    console.log("Connected to MongoDB");
-    await database.collection("history").insertOne({
-      name: "Test",
-      category: "Historiekapsel",
-      story: [
-        {
-          year: "år 2022",
-          story: "Dette er en test",
-          image: "",
-          done: false,
-        },
-      ],
-    });
-    app.use("/api/history", HistoryApi(database));
+  await mongoDbClient.connect();
+  console.log("Connected to MongoDB");
+  await database.collection("history").insertOne({
+    name: "Test",
+    category: "Historiekapsel",
+    story: [
+      {
+        year: "år 2022",
+        story: "Dette er en test",
+        image: "",
+        done: false,
+      },
+    ],
   });
+  app.use("/api/history", HistoryApi(database));
 });
 afterAll(async () => {
   await mongoDbClient.connect().then(async () => {

@@ -5,10 +5,8 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { SoundApi } from "../soundApi.js";
 
-dotenv.config();
-
 const app = express();
-
+dotenv.config();
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -20,17 +18,16 @@ const mongoDbClient = new MongoClient(process.env.MONGODB_URL);
 const database = mongoDbClient.db("test_db");
 
 beforeAll(async () => {
-  await mongoDbClient.connect().then(async () => {
-    console.log("Connected to MongoDB");
-    await database.collection("sound").insertOne({
-      title: "Test",
-      sound: "",
-      category: "Lydkapsel",
-      year: "år 2022",
-      image: "",
-    });
-    app.use("/api/sound", SoundApi(database));
+  await mongoDbClient.connect();
+  console.log("Connected to MongoDB");
+  await database.collection("sound").insertOne({
+    title: "Test",
+    sound: "",
+    category: "Lydkapsel",
+    year: "år 2022",
+    image: "",
   });
+  app.use("/api/sound", SoundApi(database));
 });
 afterAll(async () => {
   await mongoDbClient.connect().then(async () => {
