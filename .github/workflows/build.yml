@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
         with:
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN }}
       - uses: ArtiomTr/jest-coverage-report-action@v2
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
