@@ -89,7 +89,6 @@ export function StoryCard({ historyCapsule, error, loading }) {
             slidesPerView={1}
             scrollbar={{ draggable: true }}
             onReachEnd={async () => await updateToDatabase()}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {historyCapsule.story.map((capsuleStory, index) => {
               return (
