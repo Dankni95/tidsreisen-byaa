@@ -21,4 +21,4 @@ jobs:
           MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ${{ github.workspace }}/coverage/lcov.info
+          path-to-lcov: /coverage/lcov.info
