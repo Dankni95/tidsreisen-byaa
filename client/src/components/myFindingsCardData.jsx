@@ -8,6 +8,7 @@ import vegfarLyd from "../assets/images/mapbox-images/267498-kopi-korr.jpg";
 import kvernhusQuiz from "../assets/images/mapbox-images/267603-korr.jpg";
 import sagtuftHistorie from "../assets/images/mapbox-images/267607-korr.jpg";
 
+// for use in MyFindingsCard and MyFindingsSingle, to list all the available capsules
 export const myFindingsCardData = {
   finishedCapsules: [
     {
