@@ -1,22 +1,22 @@
+name: RuneBuildGHA
+
 on:
   push:
     branches:
-      - '**'        # matches every branch
-      - '!main'   # excludes master
+      - GHARUNE
 
 jobs:
   test:
     runs-on: ubuntu-latest
+
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
         with:
-          version: 16.x
+          node-version: 16.x
       - run: npm ci
       - run: npm run verify
       - name: Coveralls
         uses: coverallsapp/github-action@master
-        env:
-            MONGODB_URL: ${{ secrets.MONGODB_URL }}
-            COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
-            MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
