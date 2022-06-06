@@ -2,7 +2,6 @@ on:
   push:
     branches:
       - '**'        # matches every branch
-      - '!main'   # excludes master
 
 jobs:
   verify:
@@ -14,23 +13,9 @@ jobs:
           node-version: 16.x
       - name: install dependencies
         run: npm ci
-      - run: npm run test:coverage
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
           COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
           MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
       - name: Collect coverage for client
         uses: ArtiomTr/jest-coverage-report-action@v2
-        with:
-          working-directory: client
-      - name: Collect coverage for server
-        uses: ArtiomTr/jest-coverage-report-action@v2
-        with:
-          working-directory: server
-        env:
-          MONGODB_URL: ${{ secrets.MONGODB_URL }}
-          COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
-          MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
-
-
-
