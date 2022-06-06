@@ -5,14 +5,15 @@ on:
       - '!main'   # excludes master
 
 jobs:
-  verify:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
-      - name: install dependencies
-        run: npm ci
-      - run: npm test
+        with:
+          version: 16.x
+      - run: npm ci
+      - run: npm run verify
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
