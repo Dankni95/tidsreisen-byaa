@@ -11,9 +11,7 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-        with:
-            token: ${{ secrets.GIT_ACTIONS_TOKEN }}
+      - uses: actions/checkout@v2.3.4
       - uses: ArtiomTr/jest-coverage-report-action@v2
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
