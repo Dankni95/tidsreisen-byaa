@@ -4,33 +4,25 @@
 
 import React from "react";
 import { ErrorModal } from "../src/components/ErrorModal.jsx";
-import { fireEvent, render } from '@testing-library/react';
-
+import { fireEvent, render } from "@testing-library/react";
 
 describe("ErrorModal", () => {
+  it("shows snapshot", async () => {
+    const component = render(<ErrorModal />);
+    expect(component).toMatchSnapshot();
+  });
 
-    it("shows snapshot", async () => {
-        const component = render(
-            <ErrorModal />
-        );
-        expect(component).toMatchSnapshot();
-    });
+  it("simulates click", async () => {
+    const reload = jest.fn();
 
-    it('simulates click', async () => {
+    jest
+      .spyOn(window, "location", "get")
+      .mockImplementation(() => ({ reload }));
 
-        const reload = jest.fn()
+    const { getByText } = render(<ErrorModal />);
+    fireEvent.click(getByText(/Last inn/i, { selector: "button" }));
+    expect(reload).toHaveBeenCalledTimes(1);
+  });
 
-        jest
-            .spyOn(window, "location", "get")
-            .mockImplementation(() => ({ reload }));
-
-        const { getByText } = render(
-            <ErrorModal/>
-        )
-        fireEvent.click(getByText(/Last inn/i, {selector: 'button'}));
-        expect(reload).toHaveBeenCalledTimes(1)
-
-    });
-
-    jest.clearAllMocks();
+  jest.clearAllMocks();
 });
