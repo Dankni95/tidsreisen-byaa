@@ -1,21 +1,54 @@
-name: 'coverage'
 on:
   push:
     branches:
       - '**'        # matches every branch
       - '!main'   # excludes master
+
 jobs:
-  coverage:
-    permissions:
-      checks: write
-      pull-requests: write
+  test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-      - uses: ArtiomTr/jest-coverage-report-action@v2
+          node-version: 16.x
+      - run: npm ci
+      - run: npm run test:coverage
+        env:
+            MONGODB_URL: ${{ secrets.MONGODB_URL }}
+            COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
+            MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+  - name: Coveralls GitHub Action
+    uses: coverallsapp/github-action@1.1.3
+
+
+on:
+  push:
+    branches:
+      - '**'        # matches every branch
+      - '!main'   # excludes master
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+      - name: install dependencies
+        run: npm ci
+      - run: npm run test:coverage
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
           COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
           MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+      - name: Collect coverage for client
+        uses: ArtiomTr/jest-coverage-report-action@v2
+        env:
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+          COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
+          MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+
+
+
