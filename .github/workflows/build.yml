@@ -17,6 +17,6 @@ jobs:
       - name: Coveralls
         uses: coverallsapp/github-action@master
         with:
-            MONGODB_URL: ${{ secrets.MONGODB_URL }}
-            COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
-            MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+            MONGODB_URL: ${ secrets.MONGODB_URL }
+            COOKIE_SECRET: ${ secrets.COOKIE_SECRET }
+            MONGODB_DATABASE: ${ secrets.MONGODB_DATABASE }
