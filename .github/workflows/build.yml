@@ -15,10 +15,11 @@ jobs:
         with:
           node-version: 16.x
       - run: npm ci
+        working-directory: <rootDir>
+      - run: npm verify
       - name: Coveralls
         uses: coverallsapp/github-action@master
         env:
           NODE_COVERALLS_DEBUG: 1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: ./coverage/lcov.info
