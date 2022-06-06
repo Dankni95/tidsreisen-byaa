@@ -20,6 +20,7 @@ exports[`LoginPage shows snapshot 1`] = `
       className="input-div"
     >
       <input
+        data-testid="input-login"
         name="username"
         onChange={[Function]}
         placeholder="Brukernavn"

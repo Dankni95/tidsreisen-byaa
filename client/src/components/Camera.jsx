@@ -29,7 +29,6 @@ export default function Camera() {
         maxScansPerSecond: 3,
       }
     );
-
     qrScanner.start();
     const device_height = window.screen.height;
     const device_width = window.screen.width;
