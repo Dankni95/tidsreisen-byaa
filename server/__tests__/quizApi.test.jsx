@@ -5,10 +5,8 @@ import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { QuizApi } from "../quizApi.js";
 
-dotenv.config();
-
 const app = express();
-
+dotenv.config();
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
@@ -20,25 +18,24 @@ const mongoDbClient = new MongoClient(process.env.MONGODB_URL);
 const database = mongoDbClient.db("test_db");
 
 beforeAll(async () => {
-  await mongoDbClient.connect().then(async () => {
-    console.log("Connected to MongoDB");
-    await database.collection("quiz").insertOne({
-      category: "Quizkapsel",
-      question_: "Hva er en test?",
-      name_: "Test-quiz",
-      answers: [
-        {
-          answer: "Dette er en test",
-          isCorrect: true,
-        },
-        {
-          answer: "Dette er ikke en test",
-          isCorrect: false,
-        },
-      ],
-    });
-    app.use("/api/quiz", QuizApi(database));
+  await mongoDbClient.connect();
+  console.log("Connected to MongoDB");
+  await database.collection("quiz").insertOne({
+    category: "Quizkapsel",
+    question_: "Hva er en test?",
+    name_: "Test-quiz",
+    answers: [
+      {
+        answer: "Dette er en test",
+        isCorrect: true,
+      },
+      {
+        answer: "Dette er ikke en test",
+        isCorrect: false,
+      },
+    ],
   });
+  app.use("/api/quiz", QuizApi(database));
 });
 afterAll(async () => {
   await mongoDbClient.connect().then(async () => {
