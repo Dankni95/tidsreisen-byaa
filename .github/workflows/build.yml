@@ -13,7 +13,9 @@ jobs:
       - name: install dependencies
         run: npm ci
       - run: npm test
-        env:
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
             MONGODB_URL: ${{ secrets.MONGODB_URL }}
             COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
             MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
