@@ -7,5 +7,5 @@ export const UserContext = createContext({
   },
   async updateUser(user) {
     return await putJSON("/api/login/updateuser", user);
-  }
+  },
 });

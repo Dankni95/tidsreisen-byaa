@@ -28,7 +28,7 @@ export function History() {
 
   if (errorHistory) {
     setEror(errorHistory);
-    console.error(error.toString());
+    //console.error(error);
     return <ErrorModal error={error} />;
   }
 

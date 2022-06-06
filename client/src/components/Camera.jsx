@@ -66,14 +66,13 @@ export default function Camera() {
 
   return (
     <>
-
-          <div id={"camera-back-button-container"}>
-              <IoIosArrowBack
-              variant="white"
-              onClick={() => navigate("/map")}
-              size={35}
-              />
-          </div>
+      <div id={"camera-back-button-container"}>
+        <IoIosArrowBack
+          variant="white"
+          onClick={() => navigate("/map")}
+          size={35}
+        />
+      </div>
       <video
         style={{
           backgroundColor: "black",
