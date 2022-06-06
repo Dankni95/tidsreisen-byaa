@@ -12,7 +12,9 @@ jobs:
       - uses: actions/setup-node@v2
       - name: install dependencies
         run: npm ci
-      - run: npm test
+      - run: npm test:coverage
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
         env:
             MONGODB_URL: ${{ secrets.MONGODB_URL }}
             COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
