@@ -3,14 +3,12 @@ import { NotLoggedIn } from "../components/NotLoggedIn.jsx";
 import "../css/profile.css";
 import { IoPersonOutline } from "react-icons/io5";
 import { User } from "../application.jsx";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CapsuleButtonLetthet } from "../components/CapsuleButton.jsx";
 import { fetchJSON_client } from "../helpers/http.jsx";
 import { FiLogOut } from "react-icons/fi";
-import { AreYouSureLogoutModal } from "../components/AreYouSureLogoutModal.jsx";
 
 function ProgressBar({ color, progress }) {
-
   const fillerStyles = {
     height: "100%",
     maxWidth: "15rem",

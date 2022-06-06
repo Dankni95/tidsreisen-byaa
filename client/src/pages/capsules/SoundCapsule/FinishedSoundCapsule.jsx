@@ -1,17 +1,24 @@
-import React, { useEffect, useState, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import note from "../../../assets/images/soundcapsule/note2.svg";
 import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import { User } from "../../../application";
 import olafInfront from "../../../assets/images/olaf-infront.png";
-import { useParams } from "react-router-dom";
 import "../../../css/olaf.css";
+import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
+
 const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
   const { user, setUser } = useContext(User);
+  const navigate = useNavigate();
 
   useEffect(async () => {
     await update();
   }, []);
+
+  const navigateToMap = () => navigate("/map");
+  const navigateToMyFindings = () => {
+    navigate("/myfindings");
+  };
 
   return (
     <div className="d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
@@ -68,16 +75,7 @@ const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
         <img width={50} src={singleNote} alt="Some note" />
       </div>
       <div className={"d-flex justify-content-center mb-5"}>
-        <h1
-          style={{
-            zIndex: "0",
-            fontSize: "1.5rem",
-            fontFamily: "Source Sans Pro Bold",
-            color: "var(--backgroundColorGreeny)",
-          }}
-        >
-          Fullført lydkapselen!{" "}
-        </h1>
+        <h1 id={"done-title"}>Fullført lydkapselen!</h1>
       </div>
       <div
         id={"olaf-infront-div"}
@@ -87,6 +85,7 @@ const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
       >
         <div>
           <img
+            id={"olof-infront"}
             height={200}
             /*className={"img-fluid"}*/ src={olafInfront}
             alt="bilde av olaf på fullført side"
@@ -121,17 +120,19 @@ const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
         </div>
       )}
 
-      <div className="text-center mt-5">
-        <Link to="/map">
-          <button className="mb-2" id="button-capsules-green">
-            Tilbake til kart
-          </button>
-        </Link>
-        <Link to="/myfindings">
-          <button className="mt-2" id="button-capsules-green">
-            Mine funn
-          </button>
-        </Link>
+      <div className={"d-flex flex-column"}>
+        <div>
+          <CapsuleButtonGreen
+            onClick={navigateToMap}
+            buttonText={"Tilbake til kart"}
+          />
+        </div>
+        <div>
+          <CapsuleButtonGreen
+            onClick={navigateToMyFindings}
+            buttonText={"Mine funn"}
+          />
+        </div>
       </div>
       {/* <div className="text-center bg-white p-2 rounded m-0 shadow-sm">
         <p className="m-0 text-capsule fw-bold">Kapsel låses opp om</p>

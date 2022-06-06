@@ -4,13 +4,17 @@
   background-color: var(--backgroundColorGreeny);
   overflow: auto;
   padding-bottom: 10rem;
+  padding-top: 3rem;
+}
+
+#single-container {
+  margin: 0 1rem 0 1rem;
 }
 
 .card {
   position: relative;
   top: 10%;
   filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-  /*box-shadow: 0 0 3px #ffffff;*/
 }
 
 .card-nonvisited::before {

@@ -44,6 +44,7 @@
 }
 
 #year {
+  bottom: 10%;
   font-family: "Source Sans Pro Semibold", sans-serif;
   background: transparent;
   font-size: 2rem;

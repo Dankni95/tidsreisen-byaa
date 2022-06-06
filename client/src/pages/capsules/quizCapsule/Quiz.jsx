@@ -121,15 +121,7 @@ export function Quiz() {
       {showPoints ? (
         <div>
           <div className={"d-flex justify-content-center mb-5"}>
-            <h1
-              style={{
-                fontSize: "1.5rem",
-                fontFamily: "Source Sans Pro Bold",
-                color: "var(--backgroundColorGreeny)",
-              }}
-            >
-              Fullført quizkapselen!{" "}
-            </h1>
+            <h1 id={"done-title"}>Fullført quizkapselen!</h1>
           </div>
           <div
             id={"olaf-infront-div"}
@@ -140,6 +132,7 @@ export function Quiz() {
             <div className="d-flex">
               <div>
                 <img
+                  id={"olof-infront"}
                   height={200}
                   /*className={"img-fluid"}*/ src={olafInfront}
                   alt="bilde av olaf på fullført side"
@@ -150,8 +143,8 @@ export function Quiz() {
                 <div className="left-point"></div>
 
                 <p id={"finish-paragraph"}>
-                  Godt jobbet!{" "}
-                  <span className="score" style={{}}>
+                  Godt jobbet!
+                  <span className="score">
                     {score}/{data?.length} riktige
                   </span>{" "}
                   <br />
@@ -180,19 +173,12 @@ export function Quiz() {
       ) : alreadyDone ? (
         <div>
           <div className={"d-flex justify-content-center mb-5"}>
-            <h1
-              style={{
-                fontSize: "1.5rem",
-                fontFamily: "Source Sans Pro Bold",
-                color: "var(--backgroundColorGreeny)",
-              }}
-            >
-              Fullført quizkapselen!{" "}
-            </h1>
+            <h1 id={"done-title"}>Fullført quizkapselen! </h1>
           </div>
           <div className="d-flex">
             <div>
               <img
+                id={"olof-infront"}
                 height={200}
                 /*className={"img-fluid"}*/ src={olafInfront}
                 alt="bilde av olaf på fullført side"
@@ -200,8 +186,6 @@ export function Quiz() {
             </div>
 
             <div className="pe-4">
-              <div className="left-point"></div>
-
               <p id={"finish-paragraph"}>
                 Woops! Det ser ut som du allerede har vært på denne kapselen. Gå
                 til neste kapsel.

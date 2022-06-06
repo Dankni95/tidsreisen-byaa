@@ -1,5 +1,5 @@
 .profileContainer {
-  background-color: #4a8554;
+  background-color: var(--backgroundColorGreeny);
   height: 100vh;
   width: 100%;
   display: flex;
@@ -19,7 +19,7 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  height: 70rem;
+  height: 80rem;
   margin-top: 7rem;
 }
 
@@ -27,12 +27,11 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  outline: 1px red solid;
   width: 100%;
 }
 
 #userName {
-  color: white;
+  color: var(--backgroundColorLetthet);
   margin: 1em;
 }
 
@@ -41,7 +40,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: #f2f1e8;
+  background-color: var(--backgroundColorLetthet);
   height: 10em;
   width: 10em;
   border-radius: 100px;
@@ -60,14 +59,14 @@
 }
 
 #userPoints {
-  color: white;
+  color: var(--backgroundColorLetthet);
   margin: 0.5em;
 }
 
 #progressBar {
   height: 1.5em;
   width: 15em;
-  background-color: white;
+  background-color: var(--backgroundColorLetthet);
   border-radius: 50px;
 }
 
@@ -76,6 +75,8 @@
 }
 
 #logout-container {
+  position: absolute;
+  top: 0;
   width: 90%;
   display: flex;
   flex-direction: column;
@@ -89,4 +90,40 @@
   font-size: 1.225rem;
   text-decoration: none;
   align-self: flex-end;
+}
+
+@media (min-width: 768px) {
+  #logout-link,
+  #logout-link > span {
+    font-size: 1.5rem;
+  }
+  #logout-container {
+    right: 2em;
+    top: 1em;
+  }
+  #user-information-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4em;
+    width: 100%;
+    height: 120rem;
+    margin-top: 7rem;
+  }
+  #userPoints {
+    font-size: 1.5rem;
+  }
+  #circle {
+    height: 15em;
+    width: 15em;
+    border-radius: 200px;
+  }
+  #progressBar {
+    height: 2em;
+    width: 25em;
+    border-radius: 50px;
+  }
+  #userName {
+    font-size: 4rem;
+  }
 }
