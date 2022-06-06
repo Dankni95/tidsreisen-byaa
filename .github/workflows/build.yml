@@ -17,7 +17,7 @@ jobs:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
           COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
           MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
-      - name: Collect coverage for client
+      - name: Collect coverage
         uses: ArtiomTr/jest-coverage-report-action@v2
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}

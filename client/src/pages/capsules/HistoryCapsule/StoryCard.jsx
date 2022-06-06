@@ -65,7 +65,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
   }, [count]);
 
   // showing correct history capsule according to what the url parameter is
-  if (historyCapsule.name.toLowerCase() === id.toLowerCase()) {
+  if (historyCapsule.name.toLowerCase() === id?.toLowerCase()) {
     return (
       <div>
         <div className={"p-4"} style={{ position: "relative", zIndex: "0" }}>

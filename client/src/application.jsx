@@ -18,7 +18,7 @@ import React, {
 import { useLoading } from "./helpers/useLoading.jsx";
 import WithoutNavbar from "./components/WithoutNavbar";
 import WithNavbar from "./components/WithNavbar";
-import Audio from "./pages/capsules/SoundCapsule/Audio.jsx";
+import Audio from "./pages/capsules/AudioCapsule/Audio.jsx";
 import Camera from "./components/Camera";
 import WithBackButton from "./components/WithBackButton.jsx";
 

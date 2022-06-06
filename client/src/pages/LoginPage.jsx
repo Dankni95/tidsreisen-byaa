@@ -66,6 +66,7 @@ export function LoginPage() {
       <form onSubmit={handleSubmit}>
         <div className="input-div">
           <input
+            data-testid={"input-login"}
             placeholder="Brukernavn"
             type="text"
             name="username"

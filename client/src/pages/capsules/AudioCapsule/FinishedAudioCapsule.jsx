@@ -5,7 +5,7 @@ import "../../../css/olaf.css";
 import { CapsuleButtonGreen } from "../../../components/CapsuleButton.jsx";
 import Notes from "./Notes";
 
-const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
+const FinishedAudioCapsule = ({ update, filteredCapsule }) => {
   const navigate = useNavigate();
 
   // Updates database when hitting this component
@@ -85,4 +85,4 @@ const FinishedSoundCapsule = ({ update, filteredCapsule }) => {
   );
 };
 
-export default FinishedSoundCapsule;
+export default FinishedAudioCapsule;

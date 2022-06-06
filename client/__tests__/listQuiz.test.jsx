@@ -2,8 +2,8 @@
  * @jest-environment jsdom
  */
 
-import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
+import ReactDOM from "react-dom";
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { User } from "../src/application.jsx";
