@@ -14,10 +14,12 @@ export function HistoryDone({ id, updateToDatabase }) {
     navigate("/myfindings");
   };
 
+  // checks capsule id from database
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
     return capsuleName.id;
   });
 
+  // finds capsule id matches to check whether if user has done it or not
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
     (capsuleName) => {
       return capsuleName === id;
@@ -39,7 +41,7 @@ export function HistoryDone({ id, updateToDatabase }) {
           <img
             id={"olaf-infront-img"}
             height={200}
-            /*className={"img-fluid"}*/ src={olafInfront}
+            src={olafInfront}
             alt="bilde av olaf på fullført side"
           />
         </div>

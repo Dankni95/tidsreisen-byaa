@@ -8,6 +8,7 @@ export function Navbar() {
     id: null,
   });
 
+  // if icon clicked, matches with id, use css rule and filler icon
   function clickedIconNavbarHandler(itemId) {
     setClickedIconColor({
       id: itemId,

@@ -1,7 +1,5 @@
 import React, { useContext } from "react";
 import "../css/myFindingsCard.css";
-import kvernhus from "../assets/images/myfindings-dummy-image.png";
-import { FiCheck } from "react-icons/fi";
 import { User } from "../application.jsx";
 import { MdQuiz } from "react-icons/md";
 import { FaBook } from "react-icons/fa";
@@ -10,20 +8,23 @@ import { HiOutlineCheckCircle } from "react-icons/hi";
 import { myFindingsCardData } from "./myFindingsCardData.jsx";
 import { useNavigate } from "react-router-dom";
 
-function MyFindingsSingle({ onClick, capsule }) {
-  const { user, setUser } = useContext(User);
+function MyFindingsSingle({ capsule }) {
+  const { user } = useContext(User);
   const navigate = useNavigate();
   const HISTORYCAPSULE = "Historiekapsel";
   const QUIZCAPSULE = "Quizkapsel";
   const AUDIOCAPSULE = "Lydkapsel";
   let matchesArr = [];
 
+  // gets id from capsule object, for further use below
   const mappedFromDummy = myFindingsCardData.finishedCapsules.map(
     (item) => item.id
   );
 
+  // gets id from db, to use in forEach below
   const mappedFromDb = user.finishedCapsules?.map((dbName) => dbName.id);
 
+  // if matched, put into matchesArr to check if it matches with capsule.id
   mappedFromDb?.forEach((capsuleFromDb) => {
     mappedFromDummy.forEach((capsuleFromDummy) => {
       if (capsuleFromDummy === capsuleFromDb) {
@@ -32,10 +33,12 @@ function MyFindingsSingle({ onClick, capsule }) {
     });
   });
 
+  // based on matchesArr, sets css rule for gray overlay
   const styleVisited = matchesArr.includes(capsule.id)
     ? "card mb-3"
     : "card mb-3 card-nonvisited";
 
+  // based on matchesArr, sets css rule for check icon
   const styleVisitedIconHider = matchesArr.includes(capsule.id)
     ? "done-icon"
     : "done-icon-nonvisited";

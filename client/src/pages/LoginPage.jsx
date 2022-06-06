@@ -1,13 +1,11 @@
 import "../css/login.css";
 import logo from "../assets/images/rlogo.svg";
 import { useContext, useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { CapsuleButtonYellow } from "../components/CapsuleButton.jsx";
 import { checkUser, postJSON } from "../helpers/http.jsx";
-import bg from "../assets/images/Bakground-login.jpeg";
 import Alert from "react-bootstrap/Alert";
 import { MapContext, User } from "../application.jsx";
-
 
 export function LoginPage() {
   const { user, setUser } = useContext(User);
@@ -16,7 +14,6 @@ export function LoginPage() {
 
   const [exists, setExists] = useState("");
   const [oldUser, setOldUser] = useState("");
-  const location = useLocation();
   const { setMap, map } = useContext(MapContext);
 
   const navigate = useNavigate();

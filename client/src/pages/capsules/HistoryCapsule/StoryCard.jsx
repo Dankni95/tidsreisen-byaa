@@ -31,14 +31,14 @@ export function StoryCard({ historyCapsule, error, loading }) {
   const [count, setCount] = useState(0);
   let previousState = { ...user };
 
-  console.log(historyCapsule.id);
-
+  // setting capsule object to be inserted in database
   const capsuleObject = {
     id: historyCapsule.id,
     name: historyCapsule.name,
     category: historyCapsule.category,
   };
 
+  // updates user with capsuleObject and points
   const updateToDatabase = async () => {
     setCount(count + 1);
     await updateUser({
@@ -48,6 +48,8 @@ export function StoryCard({ historyCapsule, error, loading }) {
     });
   };
 
+  // updates correct user only, and only if count is more than 0
+  // counts when swiping
   useEffect(() => {
     if (count > 0) {
       return () => {
@@ -62,11 +64,7 @@ export function StoryCard({ historyCapsule, error, loading }) {
     }
   }, [count]);
 
-  /*const olafHiderLeft = () =>
-    (document.querySelector("#olaf-left").style.display = "none");
-  const olafDisplayerLeft = () =>
-    (document.querySelector("#olaf-left").style.display = "block");*/
-
+  // showing correct history capsule according to what the url parameter is
   if (historyCapsule.name.toLowerCase() === id.toLowerCase()) {
     return (
       <div>
