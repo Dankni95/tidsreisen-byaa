@@ -14,9 +14,13 @@ jobs:
           version: 16.x
       - run: npm ci
       - run: npm run verify
-      - name: Coveralls
-        uses: coverallsapp/github-action@master
         env:
             MONGODB_URL: ${{ secrets.MONGODB_URL }}
             COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
             MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+      - name: Coveralls
+        uses: coverallsapp/github-action@master
+        with:
+            github-token: ${{ secrets.GITHUB_TOKEN }}
+
+
