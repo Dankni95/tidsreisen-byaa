@@ -28,7 +28,6 @@ export function History() {
 
   if (errorHistory) {
     setEror(errorHistory);
-    console.error(error.toString());
     return <ErrorModal error={error} />;
   }
 
