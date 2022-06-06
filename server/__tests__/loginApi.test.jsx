@@ -1,6 +1,6 @@
 import express from "express";
 import request from "supertest";
-import { MongoClient, ObjectId } from "mongodb";
+import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import { LoginApi } from "../loginApi.js";
@@ -16,7 +16,7 @@ app.use(
     extended: false,
   })
 );
-app.use(cookieParser(process.env.COOKIE_SECRET));
+app.use(cookieParser("test secret"));
 
 const mongoDbClient = new MongoClient(process.env.MONGODB_URL);
 const database = mongoDbClient.db("test_db");
