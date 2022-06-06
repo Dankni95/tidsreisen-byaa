@@ -1,18 +1,31 @@
-import React from "react";
-import { MemoryRouter } from "react-router-dom";
-import { BackButton } from "../src/components/BackButton.jsx";
-import renderer from 'react-test-renderer';
+/**
+ * @jest-environment jsdom
+ */
 
-//TODO: Simulere click (se linje 10 BackButton.jsx)
+import React from "react";
+import { BackButton } from "../src/components/BackButton.jsx";
+import { fireEvent, render } from '@testing-library/react';
+
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    useNavigate: () => mockedUsedNavigate,
+}));
 
 describe("BackButton", () => {
     it("shows snapshot", async () => {
-        const component = renderer.create(
-            <MemoryRouter>
+        const component = render(
                     <BackButton />
-            </MemoryRouter>
         );
-        let tree = component.toJSON()
-        expect(tree).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
+    });
+
+    it('simulates click', async () => {
+        const { getByTestId } = render(
+                <BackButton/>
+        )
+        fireEvent.click(getByTestId(/backArrow/i));
+        expect(mockedUsedNavigate).toHaveBeenCalledTimes(1)
+        expect(mockedUsedNavigate).toHaveBeenCalledWith(-1)
     });
 });

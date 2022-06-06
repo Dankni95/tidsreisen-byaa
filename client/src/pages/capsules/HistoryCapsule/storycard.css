@@ -17,11 +17,10 @@
 .swiper-horizontal > .swiper-scrollbar {
   height: 0.5rem;
   position: fixed;
-  margin-bottom: 4rem;
 }
 
 .swiper-slide {
-  height: 90vh;
+  height: 80vh;
   width: 100%;
   top: -3%;
 }
@@ -32,7 +31,7 @@
   justify-content: center;
   align-content: center;
   width: 100%;
-  bottom: 0;
+  bottom: 50px;
 }
 
 #year {

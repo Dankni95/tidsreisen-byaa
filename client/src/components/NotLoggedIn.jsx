@@ -18,6 +18,7 @@ export function NotLoggedIn() {
       </Modal.Body>
       <Modal.Footer className={"d-flex justify-content-center my-modal"}>
         <CapsuleButtonYellow
+            data-testid="backBtn"
           className={"justify-content-center align-content-center"}
           buttonText={"Logg inn"}
           onClick={() => navigate("/")}

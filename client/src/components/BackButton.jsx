@@ -7,7 +7,7 @@ export function BackButton() {
   const navigate = useNavigate();
   return (
     <div id={"back-button-container"}>
-      <IoIosArrowBack onClick={() => navigate(-1)} size={35} />
+      <IoIosArrowBack data-testid="backArrow" onClick={() => navigate(-1)} size={35} />
     </div>
   );
 }

@@ -1,18 +1,31 @@
-import React from "react";
-import { MemoryRouter } from "react-router-dom";
-import { NotLoggedIn } from "../src/components/NotLoggedIn.jsx";
-import renderer from 'react-test-renderer';
+/**
+ * @jest-environment jsdom
+ */
 
-//Simulere click (se linje 23 i NotLoggedIn.jsx)
+import React from "react";
+import { NotLoggedIn } from "../src/components/NotLoggedIn.jsx";
+import { fireEvent, render } from '@testing-library/react';
+
+const mockedUsedNavigate = jest.fn();
+
+jest.mock('react-router-dom', () => ({
+    useNavigate: () => mockedUsedNavigate,
+}));
 
 describe("NotLoggedIn", () => {
     it("shows snapshot", async () => {
-        const component = renderer.create(
-            <MemoryRouter>
-                <NotLoggedIn />
-            </MemoryRouter>
+        const component = render(
+            <NotLoggedIn />
         );
-        let tree = component.toJSON()
-        expect(tree).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
+    });
+
+    it('simulates click', async () => {
+        const { getByText } = render(
+            <NotLoggedIn/>
+        )
+        fireEvent.click(getByText(/Logg inn/i, {selector: 'button'}));
+        expect(mockedUsedNavigate).toHaveBeenCalledTimes(1)
+        expect(mockedUsedNavigate).toHaveBeenCalledWith("/")
     });
 });

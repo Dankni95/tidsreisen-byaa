@@ -1,18 +1,36 @@
-import React from "react";
-import { MemoryRouter } from "react-router-dom";
-import { ErrorModal } from "../src/components/ErrorModal.jsx";
-import renderer from 'react-test-renderer';
+/**
+ * @jest-environment jsdom
+ */
 
-//TODO: Simulere click (se linje 19 i ErrorModal.jsx)
+import React from "react";
+import { ErrorModal } from "../src/components/ErrorModal.jsx";
+import { fireEvent, render } from '@testing-library/react';
+
 
 describe("ErrorModal", () => {
+
     it("shows snapshot", async () => {
-        const component = renderer.create(
-            <MemoryRouter>
-                <ErrorModal />
-            </MemoryRouter>
+        const component = render(
+            <ErrorModal />
         );
-        let tree = component.toJSON()
-        expect(tree).toMatchSnapshot();
+        expect(component).toMatchSnapshot();
     });
+
+    it('simulates click', async () => {
+
+        const reload = jest.fn()
+
+        jest
+            .spyOn(window, "location", "get")
+            .mockImplementation(() => ({ reload }));
+
+        const { getByText } = render(
+            <ErrorModal/>
+        )
+        fireEvent.click(getByText(/Last inn/i, {selector: 'button'}));
+        expect(reload).toHaveBeenCalledTimes(1)
+
+    });
+
+    jest.clearAllMocks();
 });
