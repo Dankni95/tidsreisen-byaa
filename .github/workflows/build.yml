@@ -12,8 +12,7 @@ jobs:
         with:
           node-version: 16.x
       - name: install dependencies
-      - run: npm ci
-      - run: npm run verify
+        run: npm ci
       - name: Coveralls
         uses: coverallsapp/github-action@master
         env:
