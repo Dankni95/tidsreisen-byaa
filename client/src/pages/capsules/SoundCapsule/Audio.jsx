@@ -1,7 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
 import Play from "./Play";
-import note from "../../../assets/images/soundcapsule/note2.svg";
-import singleNote from "../../../assets/images/soundcapsule/note3.svg";
 import FinishedSoundCapsule from "./FinishedSoundCapsule";
 import { useLoading } from "../../../helpers/useLoading";
 import { DatabaseContext } from "../../../contexts/databaseContext";
@@ -12,23 +10,23 @@ import { UserContext } from "../../../contexts/userContext.jsx";
 import { AiFillSound } from "react-icons/ai";
 import { Loading } from "../../../components/Loading";
 import "../../../css/sound.css";
+import Notes from "./Notes";
 
 const Sound = () => {
   const { id } = useParams();
   const [drag, setDrag] = useState();
+  const [count, setCount] = useState(0);
+  const { updateUser } = useContext(UserContext);
+  const { user, setUser } = useContext(User);
+  const { name } = user;
+  const { listAudio } = useContext(DatabaseContext);
+  const { data, loading } = useLoading(async () => await listAudio());
   const [songInfo, setSongInfo] = useState({
     currentTime: 0,
     duration: null,
   });
 
-  const [count, setCount] = useState(0);
-  const { updateUser } = useContext(UserContext);
-  const { user, setUser } = useContext(User);
-  const { name, intro, walk, points, level } = user;
-
-  const { listAudio } = useContext(DatabaseContext);
-  const { data, error, loading } = useLoading(async () => await listAudio());
-
+  // updates correct user only, and only if count is more than 0
   useEffect(() => {
     if (count > 0) {
       return () => {
@@ -44,6 +42,7 @@ const Sound = () => {
     }
   }, [count]);
 
+  // updates user with capsuleObject and points
   const updateToDatabase = async () => {
     setCount(count + 1);
     await updateUser({
@@ -51,47 +50,36 @@ const Sound = () => {
       finishedCapsules: capsuleObject,
       points: 20,
     });
-
-    /* user.finishedCapsules.forEach((capsule) => {
-      finishedCapsules.push(capsule);
-    });
-
-    finishedCapsules.push(capsuleObject);
-    console.log(finishedCapsules);
-    if (count > 0)
-      setUser({
-        name,
-        intro,
-        walk,
-        points,
-        level,
-        finishedCapsules: finishedCapsules,
-      }); */
   };
-
+  // If the site is loading, we're setting the loading screen
   if (loading) {
     return <Loading />;
   }
 
+  // If name is undefiend we're showing the not logged in screen
   if (name === undefined) {
     return <NotLoggedIn />;
   }
 
+  // Filtering out right data for the capsuleObject
   const getId = data
     ?.map((id) => id)
     .filter((item) => item.title.toLowerCase() === id.toLowerCase())
     .map((itemId) => itemId.id);
 
+  // setting capsule object to be inserted in database
   const capsuleObject = {
     id: getId.toString(),
     name: id,
     category: "Lydkapsel",
   };
 
+  // checks capsule id from database
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
     return capsuleName.name;
   });
 
+  // finds capsule id matches to check whether if user has done it or not
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
     (capsuleName) => {
       console.log(capsuleName);
@@ -107,58 +95,7 @@ const Sound = () => {
         />
       ) : (
         <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule media">
-          <div
-            style={{
-              position: "absolute",
-              top: 20,
-              left: 20,
-              color: "rgba(255, 255, 255, 0.271)",
-            }}
-          >
-            <img src={note} alt="Some note" />
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              bottom: 20,
-              left: 20,
-              color: "rgba(255, 255, 255, 0.271)",
-            }}
-          >
-            <img width={100} src={note} alt="Some note" />
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              top: 200,
-              right: 20,
-              color: "rgba(255, 255, 255, 0.271)",
-              transform: "scaleX(-1)",
-            }}
-          >
-            <img width={80} src={note} alt="Some note" />
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              top: 500,
-              right: 20,
-              color: "rgba(255, 255, 255, 0.271)",
-              transform: "scaleX(-1)",
-            }}
-          >
-            <img width={50} src={singleNote} alt="Some note" />
-          </div>
-          <div
-            style={{
-              position: "absolute",
-              top: 400,
-              left: 20,
-              color: "rgba(255, 255, 255, 0.271)",
-            }}
-          >
-            <img width={50} src={singleNote} alt="Some note" />
-          </div>
+          <Notes />
           {data?.map((item, index) => {
             return (
               <>

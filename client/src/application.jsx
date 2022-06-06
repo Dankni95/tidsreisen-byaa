@@ -3,11 +3,11 @@ import { LoginPage } from "./pages/LoginPage.jsx";
 import { MapPage } from "./pages/MapPage.jsx";
 import { Quiz } from "./pages/capsules/quizCapsule/Quiz.jsx";
 import { History } from "./pages/capsules/HistoryCapsule/History.jsx";
-import Camera from "./components/Camera";
 import { MyFindings } from "./pages/MyFindings.jsx";
-import Sound from "./pages/capsules/SoundCapsule/Sound.jsx";
 import { UserContext } from "./contexts/userContext.jsx";
 import { Profile } from "./pages/Profile.jsx";
+import { NotFound } from "./components/NotFound.jsx";
+import { BackButton } from "./components/BackButton";
 import React, {
   createContext,
   useContext,
@@ -18,9 +18,9 @@ import React, {
 import { useLoading } from "./helpers/useLoading.jsx";
 import WithoutNavbar from "./components/WithoutNavbar";
 import WithNavbar from "./components/WithNavbar";
-import { NotFound } from "./components/NotFound.jsx";
+import Audio from "./pages/capsules/SoundCapsule/Audio.jsx";
+import Camera from "./components/Camera";
 import WithBackButton from "./components/WithBackButton.jsx";
-import { BackButton } from "./components/BackButton";
 
 export const User = createContext("");
 export const MapContext = React.createContext(null);
@@ -58,7 +58,7 @@ export function Application() {
                     path="/myfindings"
                     element={<MyFindings loading={loading} error={error} />}
                   />
-                  <Route path="/audio/:id" element={<Sound />} />
+                  <Route path="/audio/:id" element={<Audio />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path={"*"} element={<NotFound />} />
                 </Route>
