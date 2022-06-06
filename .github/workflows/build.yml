@@ -23,6 +23,5 @@ jobs:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
           COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
           MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
-
-
-
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
