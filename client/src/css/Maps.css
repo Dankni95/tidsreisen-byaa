@@ -145,6 +145,10 @@ body {
   top: 0;
   right: 0;
   zoom: 1;
+  padding: 1rem;
+}
+@media only screen and (max-width: 1000px) {
+  /*Tablets [601px -> 1200px]*/
 }
 
 .form-check-label {
@@ -158,13 +162,12 @@ body {
   color: black;
 }
 
-
-.mapboxgl-popup-close-button{
+.mapboxgl-popup-close-button {
   margin: 2px;
   font-size: 30px;
 }
 
-@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+/* @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   #custom-switch {
     position: absolute;
     top: 8px;
@@ -190,3 +193,4 @@ body {
     width: 120px;
   }
 }
+ */

@@ -1,6 +1,6 @@
 #navbar-container {
   width: 100%;
-  height: 3.2rem;
+  height: 3.5rem;
   display: flex;
   position: fixed;
   bottom: 0;
@@ -8,13 +8,22 @@
   filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.2));
 }
 
+@media only screen and (min-width: 768px) {
+  /*Tablets [601px -> 1200px]*/
+  #navbar-container {
+    height: 4rem;
+  }
+}
+
 .navbar {
   width: 100%;
+  padding-bottom: 0 !important;
 }
 
 .nav-menu {
   width: 100%;
   margin-top: -0.1rem;
+  transform: scale(1.1) !important;
 }
 
 .nav-menu-items {
