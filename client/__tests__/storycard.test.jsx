@@ -33,4 +33,5 @@ describe("StoryCard", () => {
         );
         expect(component).toMatchSnapshot();
     });
+    jest.clearAllMocks();
 });
