@@ -7,7 +7,7 @@ import vegfar from "./Sound/vegfar.mp3";
 import vesledammen from "./Sound/vesledammen.mp3";
 import vannsag from "./Sound/vannsag.mp3";
 import { useParams } from "react-router-dom";
-
+import "../../../css/sound.css";
 const Play = ({ songInfo, setSongInfo, setDrag }) => {
   const { id } = useParams();
 
@@ -68,16 +68,16 @@ const Play = ({ songInfo, setSongInfo, setDrag }) => {
           min={0}
           max={songInfo.duration}
           value={songInfo.currentTime}
-          className="mx-2 form-range"
+          className="mx-2 form-range media-input"
           type="range"
         />
         <p className="m-0 ">{getTime(songInfo.duration)}</p>
       </div>
       <div className="mt-2">
         {isPlaying ? (
-          <FaPause onClick={handlePlay} size={25} />
+          <FaPause className="icon" onClick={handlePlay} size={25} />
         ) : (
-          <FaPlay onClick={handlePlay} size={25} />
+          <FaPlay className="icon" onClick={handlePlay} size={25} />
         )}
       </div>
 

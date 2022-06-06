@@ -106,7 +106,7 @@ const Sound = () => {
           update={updateToDatabase}
         />
       ) : (
-        <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule">
+        <div className="position-relative d-flex justify-content-center align-items-center flex-column vh-100 bg-capsule media">
           <div
             style={{
               position: "absolute",
@@ -167,14 +167,18 @@ const Sound = () => {
                     className="position-relative d-flex justify-content-center align-items-center flex-column "
                     key={index}
                   >
-                    <h3 className="pb-3 d-flex align-items-center">
+                    <h3 className="pb-3 d-flex align-items-center title">
                       <AiFillSound color={"var(--textColorGray)"} />{" "}
                       {item.category}
                     </h3>
-                    <h1 className="pb-3 fw-bolder text-capsule">
+                    <h1 className="pb-3 fw-bolder text-capsule subtitle">
                       {item.title}
                     </h1>
-                    <img className="p-2" src={item.image} alt={item.image} />
+                    <img
+                      className="p-2 img"
+                      src={item.image}
+                      alt={item.image}
+                    />
 
                     <Play
                       song={item.song}
@@ -182,13 +186,13 @@ const Sound = () => {
                       setSongInfo={setSongInfo}
                       setDrag={setDrag}
                     />
-                    <h4 className="my-5 fw-bold">År {item.year}</h4>
+                    <h4 className="my-5 fw-bold year">År {item.year}</h4>
                     {filteredCapsuleNamesFromUserDatabase ? (
-                      <p className="fst-italic fw-bold">
+                      <p className="fst-italic fw-bold undertext">
                         Denne lydkapselen er lyttet ferdig
                       </p>
                     ) : (
-                      <p className="fst-italic fw-bold">
+                      <p className="fst-italic fw-bold undertext">
                         Lytt ferdig lydkapselen for å få poeng
                       </p>
                     )}

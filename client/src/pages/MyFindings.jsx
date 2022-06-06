@@ -27,7 +27,7 @@ export function MyFindings({ loading, error }) {
 
   // loading and error from user fetch
   return (
-    <div className={"container"} id={"container"}>
+    <div id={"container"}>
       {loading && <Loading />}
       {error && <ErrorModal error={error} />}
       <MyFindingsCard />
