@@ -69,90 +69,80 @@ export function StoryCard({ historyCapsule, error, loading }) {
 
   if (historyCapsule.name.toLowerCase() === id.toLowerCase()) {
     return (
-        <div>
-          <div id={"olaf-left-div"}>
-            {/*<img
-            id={"olaf-left"}
-            src={olafLeft}
-            alt="bilde av olaf på venstre side"
-          />*/}
-          </div>
-          <div className={"p-4"} style={{ position: "relative", zIndex: "0" }}>
-            <div style={{ position: "relative" }}>
-              <h3
-                  className={"text-center"}
-                  style={{
-                    color: "var(--textColorGray)",
-                    fontFamily: "Source Sans Pro Semibold",
-                  }}
-              >
-                <FaBook color={"var(--textColorGray)"} /> Historiekapsel
-              </h3>
-              <h1
-                  className={"text-center"}
-                  style={{
-                    color: "var(--backgroundColorGreeny)",
-                    fontFamily: "Source Sans Pro Bold",
-                  }}
-              >
-                {historyCapsule.name}
-              </h1>
-            </div>
-            <Swiper
-                centeredSlides={true}
-                spaceBetween={50}
-                slidesPerView={1}
-                scrollbar={{ draggable: true }}
-                onReachEnd={async () => await updateToDatabase()}
-                onSwiper={(swiper) => console.log(swiper)}
+      <div>
+        <div className={"p-4"} style={{ position: "relative", zIndex: "0" }}>
+          <div style={{ position: "relative" }}>
+            <h3 id={"capsule-name"} className={"text-center"}>
+              <FaBook color={"var(--textColorGray)"} /> Historiekapsel
+            </h3>
+            <h1
+              className={"text-center"}
+              style={{
+                color: "var(--backgroundColorGreeny)",
+                fontFamily: "Source Sans Pro Bold",
+              }}
             >
-              {historyCapsule.story.map((capsuleStory, index) => {
-                return (
-                    <SwiperSlide key={index} className={"slide"}>
-                      {capsuleStory.done === true ? (
-                          <HistoryDone
-                              updateToDatabase={updateToDatabase}
-                              id={historyCapsule.id}
-                          />
-                      ) : (
-                          <div className={"swiper-slide"} key={index}>
-                            <div className={"slide-content"}>
-                              <div>
-                                <div style={{ maxWidth: "45rem" }} className={"mt-5"}>
-                                  {capsuleStory.image && (
-                                      <section>
-                                        <img
-                                            id={"history-image"}
-                                            className={"card-img"}
-                                            src={capsuleStory.image}
-                                            alt={"bilde av historie-element"}
-                                        />
-                                      </section>
-                                  )}
-                                </div>
-
-                                <section id={"story-section"} className={"mt-4"}>
-                                  <p id={"story-paragraph"}>{capsuleStory.story}</p>
-                                </section>
-                              </div>
-                            </div>
-                            <div id={"year"}>
-                              <h4 className=" fw-bold">{capsuleStory.year}</h4>
-                            </div>
-                          </div>
-                      )}
-                    </SwiperSlide>
-                );
-              })}
-            </Swiper>
+              {historyCapsule.name}
+            </h1>
           </div>
+          <Swiper
+            centeredSlides={true}
+            spaceBetween={50}
+            slidesPerView={1}
+            scrollbar={{ draggable: true }}
+            onReachEnd={async () => await updateToDatabase()}
+            onSwiper={(swiper) => console.log(swiper)}
+          >
+            {historyCapsule.story.map((capsuleStory, index) => {
+              return (
+                <SwiperSlide key={index} className={"slide"}>
+                  {capsuleStory.done === true ? (
+                    <HistoryDone
+                      updateToDatabase={updateToDatabase}
+                      id={historyCapsule.id}
+                    />
+                  ) : (
+                    <div className={"swiper-slide"} key={index}>
+                      <div className={"slide-content"}>
+                        <div id={"slide-container"}>
+                          <div
+                            /*style={{ maxWidth: "45rem" }}*/
+                            className={"mt-5 image-container"}
+                          >
+                            {capsuleStory.image && (
+                              <section id={"image-section"}>
+                                <img
+                                  id={"history-image"}
+                                  className={"card-img"}
+                                  src={capsuleStory.image}
+                                  alt={"bilde av historie-element"}
+                                />
+                              </section>
+                            )}
+                          </div>
+
+                          <section id={"story-section"} className={"mt-4"}>
+                            <p id={"story-paragraph"}>{capsuleStory.story}</p>
+                          </section>
+                        </div>
+                      </div>
+                      <div id={"year"}>
+                        <h4 className=" fw-bold">{capsuleStory.year}</h4>
+                      </div>
+                    </div>
+                  )}
+                </SwiperSlide>
+              );
+            })}
+          </Swiper>
         </div>
+      </div>
     );
   }
   return (
-      <>
-        {loading && <Loading />}
-        {error && <ErrorModal error={error} />}
-      </>
+    <>
+      {loading && <Loading />}
+      {error && <ErrorModal error={error} />}
+    </>
   );
 }

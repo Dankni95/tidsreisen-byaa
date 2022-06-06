@@ -25,17 +25,9 @@ export function HistoryDone({ id, updateToDatabase }) {
   );
 
   return (
-    <div style={{ height: "35rem" }}>
+    <div id={"done-container"}>
       <div className={"d-flex justify-content-center mt-3"}>
-        <h1
-          style={{
-            fontSize: "1.5rem",
-            fontFamily: "Source Sans Pro Bold",
-            color: "var(--backgroundColorGreeny)",
-          }}
-        >
-          Fullført historiekapselen!
-        </h1>
+        <h1 id={"done-title"}>Fullført historiekapselen!</h1>
       </div>
       <div
         id={"olaf-infront-div"}
@@ -45,14 +37,18 @@ export function HistoryDone({ id, updateToDatabase }) {
       >
         <div style={{ marginTop: "3rem" }}>
           <img
+            id={"olaf-infront-img"}
             height={200}
             /*className={"img-fluid"}*/ src={olafInfront}
             alt="bilde av olaf på fullført side"
           />
         </div>
 
-        <div style={{ marginTop: "2rem" }} className={"flex-shrink-1"}>
-          <div className="left-point"></div>
+        <div
+          id={"done-text"}
+          style={{ marginTop: "2rem" }}
+          className={"flex-shrink-1"}
+        >
           {id === filteredCapsuleNamesFromUserDatabase ? (
             <p id={"finish-paragraph"}>
               Woops! Det ser ut som du allerede har vært på denne kapselen. Gå
@@ -68,6 +64,7 @@ export function HistoryDone({ id, updateToDatabase }) {
         </div>
       </div>
       <div
+        id={"points-and-buttons-container"}
         className={
           "d-flex justify-content-center flex-column align-items-center"
         }
