@@ -2,6 +2,7 @@ on:
   push:
     branches:
       - '**'        # matches every branch
+      - '!main'   # excludes master
 
 jobs:
   verify:
@@ -19,3 +20,10 @@ jobs:
           MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
       - name: Collect coverage for client
         uses: ArtiomTr/jest-coverage-report-action@v2
+        env:
+          MONGODB_URL: ${{ secrets.MONGODB_URL }}
+          COOKIE_SECRET: ${{ secrets.COOKIE_SECRET }}
+          MONGODB_DATABASE: ${{ secrets.MONGODB_DATABASE }}
+
+
+
