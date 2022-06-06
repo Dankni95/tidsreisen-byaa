@@ -1,4 +1,3 @@
-/*
 import express from "express";
 import request from "supertest";
 import { MongoClient, ObjectId } from "mongodb";
@@ -55,4 +54,3 @@ describe("HistoryApi", () => {
     ).toContain(name);
   });
 });
-*/
