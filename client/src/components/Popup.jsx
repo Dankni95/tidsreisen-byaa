@@ -57,17 +57,6 @@ export default function Popup() {
         </p>
       ),
     },
-    /*    {
-      id: 4,
-      content: (
-        <p className={"intro-content"}>
-          I tillegg får du også poeng for hver tidskapsel du fullfører. Håper du
-          finner dem alle.
-          <br />
-          Husk å ha det gøy og lykke til {name}!
-        </p>
-      ),
-    },*/
   ];
 
   const [next, setNext] = useState(1);

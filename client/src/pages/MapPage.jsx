@@ -19,19 +19,12 @@ mapboxgl.accessToken =
 
 export function MapPage() {
   const mapContainerRef = useRef(null);
-  const [lng, setLng] = useState(11.100389206568366);
-  const [lat, setLat] = useState(59.851476403479325);
-  const [zoom, setZoom] = useState(15.042403483653505);
-
   const { setMap, map } = useContext(MapContext);
-
   let navigate = useNavigate();
 
   const { user, setUser } = useContext(User);
   const { name, intro, walk } = user;
   let previousState = { ...user };
-
-  console.log(user);
 
   async function handleWalkClick() {
     async function handleToPositionChange(walk) {
@@ -42,10 +35,8 @@ export function MapPage() {
         await postJSON("/api/update-state", { user: name, walk: false });
         forceRepaintPopups(false);
         map.flyTo({
-          // These options control the ending camera position: centered at
-          // the target, at zoom level 9, and north up.
-          center: [lng, lat],
-          zoom: zoom,
+          center: [11.100389206568366, 59.851476403479325],
+          zoom: 15.042403483653505,
           bearing: 32.608789159055505,
           pitch: 36.99999999999998,
 
@@ -76,10 +67,10 @@ export function MapPage() {
       const map = new mapboxgl.Map({
         container: mapContainerRef.current,
         style: "mapbox://styles/dankni95/ckwrbx1et77jt14o2o3jtrbui",
-        center: [lng, lat],
-        pitch: 36.99999999999998, // pitch in degrees
-        bearing: 32.608789159055505, // bearing in degrees
-        zoom: zoom,
+        center: [11.100389206568366, 59.851476403479325],
+        pitch: 36.99999999999998,
+        bearing: 32.608789159055505,
+        zoom: 15.042403483653505,
       });
 
       // Initialize the geolocate control.
@@ -91,21 +82,6 @@ export function MapPage() {
       });
 
       map.addControl(geolocate);
-
-      // Add navigation control (the +/- zoom buttons)
-      // map.addControl(new mapboxgl.NavigationControl(), "top-right");
-
-      map.on("move", () => {
-        /*
-        // For testing purposes:
-
-        console.log("Bearing: " + map.getBearing());
-        console.log("Zoom: " + map.getZoom());
-        console.log("Pitch: " + map.getPitch());
-        console.log("Coords: " + map.getCenter());
-
-         */
-      });
 
       map.on("load", () => {
         map.addSource("route", {
@@ -152,24 +128,13 @@ export function MapPage() {
 
   function anim(target) {
     map.flyTo({
-      // These options control the ending camera position: centered at
-      // the target, at zoom level 9, and north up.
       center: target.anim_coords,
       zoom: target.anim_zoom,
       bearing: target.anim_bearing,
       pitch: target.anim_pitch,
-
-      // These options control the flight curve, making it move
-      // slowly and zoom out almost completely before starting
-      // to pan.
-      speed: 2, // make the flying slow
-      curve: 2, // change the speed at which it zooms out
-
-      // This can be any easing function: it takes a number between
-      // 0 and 1 and returns another number between 0 and 1.
+      speed: 2,
+      curve: 2,
       easing: (t) => t,
-
-      // this animation is considered essential with respect to prefers-reduced-motion
       essential: true,
     });
   }
@@ -191,10 +156,9 @@ export function MapPage() {
       });
     });
 
-    // repopulate
     const popupDiv = document.getElementById("mapboxgl-popup-content");
     popupDiv ? popupDiv.remove() : "";
-    // add markers to map
+
     for (const feature of GeoJson().features) {
       // create a HTML element for each feature
       const el = document.createElement("div");
@@ -222,7 +186,6 @@ export function MapPage() {
         },
       });
 
-      // make a marker for each feature and add it to the map
       let display;
       repaint ? (display = "none") : (display = "inline-block");
 
@@ -249,7 +212,7 @@ export function MapPage() {
 
       placeholder.appendChild(button);
 
-      const marker = new mapboxgl.Marker(el)
+      new mapboxgl.Marker(el)
         .setLngLat(feature.geometry.coordinates)
         .setPopup(
           popup.setDOMContent(placeholder) // add popups

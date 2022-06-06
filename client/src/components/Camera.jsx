@@ -8,10 +8,9 @@ export default function Camera() {
   const [isScanned, setIsScanned] = useState(false);
   const [data, setData] = useState(null);
   let navigate = useNavigate();
-
   const videoRef = useRef();
-
   let qrScanner = null;
+
   useEffect(() => {
     const videoElem = videoRef.current;
 
@@ -58,8 +57,6 @@ export default function Camera() {
       : console.log("Nothing scanned yet");
 
     return () => {
-      // Reset state on unmount, fixes memory leak error
-
       setIsScanned(false);
     };
   }, [isScanned]);
@@ -82,7 +79,7 @@ export default function Camera() {
         }}
         id="qr-video"
         ref={videoRef}
-      ></video>
+      />
     </>
   );
 }
