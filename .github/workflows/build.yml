@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
+        with:
+            ref: GHATEST
       - uses: ArtiomTr/jest-coverage-report-action@v2
         env:
           MONGODB_URL: ${{ secrets.MONGODB_URL }}
