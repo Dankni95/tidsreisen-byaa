@@ -107,7 +107,7 @@ h3 {
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
   #button-capsules-green {
     font-family: "Source Sans Pro Semibold", sans-serif;
-    font-size: 1.125rem;
+    font-size: 1.5rem;
     background-color: var(--buttonColorGreen);
     color: var(--textColorGray);
     border-radius: 10px;
