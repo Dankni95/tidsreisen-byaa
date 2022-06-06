@@ -4,11 +4,24 @@ p {
   color: var(--textColorGray);
 }
 
+#done-title {
+  z-index: 0;
+  font-size: 1.5rem;
+  font-family: "Source Sans Pro Bold", sans-serif;
+  color: var(--backgroundColorGreeny);
+}
+
 @media only screen and (min-width: 768px) {
   /*Tablets [601px -> 1200px]*/
 }
 
 @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+  #done-title {
+    font-size: 4rem;
+  }
+  #olof-infront {
+    height: 500px;
+  }
   .img {
     width: 300px;
   }

@@ -1,11 +1,9 @@
 import React, { useRef, useState } from "react";
 import { FaPause, FaPlay } from "react-icons/fa";
-/*import vegfar from "./Sound/vegfar.m4a";
-import vesledammen from "./Sound/vesledammen.m4a";
-import vannsag from "./Sound/vannsag.m4a";*/
 import vegfar from "./Sound/vegfar.mp3";
 import vesledammen from "./Sound/vesledammen.mp3";
 import vannsag from "./Sound/vannsag.mp3";
+import twoSecSoundFile from "./Sound/2-seconds-of-silence.mp3";
 import { useParams } from "react-router-dom";
 import "../../../css/sound.css";
 const Play = ({ songInfo, setSongInfo, setDrag }) => {
@@ -16,14 +14,18 @@ const Play = ({ songInfo, setSongInfo, setDrag }) => {
 
   let audioUrl = "";
 
+  // FIXME, using 2seconds sound file ONLY for test purposes
   if (id === "vegfar") {
-    audioUrl = vegfar;
+    //audioUrl = vegfar;
+    audioUrl = twoSecSoundFile;
   }
   if (id === "vannsag") {
-    audioUrl = vannsag;
+    //audioUrl = vannsag;
+    audioUrl = twoSecSoundFile;
   }
   if (id === "vesledammen") {
-    audioUrl = vesledammen;
+    //audioUrl = vesledammen;
+    audioUrl = twoSecSoundFile;
   }
 
   /*  const { data, error, loading, reload } = useLoading(() =>

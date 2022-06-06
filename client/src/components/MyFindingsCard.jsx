@@ -86,8 +86,12 @@ function MyFindingsSingle({ onClick, capsule }) {
 export function MyFindingsCard() {
   return (
     <>
-      {myFindingsCardData.finishedCapsules?.map((capsule) => {
-        return <MyFindingsSingle capsule={capsule} />;
+      {myFindingsCardData.finishedCapsules?.map((capsule, index) => {
+        return (
+          <div id={"single-container"} key={index}>
+            <MyFindingsSingle capsule={capsule} />
+          </div>
+        );
       })}
     </>
   );

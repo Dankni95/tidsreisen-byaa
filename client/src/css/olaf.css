@@ -1,23 +1,7 @@
 #finish-paragraph {
   padding: 0.7rem;
-
   border-radius: 20px;
   color: var(--textColorGray);
   background-color: #fff;
   font-size: 16px;
 }
-
-/*
-.left-point {
-  z-index: -1;
-  width: 0;
-  height: 0;
-  border-left: 2vh solid transparent;
-  border-right: 2vh solid transparent;
-  border-top: 5vh solid #fff;
-  position: fixed;
-  top: 18%;
-  left: 35%;
-  transform: rotate(60deg);
-}
-*/
