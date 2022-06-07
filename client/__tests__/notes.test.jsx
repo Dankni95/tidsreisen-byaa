@@ -5,7 +5,7 @@
 import React from "react";
 import { MemoryRouter } from "react-router-dom";
 import { fireEvent, render } from "@testing-library/react";
-import Notes from "../src/pages/capsules/SoundCapsule/Notes.jsx";
+import Notes from "../src/pages/capsules/AudioCapsule/Notes.jsx";
 
 describe("Notes", () => {
   it("shows snapshot", async () => {

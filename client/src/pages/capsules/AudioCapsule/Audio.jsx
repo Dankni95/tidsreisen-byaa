@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from "react";
 import Play from "./Play";
-import FinishedSoundCapsule from "./FinishedSoundCapsule";
+import FinishedAudioCapsule from "./FinishedAudioCapsule.jsx";
 import { useLoading } from "../../../helpers/useLoading";
 import { DatabaseContext } from "../../../contexts/databaseContext";
 import { useParams } from "react-router-dom";
@@ -12,7 +12,7 @@ import { Loading } from "../../../components/Loading";
 import "../../../css/sound.css";
 import Notes from "./Notes";
 
-const Sound = () => {
+const Audio = () => {
   const { id } = useParams();
   const [drag, setDrag] = useState();
   const [count, setCount] = useState(0);
@@ -64,7 +64,7 @@ const Sound = () => {
   // Filtering out right data for the capsuleObject
   const getId = data
     ?.map((id) => id)
-    .filter((item) => item.title.toLowerCase() === id.toLowerCase())
+    .filter((item) => item.title.toLowerCase() === id?.toLowerCase())
     .map((itemId) => itemId.id);
 
   // setting capsule object to be inserted in database
@@ -89,7 +89,7 @@ const Sound = () => {
   return (
     <>
       {songInfo.duration === songInfo.currentTime ? (
-        <FinishedSoundCapsule
+        <FinishedAudioCapsule
           filteredCapsule={filteredCapsuleNamesFromUserDatabase}
           update={updateToDatabase}
         />
@@ -98,12 +98,9 @@ const Sound = () => {
           <Notes />
           {data?.map((item, index) => {
             return (
-              <>
-                {item.title.toLowerCase() === id.toLowerCase() && (
-                  <div
-                    className="position-relative d-flex justify-content-center align-items-center flex-column "
-                    key={index}
-                  >
+              <div key={index}>
+                {item.title.toLowerCase() === id?.toLowerCase() && (
+                  <div className="position-relative d-flex justify-content-center align-items-center flex-column ">
                     <h3 className="pb-3 d-flex align-items-center title">
                       <AiFillSound color={"var(--textColorGray)"} />{" "}
                       {item.category}
@@ -135,7 +132,7 @@ const Sound = () => {
                     )}
                   </div>
                 )}
-              </>
+              </div>
             );
           })}
         </div>
@@ -144,4 +141,4 @@ const Sound = () => {
   );
 };
 
-export default Sound;
+export default Audio;

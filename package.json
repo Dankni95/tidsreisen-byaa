@@ -89,6 +89,8 @@
     "collectCoverageFrom": [
       "**/*.js",
       "**/*.jsx",
+      "!client/src/application.jsx",
+      "!client/src/helpers/http.jsx",
       "!node_modules/**",
       "!server/server.js",
       "!coverage/**",
