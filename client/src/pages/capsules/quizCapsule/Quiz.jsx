@@ -12,6 +12,7 @@ import { User } from "../../../application.jsx";
 import { MdQuiz } from "react-icons/md";
 import { Loading } from "../../../components/Loading.jsx";
 import olafInfront from "../../../assets/images/olaf-infront.png";
+
 export function Quiz() {
   const { id } = useParams();
   const [currentQuestion, setCurrentQuestion] = useState(0);
@@ -34,6 +35,7 @@ export function Quiz() {
     [id]
   );
 
+  // updates correct user only, and only if showPoints is true
   useEffect(async () => {
     if (showPoints) {
       await updateUser({ points, user, finishedCapsules: capsuleObject });
@@ -65,18 +67,19 @@ export function Quiz() {
     );
   }
 
-  console.log(data[currentQuestion].id);
-
+  // setting capsule object to be inserted in database
   capsuleObject = {
     id: data[currentQuestion].id,
     name: data[currentQuestion].name_,
     category: data[currentQuestion].category,
   };
 
+  // checks capsule id from database
   const capsuleNameFromDatabase = user.finishedCapsules.map((capsuleName) => {
     return capsuleName.id;
   });
 
+  // finds capsule id matches to check whether user has done it or not
   const filteredCapsuleNamesFromUserDatabase = capsuleNameFromDatabase.find(
     (capsuleName) => {
       return capsuleName === data[currentQuestion].id;
@@ -180,7 +183,7 @@ export function Quiz() {
               <img
                 id={"olof-infront"}
                 height={200}
-                /*className={"img-fluid"}*/ src={olafInfront}
+                src={olafInfront}
                 alt="bilde av olaf på fullført side"
               />
             </div>

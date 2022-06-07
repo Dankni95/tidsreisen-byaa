@@ -29,14 +29,6 @@ export function Profile() {
   const { user, setUser } = useContext(User);
   const { name, points, finishedCapsules } = user;
   const navigate = useNavigate();
-  /*let logoutToggler = false;
-
-  const logOutHandler = () => {
-    logoutToggler = !logoutToggler;
-    console.log(logoutToggler);
-  };
-
-  console.log(logoutToggler);*/
 
   const logOutHandler = async () => {
     if (confirm("Er du sikker på at du ønsker å logge ut?")) {
@@ -67,7 +59,6 @@ export function Profile() {
               <IoPersonOutline id="icon" />
             </div>
             <ProgressBar color="#333333" progress={points} />
-            {/*TODO: Endre poeng her når vi vet hvor mange man kan få totalt*/}
             <p id="userPoints">{points}/210 poeng</p>
             <div id={"myfindings-button-container"}>
               <CapsuleButtonLetthet
@@ -75,7 +66,6 @@ export function Profile() {
                 buttonText={"Mine funn"}
               />
             </div>
-            {/*{logoutToggler && <AreYouSureLogoutModal />}*/}
           </div>
         </div>
       </div>
