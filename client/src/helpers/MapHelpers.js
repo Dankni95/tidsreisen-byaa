@@ -202,6 +202,3 @@ const GeoJson = () => {
   return geojson;
 };
 export default GeoJson;
-
-
-h2u-48s-qet

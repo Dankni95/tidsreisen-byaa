@@ -148,7 +148,7 @@ export function Quiz() {
                 <div className="left-point"></div>
 
                 <p id={"finish-paragraph"}>
-                  Godt jobbet!
+                  Godt jobbet!{" "}
                   <span className="score">
                     {score}/{data?.length} riktige
                   </span>{" "}
@@ -160,7 +160,7 @@ export function Quiz() {
             </div>
             <div>
               <p style={{ fontSize: "1.7rem", fontWeight: "bold" }}>
-                Du har fått + 20 poeng
+                Du har fått + {points} poeng
               </p>
             </div>
           </div>
