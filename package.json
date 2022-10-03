@@ -60,7 +60,7 @@
     "nodemon": "^2.0.15",
     "prettier": "^2.6.2",
     "process": "^0.11.10",
-    "pwa-asset-generator": "^6.0.8",
+    "pwa-asset-generator": "^6.2.0",
     "rimraf": "^3.0.2",
     "supertest": "^6.2.2"
   },
