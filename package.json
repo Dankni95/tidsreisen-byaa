@@ -57,7 +57,7 @@
     "concurrently": "^7.0.0",
     "jest": "^28.1.0",
     "jest-environment-jsdom": "^28.1.0",
-    "nodemon": "^2.0.15",
+    "nodemon": "^2.0.20",
     "prettier": "^2.6.2",
     "process": "^0.11.10",
     "pwa-asset-generator": "^6.0.8",
