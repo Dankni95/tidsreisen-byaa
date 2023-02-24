@@ -33,7 +33,7 @@
     "mapbox-gl": "^2.8.2",
     "mapbox-gl-animated-popup": "^0.3.0",
     "mapbox-gl-markers": "^0.0.1",
-    "mongodb": "^4.6.0",
+    "mongodb": "^5.1.0",
     "parcel": "^2.3.2",
     "prop-types": "^15.8.1",
     "qr-scanner": "^1.4.1",
